@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LIFSEs on My New Hugo Site</title>
+    <link>http://localhost:1313/lifse/</link>
+    <description>Recent content in LIFSEs on My New Hugo Site</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <atom:link href="http://localhost:1313/lifse/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>nicolas tu me regales</title>
+      <link>http://localhost:1313/lifse/cm2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifse/cm2/</guid>
+      <description>introduction (types de memoires) presentations des types de peripheriques&#xA;comment est mis la memoire le stockage physique on peut voir comme un gros tableau avec des decoupages&#xA;le stockage vue par lend user un fichier est un gros tableau doctets un fichier a des attributs (date de creation, dernier acces, permission)&#xA;tout ces attributs sont fournis grace au systeme de fichier&#xA;systeme de fichier mais c bcp de choses un systeme de fichier non ?</description>
+    </item>
+  </channel>
+</rss>

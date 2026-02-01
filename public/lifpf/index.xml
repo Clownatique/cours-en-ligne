@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LIFPFs on My New Hugo Site</title>
+    <link>http://localhost:1313/lifpf/</link>
+    <description>Recent content in LIFPFs on My New Hugo Site</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <atom:link href="http://localhost:1313/lifpf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>http://localhost:1313/lifpf/intro-au-lambda-calcul/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifpf/intro-au-lambda-calcul/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>lambda-calcul</title>
+      <link>http://localhost:1313/lifpf/cm1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifpf/cm1/</guid>
+      <description>application: c lappel dune fonction avec des parametres typable: avoir le choix de la reduction beta reduction: (lambda x. E f) \rightarrow E [x:= f] (c quand on remplace les parametres donnes par les parametres formels)&#xA;et donc pour beta reduire il faut reconnaitre (lambda x.E f) avec E et f des ..&#xA;lambda terme :3 choses&#xA;un lambda implique une abstraction(on peut le voir comme une definition anonyme)&#xA;ceci est un **&amp;gt;</description>
+    </item>
+    <item>
+      <title>Ocamel</title>
+      <link>http://localhost:1313/lifpf/ocaml/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifpf/ocaml/</guid>
+      <description>aha ce langage ca ma toujours give camel genre les cigarettes tas capte sauf que depuis ce cm, ca a pas la meme vibe&#xA;types en ocaml int, operations arithmetique classique float, sans le modulo, attention a preciser quon agit sur des float (en mettant un point) bool (et, ou, comme en C, ya til un non ?) char () string&#xA;on peut pas combiner les operateurs&#xA;variables on a une dummy variable (comme en python, pythonfor _ in range(entier):) les appels de fonction sont proprietaires distinction globale/locale importante</description>
+    </item>
+    <item>
+      <title>td1</title>
+      <link>http://localhost:1313/lifpf/td1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifpf/td1/</guid>
+      <description>petits rappels de notations $$ \lambda x f(x)\equiv $$&#xA;une abstraction appel dune fonction: toutes les fonctions sont anonymes (en lambda calcul)&#xA;tsais jai limpression le lambda calcul c une histoire de recreer le typage&#xA;((lamda f lambda x (f x)lambda y (y+y)) 5) rightarrow (lambda x (f x [f := lambda y . y^2])) = (lambda x . (lambda y . y^2 x)_E 5_f) rightarrow^x (lambda y y^2 x)[x:=5] = (lambda y .</description>
+    </item>
+    <item>
+      <title>td2</title>
+      <link>http://localhost:1313/lifpf/td2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifpf/td2/</guid>
+      <description>td exo 1 1. on doit typer et traduire en ocaml a lambda x (x+2)&#xA;fun x -&amp;gt; x+2&#xA;pour le typage n-&amp;gt;n&#xA;b fun x -&amp;gt; fun y -&amp;gt; (2 * x) - y&#xA;typage: n -&amp;gt; (n-&amp;gt;n) ! la fleche est associative a droite:&#xA;a -&amp;gt; b -&amp;gt; c =&amp;gt; (a -&amp;gt; (b -&amp;gt; c))&#xA;c la c faut consider que x := f&#xA;et le type pour c : ((n-&amp;gt; n) -&amp;gt; n)</description>
+    </item>
+  </channel>
+</rss>

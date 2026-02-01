@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>My New Hugo Site</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content on My New Hugo Site</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>http://localhost:1313/eval/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/eval/</guid>
+      <description>lifapcd 50 projet 40 eval mi parcours sur conception 10 sdl&#xA;lifgraphique cc1:semaine du 16 mars cc2:semaine du 6 au 4 mai+rendu du tp&#xA;semaine du 27 au 04 mai: seconde chance&#xA;lifgraphique fiche conception: 30 janvier 10 pourcent video avec maquette: 6 fevrier 10pourcent tp eval ergonomie web 20 mars 20 prcnt tp eval mobile ergo 27 mars 20 prcnt&#xA;exam final 24 avril 40 pourcent&#xA;lifpf semaine du 24 fevrier a peu pret:</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/lifihm/graphique/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifihm/graphique/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/lifpf/intro-au-lambda-calcul/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifpf/intro-au-lambda-calcul/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/s1/lifapsd_annales_algo/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/s1/lifapsd_annales_algo/</guid>
+      <description>2024 Q2 inserer element fonction on appelle insererelementdepuisnoeud avec elt (récursif)&#xA;insererelementdepuisnoeud(ptr vers noeud, elt) if !ptr est null if elt&amp;lt;info: inserereltdepuisnoeud(filsgauche, elt) if elt&amp;gt;info: inserereltdepuisnoeud(filsdroit, elt)&#xA;pas réussi else inserer quand le noeud est vide dcp&#xA;Q5 sauverdanstabdyn(tab)&#xA;sauverdanstabdyndepuisnoeud(tab, noeud) si estfeuille: sauver info dans tab&#xA;sinon: enfonction du parcours sauverdanstabdyndepuisnoeud(tab,info) sauverdanstabdyndepuisnoeud(tab,fg) sauverdanstabdyndepuisnoeud(tab,fd)&#xA;correction: mauvaise condition&#xA;Q6 tableaudyn::triabr abr vide; for (int i = 0 ; i&amp;hellip;) insererelement(el,abr); } tab.</description>
+    </item>
+    <item>
+      <title>cm1</title>
+      <link>http://localhost:1313/lifihm/cm1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifihm/cm1/</guid>
+      <description>attentes de lifhm on soulignera que ce sera la seule prof de sciences mais aussi sciences humaines donc&#xA;Conception (semaine prochaine) e allede</description>
+    </item>
+    <item>
+      <title>cm2</title>
+      <link>http://localhost:1313/lifihm/cm2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifihm/cm2/</guid>
+      <description>quelques notions de vocabulaires en conception client: commenditaire du projet =/= utilisateurices&#xA;cheffe de projet:&#xA;architecte: developpeuse: testeuse: designer:&#xA;public cible: (aimed user) =/=&#xA;utilisatrices: (end user) ceux qui utilisent concretement a la fin le logiciel. (inclus aussi les admins,webmaster qui peuvent avoir gerer)&#xA;end user \in public cible&#xA;Dans OPALE et merde jai pas ecoute&#xA;quelques etapes lors des cycle de vue dy processus de conception (lineaire) analyse -&amp;gt; cahier des charges conception -&amp;gt; maquettes, architecture, diagramme realisation -&amp;gt; code evaluation -&amp;gt; test, rapports utilisation reception -&amp;gt; validation finale par le client deploiement maintenance -&amp;gt; mise a jour, amelioration, voire refonte lanalyse des besoins est essentiel: parfois le bon probleme ne se situe pas dans les premiers symptomes.</description>
+    </item>
+    <item>
+      <title>cm3, ou une lecture de documentation en amphi</title>
+      <link>http://localhost:1313/lifapcd/cm3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifapcd/cm3/</guid>
+      <description>pour programmer on utilise 3 outils&#xA;le compilateur de fichier le compilateur de plusieurs fichiers (projets) un programme de debogage&#xA;GCC la commande g++ compile un fichier cpp en binaire&#xA;cependant nous ne voulons pas systematiquement un fichier binaire final:&#xA;car nos programmes sont separes en plusieurs fichiers separes mais aussi la flemme de recompiler notre projet des quon change quun seul fichier =&amp;gt; on utilise alors plusieurs fichiers objets</description>
+    </item>
+    <item>
+      <title>intro</title>
+      <link>http://localhost:1313/lifgraphique/graphique/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifgraphique/graphique/</guid>
+      <description>c une intro donc un peu reberbatif (mais interessant) linformatique est bcp dans bcp de systeme de vision mais linformatique est limite en terme de ressource: le defi est important, car les conditions danalyse sont fermes&#xA;lifgraphique portera plus sur la synthese dimage&#xA;la synthese dimage se fait par 3 grandes etapes: modelisation, rendu, animation&#xA;on fera en cours de la modelisaation et du rendu (et que tres peu danimation)</description>
+    </item>
+    <item>
+      <title>lambda-calcul</title>
+      <link>http://localhost:1313/lifpf/cm1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifpf/cm1/</guid>
+      <description>application: c lappel dune fonction avec des parametres typable: avoir le choix de la reduction beta reduction: (lambda x. E f) \rightarrow E [x:= f] (c quand on remplace les parametres donnes par les parametres formels)&#xA;et donc pour beta reduire il faut reconnaitre (lambda x.E f) avec E et f des ..&#xA;lambda terme :3 choses&#xA;un lambda implique une abstraction(on peut le voir comme une definition anonyme)&#xA;ceci est un **&amp;gt;</description>
+    </item>
+    <item>
+      <title>lifihm</title>
+      <link>http://localhost:1313/lifihm/lifhm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifihm/lifhm/</guid>
+      <description>attentes de lifhm on soulignera que ce sera la seule prof de sciences mais aussi sciences humaines donc&#xA;Conception (semaine prochaine) e allede</description>
+    </item>
+    <item>
+      <title>nicolas tu me regales</title>
+      <link>http://localhost:1313/lifse/cm2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifse/cm2/</guid>
+      <description>introduction (types de memoires) presentations des types de peripheriques&#xA;comment est mis la memoire le stockage physique on peut voir comme un gros tableau avec des decoupages&#xA;le stockage vue par lend user un fichier est un gros tableau doctets un fichier a des attributs (date de creation, dernier acces, permission)&#xA;tout ces attributs sont fournis grace au systeme de fichier&#xA;systeme de fichier mais c bcp de choses un systeme de fichier non ?</description>
+    </item>
+    <item>
+      <title>Ocamel</title>
+      <link>http://localhost:1313/lifpf/ocaml/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifpf/ocaml/</guid>
+      <description>aha ce langage ca ma toujours give camel genre les cigarettes tas capte sauf que depuis ce cm, ca a pas la meme vibe&#xA;types en ocaml int, operations arithmetique classique float, sans le modulo, attention a preciser quon agit sur des float (en mettant un point) bool (et, ou, comme en C, ya til un non ?) char () string&#xA;on peut pas combiner les operateurs&#xA;variables on a une dummy variable (comme en python, pythonfor _ in range(entier):) les appels de fonction sont proprietaires distinction globale/locale importante</description>
+    </item>
+    <item>
+      <title>outils mathematique</title>
+      <link>http://localhost:1313/lifgraphique/outils_maths/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifgraphique/outils_maths/</guid>
+      <description>outils mathematiques pour decrire la scene on va utiliser un systeme de coordonnes.&#xA;pour se rappeller quel axe est lequel on utilise sa main droite (pouce x, index y majeur z)&#xA;sans surprise on peut utiliser des complexes (r, theta, phi)donc les points&#xA;on rappelle que le cote oppose c celui qui na aucun lien direct avec langle voulu et le cote adjacent et bah il construit langle&#xA;la diapp 8 fait un rappel pour reconstruire des points polaires dans un systeme cartesien</description>
+    </item>
+    <item>
+      <title>td1</title>
+      <link>http://localhost:1313/lifpf/td1/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifpf/td1/</guid>
+      <description>petits rappels de notations $$ \lambda x f(x)\equiv $$&#xA;une abstraction appel dune fonction: toutes les fonctions sont anonymes (en lambda calcul)&#xA;tsais jai limpression le lambda calcul c une histoire de recreer le typage&#xA;((lamda f lambda x (f x)lambda y (y+y)) 5) rightarrow (lambda x (f x [f := lambda y . y^2])) = (lambda x . (lambda y . y^2 x)_E 5_f) rightarrow^x (lambda y y^2 x)[x:=5] = (lambda y .</description>
+    </item>
+    <item>
+      <title>td2</title>
+      <link>http://localhost:1313/lifpf/td2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifpf/td2/</guid>
+      <description>td exo 1 1. on doit typer et traduire en ocaml a lambda x (x+2)&#xA;fun x -&amp;gt; x+2&#xA;pour le typage n-&amp;gt;n&#xA;b fun x -&amp;gt; fun y -&amp;gt; (2 * x) - y&#xA;typage: n -&amp;gt; (n-&amp;gt;n) ! la fleche est associative a droite:&#xA;a -&amp;gt; b -&amp;gt; c =&amp;gt; (a -&amp;gt; (b -&amp;gt; c))&#xA;c la c faut consider que x := f&#xA;et le type pour c : ((n-&amp;gt; n) -&amp;gt; n)</description>
+    </item>
+  </channel>
+</rss>

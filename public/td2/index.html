@@ -1,0 +1,31 @@
+<script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><h2 id="td-exo-1">td exo 1</h2>
+<h3 id="1-on-doit-typer-et-traduire-en-ocaml">1. on doit typer et traduire en ocaml</h3>
+<h4 id="a">a</h4>
+<p>lambda x (x+2)</p>
+<p>fun x -&gt; x+2</p>
+<p>pour le typage n-&gt;n</p>
+<h4 id="b">b</h4>
+<p>fun x -&gt; fun y -&gt; (2 * x) - y</p>
+<p>typage: n -&gt; (n-&gt;n)
+! la fleche est associative a droite:</p>
+<p>a -&gt; b -&gt; c =&gt; (a -&gt; (b -&gt; c))</p>
+<h4 id="c">c</h4>
+<p>la c faut consider que x := f</p>
+<p>et le type pour c : ((n-&gt; n) -&gt; n)</p>
+<p>on peut pas beta reduire dailleurs (pas de la forme requise)</p>
+<p>fun x -&gt; x 2 + x 3 plus clair en rajoutant des parantheses dapplication</p>
+<h4 id="d">d</h4>
+<p>y + 3 ca renvoie forcement n
+lambda y renvoie alors n -&gt; alpha</p>
+<p>lapplication de x y ca va renvoyer (n -&gt; alpha) -&gt; alpha'</p>
+<p>donc cette application de x dans alpha ca renovie -&gt; alpha'</p>
+<p>traduction: fun x -&gt; (x fun y -&gt; (y + 3))</p>
+<h3 id="2">2</h3>
+<h4 id="traduction-en-lambda-calcul">traduction en lambda calcul</h4>
+<p>lanalyse commence en rajoutant des parantheses forcement</p>
+<p>(((fun u -&gt; fun y -&gt; u (fun v -&gt; v)) (fun x -&gt; (x y))) 3)</p>
+<p>traduction:((lambda u.lambda y (u \lambda v v) \lambda x (x y)) 3)
+variable libre:</p>
+<p>ok lambda v.v, v est lie (bounded)
+donc y est lie dans la branche de gauche:</p>
+<p>le probleme c que la variable est libre et lie</p>

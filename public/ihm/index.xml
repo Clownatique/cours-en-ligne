@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ihms on My New Hugo Site</title>
+    <link>http://localhost:1313/ihm/</link>
+    <description>Recent content in Ihms on My New Hugo Site</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <atom:link href="http://localhost:1313/ihm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title></title>
+      <link>http://localhost:1313/ihm/cm2/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/ihm/cm2/</guid>
+      <description>quelques notions de vocabulaires en conception client: commenditaire du projet =/= utilisateurices&#xA;cheffe de projet:&#xA;architecte: developpeuse: testeuse: designer:&#xA;public cible: (aimed user) =/=&#xA;utilisatrices: (end user) ceux qui utilisent concretement a la fin le logiciel. (inclus aussi les admins,webmaster qui peuvent avoir gerer)&#xA;end user \in public cible&#xA;Dans OPALE et merde jai pas ecoute&#xA;quelques etapes lors des cycle de vue dy processus de conception (lineaire) analyse -&amp;gt; cahier des charges conception -&amp;gt; maquettes, architecture, diagramme realisation -&amp;gt; code evaluation -&amp;gt; test, rapports utilisation reception -&amp;gt; validation finale par le client deploiement maintenance -&amp;gt; mise a jour, amelioration, voire refonte lanalyse des besoins est essentiel: parfois le bon probleme ne se situe pas dans les premiers symptomes.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>http://localhost:1313/ihm/graphique/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/ihm/graphique/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

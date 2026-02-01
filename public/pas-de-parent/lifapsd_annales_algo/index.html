@@ -1,0 +1,92 @@
+<script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><h2 id="2024">2024</h2>
+<h3 id="q2">Q2</h3>
+<p>inserer element fonction
+on appelle insererelementdepuisnoeud avec elt (récursif)</p>
+<p>insererelementdepuisnoeud(ptr vers noeud, elt)
+if !ptr est null
+if elt&lt;info: inserereltdepuisnoeud(filsgauche, elt)
+if elt&gt;info: inserereltdepuisnoeud(filsdroit, elt)</p>
+<p><strong>pas réussi</strong>
+else
+inserer quand le noeud est vide dcp</p>
+<h3 id="q5">Q5</h3>
+<p>sauverdanstabdyn(tab)</p>
+<p>sauverdanstabdyndepuisnoeud(tab, noeud)
+si estfeuille:
+sauver info dans tab</p>
+<p>sinon:
+enfonction du parcours
+sauverdanstabdyndepuisnoeud(tab,info)
+sauverdanstabdyndepuisnoeud(tab,fg)
+sauverdanstabdyndepuisnoeud(tab,fd)</p>
+<p>correction: mauvaise condition</p>
+<h3 id="q6">Q6</h3>
+<p>tableaudyn::triabr
+abr vide;
+for (int i = 0 ; i&hellip;)
+insererelement(el,abr);
+}
+tab.vider()
+tab = abr::sauver dans tabdyn(abr);// il n y a pas de constructeur par copie d&rsquo;arbre
+donc on le fait à la main</p>
+<p>1</p>
+<h3 id="q9">Q9</h3>
+<p>déjà fait c simple</p>
+<h3 id="q10">Q10</h3>
+<p>traiter</p>
+<h2 id="2023">2023</h2>
+<h3 id="q3">Q3</h3>
+<p>insererelement</p>
+<p>void arbre::insererelementdepuisnoeud(element,noeud)
+si le noeud est null:
+créer le noeud
+info =
+Noeud =
+fg, fd = nullptr
+sinon
+inserer</p>
+<h4 id="q4">Q4</h4>
+<p>en v2v: stocker en mémoire toutes les paires de fg/fd, afficher l&rsquo;info,
+et recommencer pour tout le stock des paires fils gauche fils droit</p>
+<h3 id="q5-1">Q5</h3>
+<p>int nombre occurence depuis noeud
+if noeud = nullptr
+return 0
+if info = element {
+int trouve = 1
+}
+return trouve + nombreoccdepuisnoeud(fg, el) + nombreocc..;(fd,el)
+bah non !! puisqu&rsquo;à partir du moment ou on trouve l&rsquo;elt, on a juste
+à remonter le nb docc</p>
+<h3 id="q8">Q8</h3>
+<p>on boucle sur chacun des élements: on va simplement
+récup l&rsquo;espérluette (l&rsquo;adresse) de chaque elt et le mettre dans le nv tab</p>
+<h3 id="q10-1">Q10</h3>
+<p>on boucle sur chacun des élements:
+on va ensuite récup l&rsquo;adresse,
+faire un sizeof(adresse_elt_i)
+allocation de l&rsquo;espace pour la valeur
+affectation avec un déréf de l&rsquo;adresse_elt_i</p>
+<h2 id="2022">2022</h2>
+<h3 id="q3-1">Q3</h3>
+<p>simple boucle ou on cherche si la valeur est présente renvoie -1 à la fin,
+et condition pour renvoyer i</p>
+<h3 id="q5-2">Q5</h3>
+<p>avant d&rsquo;ajouter, vérifier si l&rsquo;elt existe pas déjà</p>
+<h3 id="q7">Q7</h3>
+<p>intersection: pour tout les elts vérifie si elt présent dans i
+si tel est le cas, ajoute le dit elt dans un nouveau ensemble</p>
+<p>sousensemble:
+vérifie si intersection de sous ensemble et ensemble = au sous ensemble</p>
+<h3 id="q9-1">Q9:</h3>
+<p>avant d&rsquo;ajouter un elt,on vérifie si taille_utilisee == capacite
+on crée un nv tableau vide (new [capacité*1.5]) /!\ bien penser à mettre un (int)
+enfin on mets à jour l&rsquo;instance
+on boucle pour recopier chaque case de l&rsquo;ancien dans nv
+enfin on mets à jour l&rsquo;instance
+bien penser à supprimer
+/!\ mettre l&rsquo;ancien dans temp,
+pour enfin supprimer temp
+(et pas ad (peut avoir des pbs si le tab est déjà utilisé jsp quoi))</p>
+<p>et on l&rsquo;ajoute enfin (tab[taille_utilisee+1])</p>
+<h3 id="q10-2">Q10:</h3>

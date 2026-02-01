@@ -1,0 +1,57 @@
+<script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><h2 id="outils-mathematiques">outils mathematiques</h2>
+<p>pour decrire la scene on va utiliser un systeme de coordonnes.</p>
+<p>pour se rappeller quel axe est lequel on utilise sa main droite (pouce x, index y majeur z)</p>
+<p>sans surprise on peut utiliser des complexes (r, theta, phi)donc les points</p>
+<p>on rappelle que le cote oppose c celui qui na aucun lien direct avec langle voulu
+et le cote adjacent et bah il construit langle</p>
+<p>la diapp 8 fait un rappel pour reconstruire des points polaires dans un systeme cartesien</p>
+<p>on rappelle que les vecteurs c grosso une direction. le vecteur normale c celui qui est perpendiculaire a la surface voulu</p>
+<p>je pense que le mieux pour comprendre ces assertions c de tester avec des points/vecteurs particuliers</p>
+<p>point - point ca fait un vecteur (cf la formule du vecteur)
+vecteur + vecteur ca fait un super vecteur
+point + vecteur ca fait un nv point
+point + point ca fait rien</p>
+<p>important de comprendre que le vecteur op a les memes coordonnes que le point p</p>
+<h3 id="vecteurs">vecteurs:</h3>
+<h4 id="evidemment-la-norme">evidemment la norme</h4>
+<p>$$/sqrt{x^2+y^2+z^2}$$</p>
+<h4 id="le-produit-scalaire">le produit scalaire</h4>
+<p>jai limpression que ca aide a comprendre la relation entre deux vecteurs (et cest tres lie au cosinus)</p>
+<h4 id="la-projection--donne-un-scalaire">la projection =&gt; donne un scalaire</h4>
+<p>n
+quand on veut savoir la longueur dun vecteur quon projette sur un axe</p>
+<h4 id="le-produit-vectoriel-enfin">le produit vectoriel (enfin!!)</h4>
+<p>relatif au sinus visiblement</p>
+<p>a x b = a x b x sin(angle entre a et b)
+faut passer par une matrice pour calculer le produit vectoriel (avec des coordonees)</p>
+<h4 id="equation-dun-plan">equation dun plan</h4>
+<p>il faut au minimum 3 points pour un plan. (a partir de 4, on peut avoir des points qui sont deja sur le meme plan)</p>
+<p>ou alors un point et vecteur, apres sur les diapo (22 notamment on comprends comment avec une mise en pratique bref)
+mais dans ce cas il faut trouver le vecteur normal de ces 3 points et boum apres on revient a un plan avec une belle equation</p>
+<h4 id="equation-parametrique-dune-droite">equation parametrique dune droite</h4>
+<p>bon pareil diapo + cours de terminale okok</p>
+<h4 id="equation-de-cercle-2d-et-3d">equation de cercle (2d et 3d)</h4>
+<p>bon un cercle c lensemble qui verifie x^2+y^2 = r^2</p>
+<h3 id="les-triangles">les triangles</h3>
+<p>on aime bien les triangles en 3d parce que aha bah ca a 3 cotes</p>
+<h2 id="interpolations">interpolations</h2>
+<h3 id="interpolation-lineaire">interpolation lineaire</h3>
+<p>aoua lifami on se rappelle ici on utilise bcp dinterpolation lineaire.</p>
+<p>en gros c une methode pour calculer un point a partir de deux autres
+(cf photos des courbes de transitions sur blinderkitten)</p>
+<h2 id="matrices">matrices</h2>
+<p>les matrices servent a definir des transformations: chaque point est multiplie par une matrice</p>
+<p>transposee sert a :
+additions de deux matrices:
+multiplication sert a: au produit vectoriel tsais
+propriete sur la non commutativite du produit: bah enft lordre des operations comptent tp quoi
+inverse des matrices: bref faut recopier betement les slides</p>
+<p>! bref la faut tout reecrire pcq dans tout les cas la prof elle veut passer par des matrices 4d</p>
+<p>changement dechelle: matrice diagonale
+rotation: on repasse dans les complexes pour calculer la pos de lobjet, puis matrice qui ressemble a ca:
+cos theta -sin theta
+sin theta cos theta
+translation: on pourrait faire une bete addition, mais nn go rester dans les multiplications</p>
+<p>en fait, pour sassurer quon garde le meme point en le bougeant, lessence de ca c pour garder les memes ratios</p>
+<p>w ca vaut 1 sur le point a lorigine
+concretement, la matrice de translation c une matrice identite, mais avec les coordonnes de point de base</p>

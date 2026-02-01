@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LIFGRAPHIQUEs on My New Hugo Site</title>
+    <link>http://localhost:1313/lifgraphique/</link>
+    <description>Recent content in LIFGRAPHIQUEs on My New Hugo Site</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <atom:link href="http://localhost:1313/lifgraphique/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>intro</title>
+      <link>http://localhost:1313/lifgraphique/graphique/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifgraphique/graphique/</guid>
+      <description>c une intro donc un peu reberbatif (mais interessant) linformatique est bcp dans bcp de systeme de vision mais linformatique est limite en terme de ressource: le defi est important, car les conditions danalyse sont fermes&#xA;lifgraphique portera plus sur la synthese dimage&#xA;la synthese dimage se fait par 3 grandes etapes: modelisation, rendu, animation&#xA;on fera en cours de la modelisaation et du rendu (et que tres peu danimation)</description>
+    </item>
+    <item>
+      <title>outils mathematique</title>
+      <link>http://localhost:1313/lifgraphique/outils_maths/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/lifgraphique/outils_maths/</guid>
+      <description>outils mathematiques pour decrire la scene on va utiliser un systeme de coordonnes.&#xA;pour se rappeller quel axe est lequel on utilise sa main droite (pouce x, index y majeur z)&#xA;sans surprise on peut utiliser des complexes (r, theta, phi)donc les points&#xA;on rappelle que le cote oppose c celui qui na aucun lien direct avec langle voulu et le cote adjacent et bah il construit langle&#xA;la diapp 8 fait un rappel pour reconstruire des points polaires dans un systeme cartesien</description>
+    </item>
+  </channel>
+</rss>

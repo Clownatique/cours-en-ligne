@@ -1,0 +1,6 @@
+<h1>Bienvenue dans mes notes de cours...</h1>
+<em>oui c le bordel...</em><br>
+<small><em>pas tres politiquement correct</em></small>
+{{ range .Pages }}
+<h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+{{ end }}

@@ -1,0 +1,278 @@
++++
+title = "lambda-calcul"
+draft = false
++++
+
+application: c lappel dune fonction avec des parametres
+typable: avoir le choix de la reduction
+beta reduction: (lambda x. E f) \rightarrow E [x:= f] (c quand on remplace les parametres donnes par les parametres formels)
+
+et donc pour beta reduire il faut reconnaitre (lambda x.E f) avec E et f des ..
+
+lambda terme :3 choses
+
+un lambda implique une abstraction(on peut le voir comme une definition anonyme)
+
+ceci est un **>
+
+## e
+
+# 1. Introduction
+
+Le lambda-calcul est un système formel inventé par Alonzo Church dans les années 1930 pour étudier les fonctions et la calculabilité. C'est le fondement théorique de la programmation fonctionnelle.
+
+# 2. Expressions Lambda (Termes)
+
+## Définition récursive
+
+Une expression lambda (ou terme) est définie par :
+
+**Variable** : x, y, z, etc.
+Une variable c vrm simplement un symbole, libre ou pas, fonction ou pas, defini ou pas, c juste un symbole
+
+### Variables liées
+
+Dans λx.M, x est liée dans M (comme paramètre formel).
+
+### Variables libres
+
+Une variable qui n'est pas liée par une abstraction englobante.
+
+Définition formelle de FV(M) (variables libres) :
+
+    FV(x) = {x}
+
+    FV(λx.M) = FV(M) \ {x}
+
+    FV(M N) = FV(M) ∪ FV(N)
+
+Exemple : FV(λx.x y) = {y}
+
+**Abstraction**: Si x est une variable et M un terme, alors λx.M est une abstraction.
+On apporte a notre symbole une autre maniere detre interprete: un calcul pour rester simple, mais aussi une autre fonction
+
+**Application**: Si M et N sont des termes, alors (M N) est une application.
+Une maniere dutiliser nos supers symboles (qui sont des fonctions definis grace a des expressions)
+
+## Conventions d'écriture
+
+### Élision des parenthèses :
+
+**Application associative à gauche**:
+
+M N P signifie ((M N) P)
+
+Le corps d'une abstraction s'étend aussi loin que possible : λx.M N signifie λx.(M N)
+
+On peut omettre les parenthèses externes
+
+### Abbréviations :
+
+si on a deux symboles cote a cote dans une abstraction
+
+λxy.M pour λx.λy.M
+λx y z.M pour λx.λy.λz.M
+
+# 3. Abstraction
+
+Une abstraction λx.M donne une autre interpretation au x: elle pourra aussi donner M
+On dira alors que x est lie dans M
+
+M est une autre expression
+
+# 4. Application
+
+Notation: (M N) signifie "appliquer la fonction M à l'argument N".
+Exemple : (λx.x) y → applique la fonction identité à y
+
+# 5. les "calculs" du lambda calcul
+
+## substitution
+
+Notation: expr[variable-1 := variable-2] signifie "remplacer les occurrences **libres** de x dans M par N".
+
+### Exemples importants
+
+x[x := N] = N (c le concept dcp)
+y[x := N] = y si y ≠ x (bah oui parce que x n)
+(M₁ M₂)[x := N] = (M₁[x := N]) (M₂[x := N]) (oui ca marche aussi avec les applications !)
+(λy.M)[x := N] = λy.(M[x := N]) si y ≠ x et y ∉ FV(N) (on peut pas subtituer le premier y !! sinon on change la semantique)
+
+### Pourquoi ne pas subtituer trop vite
+
+Quand on souhaite faire une subtitution sur une abstraction,
+si la nouvelle variable devient la variable quon est en train de lier... ca namene a rien de bon
+Si on veut "subtituer" une abstraction par une autre variable on prefere faire un renommage
+
+## Renommage (α-conversion), ou subtitution de variable deja lies
+
+λx.M peut être renommé en λy.M[x:=y] si y nest pas deja pris cela va de soit
+Exemple : λx.x ≡α λy.y
+
+Convention : On considère le symbole modulo pour l'α-conversion.
+
+## Une super renommage : la réduction (β-réduction)
+
+Les betas reduction nagissent que sur des idees deja en cours dexpression (les applications)
+La règle de calcul fondamentale :
+
+(λx.M) N →β M[x := N]
+
+### Stratégies de réduction
+
+Normale : réduire la rédex la plus à gauche la plus externe
+Applicative : réduire la rédex la plus à gauche la plus interne
+Par valeur : réduire seulement quand l'argument est une valeur
+
+Et cest quand quon sarrete de reduire comme un beta ?
+Les gens un peu beta (de droite notamment), reduisent et invisibilise ce dont ils ont peur.
+Dcp, quand un mec devient normale, ils arretent de le reduire.
+
+C pareil ici, quand on a epuise nos peurs, on peut plus trop reduire quoi que ce soit (soi meme peut etre ? pas dans ce cours)
+Les betas reduction nagissent que sur des idees deja en cours dexpression (les applications)
+
+> Un terme est en forme normale s'il ne contient aucune β-rédex.
+
+# 6. Représentation Arborescente des expressions
+
+Syntaxe des arbres (non enracine, on devrait donc plutot parler de https://fr.wikipedia.org/wiki/Stolon_(organe) )
+
+p
+Nœud λ : λx avec un sous-arbre
+Nœud d'application : @ avec deux sous-arbres
+Feuille : variable x (a la fin donc !)
+
+# 10. Rajout a tout ce bazar de larithmetique
+
+Parce que oui, c a partir de la quon devrait sarreter normalement! mais ya des foudingues qui ont voulu pousser le bouchon..
+Evidemment, c cool pour y trouver un interet de voir des champs dapplication
+
+## Les eniters de church
+
+    0 := λf.λx.x (donc renvoie cette fonction qui renvoie une fonction qui se renvoie elle meme)
+    1 := λf.λx.f x (et on lui reapplique 0)
+    2 := λf.λx.f (f x) (et on applique a f ce qui donnait 1)
+    n := λf.λx.f^n x (et la on vit hein)
+
+## Opérateurs Arithmétiques
+
+### Successeur
+
+SUCC := λn.λf.λx.f (n f x)
+
+Vérification : SUCC n = λf.λx.f (n f x) = λf.λx.f (f^n x) = λf.λx.f^{n+1} x = n+1
+
+### Addition
+
+PLUS := λm.λn.λf.λx.m f (n f x)
+
+Car m f (n f x) = f^m (f^n x) = f^{m+n} x
+
+### Multiplication
+
+MULT := λm.λn.λf.m (n f)
+
+Car m (n f) = (f^n)^m = f^{m*n}
+
+## quelques booleens
+
+### Test à zéro
+
+ISZERO := λn.n (λx.FALSE) TRUE
+
+où TRUE := λx.λy.x et FALSE := λx.λy.y
+
+# 11. Typage dans le Lambda-Calcul
+
+Le typage permets de faire des distinctions entre les expressions.
+
+C'est un peu comme un videur en boite.
+Il nomme un peu tout ce qui bouge et ressemble a ca
+
+:
+
+Son boss, c un mec un peu tordu, il ressemble a ca
+
+Γ
+
+C un mec, qui ordonne au videur de type des trucs
+
+∅ Γ 2 + 3
+
+et le videur il reponds
+
+∅ Γ 2 + 3: number
+
+parfois, le boss lui donne des conseils
+
+{x : number} Γ x + 3 : number
+
+Bref, jai eviter de dire c un type un peu perdu sinon je vous aurais casse le crane aha
+
+De ces types de variables, on amene alors le fait que
+une variable peut renvoyer une variable.
+Et le fait que une variable en renvoie une autre c en soit un type. c le type fonction. (et on le note ->)
+
+## Règles de typage
+
+Variable : Si x:τ ∈ Γ, alors Γ ⊢ x:τ
+si notre videur vois un mec (une variable) arrive, il dit quel genre de mec c
+
+Abstraction : Si Γ, x:τ ⊢ M:σ, alors Γ ⊢ (λx:τ.M):τ → σ
+si notre videur vois un mec qui pense a un truc, a une maniere de faire,
+il repete qui c, et ce quil a pense
+
+ce sera pas un peu plus quun videur ??
+
+Application : Si Γ ⊢ M:τ → σ et Γ ⊢ N:τ, alors Γ ⊢ (M N):σ
+si notre videur vois un mec qui pense a un truc, a une maniere de faire, et quil applique ce quil pense
+
+alors le videur va juste dire ce quil sest passe a la fin.
+sans meme se demander ce qui lui est passe par la tete.
+Une vrai comere ce type.
+
+Exemples
+
+Identité : λx:A.x : A → A ()
+Application : (λx:A→B.x) (λy:A.y) : A → B
+
+Notation des types
+
+Les types de fonction sont associatifs à droite : A → B → C signifie A → (B → C)
+Il est un peu de droite ce videur
+
+On peut omettre les parenthèses suivant cette convention
+En plus, parfois il sen bat la race de garder le politiquement correcte.
+
+# 12. Conventions d'Écriture Complètes
+
+## Priorités
+
+Application : la plus haute priorité
+Abstraction : λx.M N signifie λx.(M N)
+Flèche de type : → a la plus basse priorité
+
+Élisions courantes
+
+λxyz.M pour λx.λy.λz.M
+M N P pour ((M N) P)
+λx:A→B.M pour λx:(A→B).M
+
+Variables et métavariables
+
+Lettres minuscules : variables du lambda-calcul (x, y, z)
+des bons a rien finalement, il font juste bonne figure
+
+Lettres majuscules : métavariables pour les termes (M, N, P)
+ca en general, c les trucs qui prennent la tete, et qui prennent la grosse tete
+
+Lettres grecques : types (α, β, τ, σ)
+notre videur a pris grec ancien au college. Comme quoi...
+
+Conclusion
+
+Le lambda-calcul est un système minimaliste mais puissant qui capture l'essence du calcul fonctionnel. Ses concepts fondamentaux (abstraction, application, substitution) et ses propriétés (confluence, normalisation) en font un outil théorique essentiel en informatique.
+
+Pour approfondir : le lambda-calcul avec types dépendants, les systèmes de types avancés (System F), et les liens avec la logique (correspondance de Curry-Howard).
+
+Merci DeepSeek !!

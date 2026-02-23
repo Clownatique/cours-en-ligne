@@ -1,6 +1,5 @@
 #include <iostream>
 #include <errno.h>
-#include <regex>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -15,11 +14,7 @@ int main(void) {
   std::cout << txt << std::endl;
   
   int wrong_fd = open("nofile.txt", O_RDONLY);
-  // exo 2 1): rien de marquer
-  // avec la variable errno
   int ret = write(10, txt, 256 * sizeof(char));
-  // exo 2 2): errno is set to -1
-  // 3) donc il faut afficher errno tsais (avec )
-  std::cerr<< "Erreur :"<< strerror(errno) << std::endl;
+
   return 0;
 }

@@ -1,0 +1,42 @@
+
+@startuml
+Class Position{
+
+- int x
+- int y
+  }
+  Class Pacman{
+
+* Position pos
+* int direction
+
+- deplacer(int dir, Terrain terrain)
+  }
+  Class Terrain{
+
+* int diwW, diwH
+* char [MAX] grille
+  }
+  Class Fantome{
+* Position pos
+* int direction
+
+- deplacerAlea(Terrain)
+- deplacerPacman(Pacman)
+  }
+  Class Jeu{
+
+* Terrain terrain
+* Pacman pacman
+* Fantome [4] fantomes
+* int score
+  }
+  Pacman ..> Terrain
+  Fantome ..> Terrain
+  Pacman --> Position
+  Fantome --> Position
+  Jeu --> Pacman
+  Jeu --> Fantome
+  Jeu --> Terrain
+  @enduml
+

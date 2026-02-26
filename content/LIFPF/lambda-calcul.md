@@ -1,7 +1,7 @@
 +++
 title = 'Intro Au Lambda Calcul'
 date = 2026-01-26T18:45:20+01:00
-draft = true
+draft = false
 +++
 
 TOUT est fonction dans cette maniere de voir lalgo

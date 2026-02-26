@@ -1,6 +1,6 @@
 +++
 title = "td2"
-done = false
+draft = false
 +++
 
 ## td exo 1

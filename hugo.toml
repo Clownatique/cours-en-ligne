@@ -1,4 +1,5 @@
-baseURL = 'https://example.org/'
-languageCode = 'en-us'
-title = 'My New Hugo Site'
+baseURL = 'clownatique.github.io/cours-en-ligne/'
+languageCode = 'fr-fr'
+title = 'Mes cours'
 theme = 'hugo-book'
+ignoreLogs = ['warning-goldmark-raw-html']

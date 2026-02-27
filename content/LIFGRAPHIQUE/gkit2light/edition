@@ -1,0 +1,3 @@
+#!/bin/sh
+cd src/l2_lifgraphique
+hx Viewer_etudiant.cpp Viewer_etudiant.h Viewer.cpp Viewer.h

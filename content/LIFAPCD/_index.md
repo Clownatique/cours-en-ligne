@@ -14,7 +14,7 @@
 
 ### CM5
 
-- [passage d'arguments](./arguments)
+- [passage d'arguments](./arg)
 - [stl](./stl)
 - [regression](testregression)
 - [heritage](heritage)

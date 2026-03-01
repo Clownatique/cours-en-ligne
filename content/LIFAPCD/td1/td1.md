@@ -15,7 +15,7 @@ la grande difference c quand on utilise, on a pas forcement besoin dinstancier (
 
 solution:
 
-![](./parcvoiture.png)
+[test](./pacman.png)
 
 Pour savoir le sens des fleches c
 A a besoin de quelque chose dans B: A->B
@@ -66,4 +66,4 @@ sans parler dheritage, on va juste dire que pacman et fantome sont des classes q
 
 le diagramme de classe:
 
-![](./pacman.png)
+[](pacman.png)

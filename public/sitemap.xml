@@ -2,10 +2,64 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>//localhost:1313/cours-en-ligne/</loc>
+    <loc>//localhost:1313/</loc>
   </url><url>
-    <loc>//localhost:1313/cours-en-ligne/categories/</loc>
+    <loc>//localhost:1313/eval/</loc>
   </url><url>
-    <loc>//localhost:1313/cours-en-ligne/tags/</loc>
+    <loc>//localhost:1313/lifapcd/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifapcd/td1/td1/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifgraphique/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifihm/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifihm/cm3/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifihm/graphique/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifihm/jade/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifpf/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifse/</loc>
+  </url><url>
+    <loc>//localhost:1313/readme/</loc>
+  </url><url>
+    <loc>//localhost:1313/regles-70-prononciation/</loc>
+  </url><url>
+    <loc>//localhost:1313/s1/lifapsd_annales_algo/</loc>
+  </url><url>
+    <loc>//localhost:1313/categories/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifapcd/cm1/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifihm/cm1/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifihm/cm2/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifihm/cm5/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifihm/cours5/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifapcd/cm2/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifapcd/cm4-p3/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifapcd/cm4-p2/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifapcd/cm4/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifapcd/cm3/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifihm/lifhm/</loc>
+  </url><url>
+    <loc>//localhost:1313/s1/</loc>
+  </url><url>
+    <loc>//localhost:1313/tags/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifapcd/td1/</loc>
+  </url><url>
+    <loc>//localhost:1313/lifapcd/testregression/</loc>
   </url>
 </urlset>

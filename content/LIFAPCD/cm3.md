@@ -1,5 +1,5 @@
 +++
-title = "cm3, ou une lecture de documentation en amphi"
+title = "lecture de documentation en amphi"
 +++
 
 pour programmer on utilise 3 outils
@@ -57,10 +57,14 @@ make nom_regle: produit la regle nom_regle
 ### la compilation automatique (via IDE)
 
 On utilise un CMake! (autre regle, autre syntaxe, car objectifs differents)
+Le CMake a l'avantage de creer une compatibilite interplatforme
 
 ## debuggage
 
-on est souvent confrontes a des bugs
+on est souvent confrontes a des bugs: on va utiliser le principe de deboguer
+
+Deboguer, consiste a analyser notre programme lors de son execution.
+On peut ainsi identifier quelle ligne pose probleme, letat des variables au cours de l'execution
 
 ### bugs
 

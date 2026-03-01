@@ -1,5 +1,5 @@
-baseURL = 'clownatique.github.io/cours-en-ligne/'
+baseURL = ''
 languageCode = 'fr-fr'
 title = 'Mes cours'
 theme = 'hugo-book'
-ignoreLogs = ['warning-goldmark-raw-html']
+# ignoreLogs = ['warning-goldmark-raw-html']

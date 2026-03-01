@@ -1,9 +1,14 @@
++++
+title = "diagramme UML"
+draft = false
++++
+
 ## module
 
-notre codebase doit etre scinde en plusieurs modules
+une codebase (ensemble du code du projet) **doit** etre scinde en plusieurs modules
 
-un module doit etre represente par un .h/.cpp
-il est necessaire de pouvoir lister les signatures des fonctions
+un module doit etre represente par un couple de .h/.cpp
+il est necessaire de lister les signatures des fonctions
 on change jamais les attributs/donnes de lobjet: on appelle uniquement des fonctions
 
 ce qui est a faire pour modulariser au maximum son code:
@@ -28,7 +33,7 @@ classe la plus pointee dans le schema = la premiere classe a ecrire et tester
 - `-`: prive
 - fleches entre classe: relations entre classe
 
-une fleche de a vers b indique a a besoin de B
+**une fleche de a vers b indique a a besoin de B**
 
 si la fleche est pleine, cela implique que a a besoin de creer un b pour venir a ses fins
 si la fleche est pointille, cela implique que a nas pas besoin de creer un b pour venir a ses fins

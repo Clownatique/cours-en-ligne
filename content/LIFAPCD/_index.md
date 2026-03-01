@@ -5,6 +5,11 @@
 - [CM1](./cm1)
 - [CM2](./cm2)
 - [CM3](./cm3)
+- [git](./cm4)
+- [ecriture de code](./cm4-p2)
+- [doxygen](./cm4-p3)
+- [CM5](./cm5)
+- [CM6](./cm6)
 
 ## TDs
 

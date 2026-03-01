@@ -1,6 +1,11 @@
++++
+title = 'cm1'
+draft = false
++++
+
 ## Méthodes de conception
 
-jai limpression que les methodes
+Les methodes de conceptions presentees ici sont des moyens d'arriver a la conception d'un projet
 
 ### en cascade
 
@@ -13,7 +18,7 @@ _(il faut avoir finis les spécifications avant de faire la conception architect
 ### iteratif
 
 - 1 cycle en cascade = 1 version.
-- moins detape que en cascade
+- moins detape qu'en cascade
 
 ### en V
 
@@ -38,7 +43,7 @@ on enleve les grandes etapes du cycle en V
 
 #### 12 principes dagile
 
-- Reguliemenet rendre des bouts de travail qui marche bien
+- Regulierement rendre des bouts de travail qui marche bien
 - Ne rien fixer dans le temps
 - Travail quotidien
 - Trouvez une motivation
@@ -47,7 +52,7 @@ on enleve les grandes etapes du cycle en V
 - Ne pas sur travaille (rythme de travail)
 - Trouvez des raccourcis dans le travail
 - Autonomie, pas de rapport dhiearchie
-- Une equipe doit savoir sanalyser
+- Une equipe doit savoir sanalyser (et se remettre en question)
 
 #### ce qui ressort dun projet
 

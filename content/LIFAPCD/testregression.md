@@ -18,11 +18,13 @@ ces tests se font avec des _assert_: cette fonction s'arrete
 
 ### assert
 
-j'ai dig alors PROFITONS EN:
+j'ai un peu creuse par curiosite ce qu'etait reelement la fonction assert
+alors PROFITONS EN:
 
 assert est un appel systeme en C.
 
-Sachant que le C++ est pleinement retrocompatible, pas de galere
+Sachant que le C++ est pleinement retrocompatible avec le C, cela ne nous pose
+pas de probleme
 
 voici le code qui nous interesse le plus:
 

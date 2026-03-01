@@ -1,4 +1,4 @@
-baseURL = ''
+baseURL = 'https://clownatique.github.io/cours-en-ligne/'
 languageCode = 'fr-fr'
 title = 'Mes cours'
 theme = 'hugo-book'

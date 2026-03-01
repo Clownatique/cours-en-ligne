@@ -34,7 +34,7 @@ jobs:
       HUGO_VERSION: 0.128.0
     steps:
       - name: Install Hugo CLI
-        run: go install -tags extended,withdeploy github.com/gohugoio/hugo@latest
+        run: sudo snap install hugo
       - name: Install Dart Sass
         run: sudo snap install dart-sass
       - name: Checkout

@@ -16,7 +16,12 @@ on va donc ecrire des tests pour s'assurer qu'un module marche.
 
 ces tests se font avec des _assert_: cette fonction s'arrete
 
+Attention aux abus de langage: on va voir si on regresse avec nos tests, pour
+s'assurer de la non regression (non ce n'est pas une [litote](https://fr.wikipedia.org/wiki/Litote) volontaire)
+
 ### assert
+
+{{% details "petite curiosite" %}}
 
 j'ai un peu creuse par curiosite ce qu'etait reelement la fonction assert
 alors PROFITONS EN:
@@ -63,3 +68,17 @@ if (){
 ```
 
 > on appelle ca _loperateur ternaire_
+
+{{% /details %}}
+
+Simple utilisation de assert:
+
+```cpp
+assert(3 == 2); // le programme va s'arreter a cette instruction, en precisant le test qui a fais arreter le programme
+```
+
+## fonction testregression
+
+- doit etre presente dans chaque module
+- consiste en plusieurs appels a assert()
+- chaque appel teste chaque fonctions avec chaque cas de figure

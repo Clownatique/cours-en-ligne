@@ -9,7 +9,10 @@ pour decrire la scene on va utiliser un systeme de coordonnes.
 
 pour se rappeller quel axe est lequel on utilise sa main droite (pouce x, index y majeur z)
 
-sans surprise on peut utiliser des complexes (r, theta, phi)donc les points
+[](./mnemodoigts.png)
+
+sans surprise on peut utiliser des **complexes** (r, theta, phi)
+ou un systeme **cartesien**
 
 on rappelle que le cote oppose c celui qui na aucun lien direct avec langle voulu
 et le cote adjacent et bah il construit langle

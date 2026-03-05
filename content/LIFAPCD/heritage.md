@@ -18,6 +18,16 @@ public:
 };
 ```
 
+voici le diagramme
+
+```mermaid
+classDiagram
+    class Personne{
+        +String nom
+        +sePresenter()
+    }
+```
+
 Cette classe décrit une personne en général.
 
 ---
@@ -36,7 +46,20 @@ public:
 
 `public Personne` signifie que `Etudiant` hérite de `Personne`.
 
----
+```mermaid
+classDiagram
+    Etudiant<|--Personne
+    class Etudiant{
+        +int idEtudiant
+        +voirNotes()
+    }
+    class Personne{
+        +String nom
+        +sePresenter()
+    }
+```
+
+**l'heritage se note de cette maniere dans les diagrammes**
 
 ## Utilisation
 

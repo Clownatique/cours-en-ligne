@@ -4,11 +4,11 @@
   <url>
     <loc>http://localhost:1313/cours-en-ligne/</loc>
   </url><url>
-    <loc>http://localhost:1313/cours-en-ligne/arguments/</loc>
-  </url><url>
     <loc>http://localhost:1313/cours-en-ligne/eval/</loc>
   </url><url>
     <loc>http://localhost:1313/cours-en-ligne/lifapcd/</loc>
+  </url><url>
+    <loc>http://localhost:1313/cours-en-ligne/lifapcd/arguments/</loc>
   </url><url>
     <loc>http://localhost:1313/cours-en-ligne/lifapcd/heritage/</loc>
   </url><url>

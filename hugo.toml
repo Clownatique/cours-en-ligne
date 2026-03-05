@@ -3,3 +3,9 @@ languageCode = 'fr-fr'
 title = 'Mes cours'
 theme = 'hugo-book'
 # ignoreLogs = ['warning-goldmark-raw-html']
+[markup]
+  defaultMarkdownHandler = 'goldmark'
+    [markup.goldmark.renderer]
+      hardWraps = false
+      unsafe = true
+      xhtml = false

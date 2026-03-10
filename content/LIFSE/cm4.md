@@ -118,8 +118,12 @@ peut donc permettre a un pere et son fils de
 ## tubes anonymes
 
 n'ont pas de nom
-est sous un fichier
+est sous un fichier (car c une variable dans un programme)
 
 pipe va creer un tableau a deux cases (une pour l'ecriture, une pour la lecture)
 
 Lorsque le pere va devoir prevenir son fils quil arrete de parler
+
+## tubes nommes
+
+c reelement la meme chose MAIS le tube sera present dans le systeme de fichiers

@@ -1,5 +1,6 @@
 +++
-title = 'nicolas tu me regales'
+title = "ordinateur"
+draft=false
 +++
 
 ## introduction (types de memoires)

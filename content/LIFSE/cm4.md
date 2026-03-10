@@ -1,60 +1,125 @@
-+++
-title="processus"
-draft = false
-+++
+# les signaux
 
-## creation dun proc:
+les signaux sont une maniere de terminer un programme
+on les utilise sans passer par des canaux de communications classiques (entree/sortie standard)
 
-Un processus est un programme en cours d’exécution.
-``
-peut se faire avec
+ils sont asynchrones (personne ne sait quand le signal sera recu)
 
-### fork split le processus
+fait penser aux interruptions bas niveau quon a vu la semaine derniere
 
-quand on fait fork, c comme si on ouvrait un autre terminal et quon executait le
-meme executable
+quand un programme recoit un signal, il va
 
-## terminaison dun processus
+1. retenir l'endroit ou il a recu le signal
+2. effectuer un **traitement** en fonction du dit signal
+3. il PEUT reprendre son execution
 
-le processus devient zombie (occupe des ressources, attends quon le termine)
+## les differents traitements possibles
 
-il y a plusieurs forme de processus finis:
+- terminaision
+- sommeil
+- peut etre definies par le programmeurs
 
-- zombie (quand le processus decide daller se faire foutre)
-- eventuellement orphelin (plus aucun processus le cala, c systemd qui le recupere)
+### exemple avec un super schema trop joli
 
-- normalement (par un return ... dans main) : non ! ca c le pourquoi, pas le comment
+les signaux permettent a lutilisateur dinteragir avec un programme qui tourne
 
-lors de lexecution
+les signaux interrompent egalement certains appels systeme (voir dans la documentation)
 
-- pret (en attente detre execute)
-- endormi (sleep)
+## les differents signaux de `signal.h`
 
-### waitpid
+- SIGINT 2
 
-on rappellera que le c++ est imperatif, cest a dire que lexecution se fait ligne
-par ligne...
-donc si on fait un appel avec opt = 0, on bloque sur l'appel
+fais une interruption
 
-### exec
+- SIGKILL 9
 
-permets d'appeller un programme (depuis le programme avec cet appel)
-cest une famille de fonction: execl, exelp, execle...
-under the hoods, exec remplace le process
+libere toutes les ressources ?
+CE SIGNAL ne peut pas etre ignore
 
-les redirections de flux par exemples utilise ceci
+- SIGUSR1 10
 
-### tout ces processus, sont geres par l'os
+signal pouvant etre personnalisee
 
-et c grace a lordonnancement: le systeme choisi a quels processus il accorde
-son temps et son energie
+- SIGTERM
 
-## un peu de terminologie:
+demande gentiment
 
-**Processus**: Programme qui tourne + seulement ce qui est associe
-**Ordonancement**: Action de l'OS de choisir quel processus sexecute a un temps t
-**PID**: Parent Identifier
-**PPID**: Parent Process Identifier
-**Systemd**: le processus qui appelle les processus
-**Systemd**: le processus qui appelle les processus (ancienne version)
-**TTY**:Entree de Terminal
+- SIGCONT
+
+reprendre un processus stoppe avec sigstop (ctrl-Z)
+
+- SIGSTOP
+
+On le mets en pause en general (et en general celui par defaut l'endors)
+
+- SIGCHLD
+
+processus recu par le pere quand son fils s'est terminee.
+
+- SIGILL
+
+pour signifier que le processus est malade
+
+## envoyer des signaux en c/cpp
+
+### recevoir des signaux en c/cpp
+
+avec l'appel systeme de `sigaction`:
+
+```cpp
+int signaction(int signum, const sigaction *new, sigaction *old)
+```
+
+on peut definir des sigactions
+
+### definir un gestionnaire de signaux.
+
+```cpp
+struct sigaction{
+  void (*SystemActionHandler)(int)
+}
+```
+
+### petit point de syntaxe
+
+en C, il est important de repreciser si le type est une structure que C'EST UNE STRUCTURE
+
+### quelques fonctions lies aux signaux
+
+pause : qui attends de recevoir un signal
+
+alarm : s'envoie lui meme un signal (utile quand on veut pas que notre programme passe trop de temps a faire trop de truc)
+
+## en ligne de commande
+
+kill -l liste les signaux possibles
+
+```bash
+kill -<signal> <PID>
+```
+
+control D envoie EOF (end of file): utile quand on communique directement l'entree standard
+
+---
+
+# les tubes
+
+C'est une file d'octets entre deux processus.
+C'est un mecanisme de construction.
+
+il prends en parametre un ecrivain et un lecteur
+
+Lecrivain va produire des donnes a son rythme.
+Octets par octets, en FIFO,
+le lecteur va consommer ces octets a son rythme
+
+peut donc permettre a un pere et son fils de
+
+## tubes anonymes
+
+n'ont pas de nom
+est sous un fichier
+
+pipe va creer un tableau a deux cases (une pour l'ecriture, une pour la lecture)
+
+Lorsque le pere va devoir prevenir son fils quil arrete de parler

@@ -1,4 +1,0 @@
-#!/bin/sh
-make -f l2_lifgraphique.make
-bin/l2_lifgraphique
-                       

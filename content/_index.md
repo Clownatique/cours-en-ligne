@@ -10,10 +10,12 @@ Ici je mets mes cours a la disposition de celles et ceux qui le souhaitent.
 ### [Conception](./lifapcd)
 
 - [x] jeudi 26 février 18h : module Image à rendre dans TOMUSS (10% de la note finale)
-- [ ] mardi 3 mars 8h-9h30 : examen en amphi (40% de la note finale)
+- [x] mardi 3 mars 8h-9h30 : examen en amphi (40% de la note finale)
 - [ ] lundi 9 mars à 18h : cahier des charges à rendre dans TOMUSS (2% de la note finale)
 - [ ] mardi 17 mars : démo mi-parcours (3% de la note finale)
 - [ ] mardi 28 avril : soutenance de projet (3 notes : Technique 15%, Conception 15%, Organisation 15%)
+
+### [Systeme d'exploitation](./lifse)
 
 ### [Informatique Graphique](./lifgraphique)
 

@@ -34,10 +34,59 @@ let var = expr;;
 ### les variables fonctions
 
 appel:syntaxe similaire quen LISP, (nom_func arg1 arg2), parantheses non obligatoire
-creation: let nom_func (arg1:type1)
+creation:
 
-## structures de controles
+```ocaml
+let nom_func (arg1:type1): typeretour =
+  expr_resultat;;
+```
 
-ah! et c la quon voit que c pas un langage comme les autre.. quil est vrm fait pour la programmation fonctionnelle...
+## type
 
+```ocaml
+type mon_type_somme =
+  | Cons1
+  | Cons2
+  ;;
+```
+
+Un type somme est un type ou les valeurs possible sont definis a l'avance
 en vrai, c un peu comme les struct en c++ (si je dois faire des liens ahza)
+
+## types complexes:
+
+les n uplets est une aggregation de plusieurs valeurs.
+
+`("un",1)` est de type `string * int`
+
+## declarer un type complexe
+
+un type inductif, est defini avec des regles bien precises, (et souvent avec lui meme)
+
+## filtrage de motif : une fonction qui trie
+
+faut un peu voir ca comme des regexp ?!
+
+```ocaml
+match Lundi with
+| Mardi -> 2
+| Mercredi -> 3
+| Lundi -> 1
+| Vendredi -> 5
+| Dimanche -> 7
+| Samedi -> 6
+| Jeudi -> 4
+;;
+("ici l'expression match with renvoie int:1")
+```
+
+le filtrage de motif on peut le voir comme un switch case
+il fait la correspondance d'une expression avec une autre expression
+
+une **expression** peut correspondre a des fonctions ou des valeurs.
+
+### loperateur of
+
+c juste un moyen de dire que le constructeur de ce type de donnee est composee de..
+
+### l'operateur ()

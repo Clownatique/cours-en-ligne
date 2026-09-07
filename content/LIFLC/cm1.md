@@ -1,8 +1,7 @@
 +++
-title="cm1"
-draft=false
+title = 'cm1'
+draft = false
 +++
-
 # objectif du cours
 
 - comprendre les systemes de resolution

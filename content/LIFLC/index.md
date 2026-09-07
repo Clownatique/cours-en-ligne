@@ -1,5 +1,9 @@
 # intro, rappels, inductifs
 
+## cours
+
+- [CM1](./cm1)
+
 ## emploi du temps
 
 cm mardi 14h

@@ -5,6 +5,15 @@ Ici je mets mes cours a la disposition de celles et ceux qui le souhaitent.
 
 <!-- Je ne garantis pas votre bonne comprehension, ni des cours a jour. (sauf en LIFSE et LIFAPCD) -->
 
+
+## L3
+
+### [Langage Formels](./liflf)
+
+### [Logique Classique](./liflc)
+
+
+
 ## UEs
 
 ### [Conception](./lifapcd)

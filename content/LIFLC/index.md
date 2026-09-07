@@ -1,3 +1,9 @@
+
++++
+title="cm1"
+draft=false
++++
+
 # intro, rappels, inductifs
 
 ## cours

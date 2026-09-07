@@ -1,3 +1,7 @@
++++
+title="cm1"
+draft=false
++++
 # objectifs du cours
 
 - ocaml (bases et calculs)

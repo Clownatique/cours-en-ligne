@@ -1,6 +1,8 @@
 # intro, rappels, inductifs
 
-## cours
+[Le cours complet !](./cours)
+
+## notes
 
 - [CM1](./cm1)
 

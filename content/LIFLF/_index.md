@@ -1,7 +1,7 @@
 
 # cours
 
-- [CM 1](./cm1)
+- [CM1](./cm1)
 
 # emploi du temps
 

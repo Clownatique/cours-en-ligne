@@ -1,0 +1,20 @@
+donc dabord pas de class: que des struct
+
+et dailleurs il faudra dire struct liste aha
+
+pour plus simple on peut dire typedef struct liste liste; (sortes d'alias) (dans le .h)
+-> lors de la precompil, il remplacera les choses
+
+pas de constructeur par defaut, donc on appelle des fonctionspar defaut
+
+dailleurs pas de passage en param, faut recuperer par adresse
+
+pas de nullptr, que des NULL
+
+et on mets le type dun pointeur pour avoir la fin de la casserolle
+
+QUESTIONS TSAIS
+
+pourquoi on mets le type avant un pointeur alors qu'au final c que des adresses ??
+
+on remplace new par (Cellule*)malloc(sizeof(Cellule))

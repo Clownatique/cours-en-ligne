@@ -12,6 +12,12 @@ Ici je mets mes cours a la disposition de celles et ceux qui le souhaitent.
 
 ### [Logique Classique](./liflc)
 
+### [Reseaux](./reseaux)
+
+### [Programmation Complexite](./lifapc)
+
+### [Base de donnes avancees](./bda)
+
 
 
 ## UEs

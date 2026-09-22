@@ -10,3 +10,4 @@
 > quand vous taper "coq" sur internet
 > je deconseille (la bible)
 > "frere" (pour commencer une phrase)
+> bon c l'argent mais ca va ya pire dans la vie

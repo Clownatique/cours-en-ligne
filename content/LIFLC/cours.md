@@ -3,6 +3,8 @@ title = 'cours'
 draft = false
 +++
 
+_note en deux fois_
+
 # Ensemble
 
 ## Definition
@@ -12,7 +14,8 @@ En pratique, on distingue deux maniere de declarer des ensembles:
 
 - Par extension: cela implique que l'ensemble declare est finis.
 - Par intention: cela implique que l'ensemble declare n'est pas finis (qu'il peut etre infini)
-Cette derniere maniere se fait avec une regle.
+Cette derniere maniere se fait avec une proposition mathematique.
+- Par induction: cela se fait avec un ensemble de depart et une regle. Cela forme un *schema d'induction*
 
 ## Operateurs dits ensemblistes
 
@@ -117,3 +120,109 @@ blabla
 #### Operations
 
 Bah ca prends deux ensemble de departs et un d'arrive ??
+
+# Cardinal
+
+## Definition
+
+Le nombre d'elements dans un ensemble
+Se note |Ensemble|
+
+## Equipotence
+
+On peut demontrer que deux ensembles ont le meme cardinal si il existe une application bijective entre eux
+
+**Exemple**:
+
+est ce que Z est equipotent que N ?
+
+(ou comment compter linfini en v)
+pour prouver ca, il faut prouver quune relation bijective de N a Z est impossible.
+
+et comme il est trop fort:
+
+x|-> x/2 si pair
+x|-> -x+1/2 si x impair
+
+## Denombrable
+
+Un ensemble infini est demontrable si il est equipotent a N
+
+## Theoreme des ensemble infinis non denombrables
+
+[Plus d'info ici](https://fr.wikipedia.org/wiki/Ensemble_infini_non_d%C3%A9nombrable)
+
+# Ensemble inductif
+
+(ya 4 trucs a bien savoir maitriser en gros, je crois que dcp les ensembles inductifs c un super outil pour trouver des fermetures)
+
+ok donc un ensemble inductif c le plus petit ensemble qui avec les bonnes regles, peut redefinir tout un ensemble.
+
+on peut aussi le noter sous forme de regle de deduction (boring+pas au programme)
+
+dapres le cours dolivier bournez, on peut se dire quun ensemble decrit implicitement peut secrire comme
+
+$$ X U_{n \in \mathbb{N}} X_n $$ ou $$(X_n)_{n \in \mathbb{N}}$$ est definie par reccurence ou
+
+X_0 = B et X_n+1 .... truc long samere tout ca pour un cours que je comprends pas bordel
+
+la preuve est en slide 22
+
+# elements de raisonnement
+
+## preuve par induction (comme la reccurence ou quoi)
+
+
+...
+
+# Logique propositionnelle
+
+la logique propositionnelle c donc un langage assez particulier.
+son alphabet est defini par un ensemble inductif, et on va beaucoup utiliser la notation deductive
+
+## terminologie associe
+
+! un mot = une formule (c son petit nom comme dirait mr brandel)
+
+## origine
+
+(inserer les cms d'archi sur l'algebre de boole)
+
+## grammaire de la logique propositionnelle
+
+se fait a laide de fonction booleene.. (fonctions a 3 c)
+(inserer les cms d'archi sur l'algebre de boole)
+
+## interpretation (semantique)
+
+On definit egalement une fonction, I, qui va nous servir a interpreter tout ca
+
+### satisfaction d'une proposition
+
+si on satisfait une proposition A (que I(A)=1) on le note ⊨
+(ici inserer un tableau avec les symboles et leurs modelisation en francais/anglais pk pas)
+
+## remplacement
+
+operation quon fait sur les formules en elle meme pour "simplifier" au fur et a mesure.
+
+
+## sequents
+
+les sequents cest le fait decrire des deductions plus formellement. (dans le contexte de la logique classique)
+
+### calcul des sequents
+
+le calcul des sequents c le fait de deduire plein de nouvelles formules a partir de sequents pas prouve mais quon estime comme vrai. (#axiome)
+
+il dit surtout que hypotheses ⊢ conclusions
+
+hypotheses et conclusion sont des ensembles de formules
+
+dans ce calcul, il ya
+
+#### le systeme G
+
+##### axiome
+
+() → Γ,A ⊢ Δ,A

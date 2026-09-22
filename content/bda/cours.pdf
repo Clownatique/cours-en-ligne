@@ -1,0 +1,44 @@
+# base de donnees
+
+## definition
+
+## niveaux
+
+
+### niveau logique
+#### modele E/A
+... on sait ce que cest
+
+##### limites
+
+- pas de mecanique de raisonnement
+- pas deterministe
+- trop simpliste
+
+##### Entites
+###### classe d'entite
+
+- modelisation commune d'entite
+
+###### entite faibles
+
+Si A n'existe que si B existe, alors A est une entite faible
+
+##### Associations
+
+Relation entre plusieurs entites
+###### Connectivite
+1,N
+###### Participation
+0,1
+##### Attributs
+
+Propriete (type) d'une entite
+
+### niveau physique
+### niveau externe
+
+## indepedance
+### indepedance logique
+### independance physique
+

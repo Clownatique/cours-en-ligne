@@ -1,0 +1,720 @@
+<!doctype html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <link rel="stylesheet" href="stylesujet.css">
+      <title>GNS3 - partie 1</title>
+   </head>
+   <body>
+      <div class="titre-sujet">
+         <img src="logos/Logo-ucbl-udl-moyen.jpg" class="logoucbl">
+         <img src="logos/Logo-fst-info1.jpg" class="logofst">
+         <h1>LIFRES : TP avec l'&eacute;mulateur r&eacute;seaux GNS3</h1>
+         <h2>Initiation aux réseaux, première partie</h2>
+         Ce document est soumis au <code>Copyright ©</code> présent sur <a href="http://perso.univ-lyon1.fr/olivier.gluck/supports_enseig.html" target="_blank">cette page</a>.
+      </div>
+      <div class="corps-sujet">
+         <p style="color: #B43104; font-weight: bold;">
+            Tous les TP se font en environnement <code>Unix</code>.
+         </p>
+         <p style="color: #B43104; font-weight: bold;">
+            Vous devez redémarrer votre machine de la salle de TP sous <code>Unix</code> si elle est sous <code>Windows</code>.
+         </p>
+         <div class="titre-section">
+            Objectifs du TP
+         </div>
+         <p>
+            L'objectif est de vous faire découvrir le fonctionnement d'Internet en l'illustrant par les échanges ayant lieu dans le réseau quand un client Web demande un document à un serveur Web. L'objectif de cette première séance est de mettre en place une architecture réseau capable d'illustrer de tels échanges. Vous devrez :         
+         <ul>
+            <li>Concevoir, dans l'émulateur réseaux <code>gns3</code>, l'architecture composée d'un PC client Web doté de Firefox, d'une box, de deux routeurs de Fournisseurs d'Accès à Internet (<code>FAI</code>), d'un serveur Web et d'un serveur <code>DNS</code> (Domain Name Server, un serveur qui stocke les correspondances entre les noms des serveurs et leur adresse IP, par exemple lifrw.univ-lyon1.fr -> 134.214.200.136)</li>
+            <li>Configurer certains équipements : les cartes réseau des machines et routeurs, les <code>DNS</code> du PC et du serveur Web, le <code>NAT</code>, le routage sur les machines, la box et les routeurs intermédiaires.</li>
+            <li>Vérifier la connectivité entre le client Web et le serveur Web grâce aux outils suivants : <code>ping</code>, <code>tracepath</code> et <code>telnet</code>.</li>
+         </ul>
+         La figure ci-dessous représente l'architecture que vous allez mettre en place en indiquant l'adresse IP de chaque interface réseau.
+         </p>
+         
+         <div class="center">
+         <img src="img-tpreseau1/topologie.jpg"/><br><b>Topologie à réaliser</b>
+         </div>
+
+	 <div class="titre-section">
+            Préambule
+      </div>
+      <p>
+      Pour faire ce TP, vous allez utiliser l'émulateur réseau <code>gns3</code>. Ce logiciel n'est disponible que dans les salles TP du bâtiment Nautibus. 
+      <font style="color: #B43104; font-weight: bold;">
+      Vous ne pourrez donc pas faire le TP chez vous ou dans les autres salles informatiques du campus.
+      </font>
+      </p>
+	 <p>
+	    Pour commencer, ouvrez un terminal et copier-coller les commandes suivantes en faisant un Drag and drop (glisser/déposer) de toutes les lignes à la fois : 
+	    <pre>
+cd $HOME
+rm -Rf GNS3 .config/GNS3 .config/VirtualBox Téléchargements/GNS3*
+rm -Rf .local/lib/python*
+wget http://perso.univ-lyon1.fr/olivier.gluck/Cours/Supports/L3IF_RE/GNS3.tar.gz -O GNS3.tar.gz
+tar zxvf GNS3.tar.gz; cd GNS3
+bash lifasr2_tpgns3.sh
+echo "Affichage du contenu de votre compte" 
+cd $HOME; du -h -d 1
+echo "Si total > 400M, faire de la place avant de lancer GNS3"
+echo    
+	    </pre>
+<!--	    
+		Si vous avez suffisament de place sur votre compte (150 Mo environ), vous pouvez utiliser les commandes suivantes à la place des précédentes ce qui permet de sauvegarder votre travail sur votre compte pour la prochaine séance : 
+	    <pre>
+cd $HOME
+rm -Rf GNS3 .config/GNS3 .config/VirtualBox Téléchargements/GNS3*
+wget http://perso.univ-lyon1.fr/olivier.gluck/Cours/Supports/LIFRW/GNS3heavy.tar.gz -O GNS3.tar.gz
+tar zxvf GNS3.tar.gz; cd GNS3
+bash lifasr2_tpgns3.sh	    
+	    </pre>
+-->	    
+	    Vérifiez qu'il n'y a pas eu de message d'erreur dans les commandes précédentes et qu'il reste suffisament de place sur votre compte.<br>
+	    Votre environnement de travail pour le TP est maintenant opérationnel. 
+<!--
+	    Il ne sera pas nécessaire de refaire ces commandes lors de la prochaine séance.<br>
+	    Si par la suite vous avez un message d'erreur lié à un manque de place sur votre compte, utilisez la commande suivante à la place de la dernière commande précédente (votre travail ne sera plus sauvegardé sur votre compte) :
+	    <pre>
+bash lifasr2_tpgns3.sh light
+	    </pre>	    
+-->	 </p>
+         <p>
+            La plupart des questions posées dans les sujets de TP sont suivies d'une <font style="color: #B43104; font-weight: bold;">Aide</font>. <br>
+            <font style="color: #B43104; font-weight: bold;">Avant de faire une question, il faut lire l'Aide qui suit la question.</font>
+         </p>
+         <p>
+            <font style="color: #B43104; font-weight: bold;">Important : tout au long du TP, notez dans un fichier toutes les commandes que vous tapez sur chaque machine et routeur. Ainsi, si vous perdez la configuration des équipements, il vous suffira de recopier les commandes dans les bons terminaux pour restaurer votre configuration. <!-- A la prochaine séance de TP, il vous faudra remettre en place la configuration faite lors de ce TP en un minimum de temps. --><!--Notez également le numéro de la machine sur laquelle vous êtes afin de vous remettre sur cette même machine lors du TP2.-->
+            </font>
+         </p>         
+	 
+         <div class="titre-section">
+            Mise en place des équipements réseaux
+         </div>
+           <p>
+            <code>gns3</code> va vous permettre de réaliser la topologie réseau souhaitée comme le montre la figure ci-dessus. La topologie comprend un client Web appelé <code>CLIENT</code>, un serveur Web appelé <code>SERVEUR</code>, le serveur DNS du FAI du client Web appelé <code>DNS</code>, un premier routeur qui est la box appelé <code>Box</code> et deux routeurs de FAI appelés <code>FAI-CLIENT</code> et <code>FAI-SERVEUR</code>. La fenêtre principale de <code>gns3</code> permet, en quelques instants, d'émuler intuitivement les quelques équipements mentionnés précédemment.
+
+         <div class="question">
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+               Ouvrez <code>gns3</code> en cliquant sur le menu <code>Applications</code> en haut à gauche puis <code>Lancer le programme...</code> et tapez <code>gns3</code>. 
+               Passez les étapes de la configuration initiale en prenant le choix par défaut. 
+               Créez un nouveau projet nommé TPreseau1 dans le champ <code>Name</code> visible sur l'image ci-dessous. Ne changez pas le contenu du champ <code>Location</code>.<!--Avant de fermer <code>gns3</code> vous pourrez sauvegarder votre projet. Lors de la prochaine séance, vous pourrez ré-ouvrir votre projet pour recharger votre configuration.-->
+            </p>
+	    	<div class="center">
+		    <img src="img-tpreseau1/ui.jpg" width="400px" />
+		    </div>
+         </div>
+         <p>
+            Le volet à gauche de l'interface est le menu des équipements. Il liste l'ensemble du matériel à votre disposition. A l'aide d'un glisser-déposer d'un équipement vers l'espace vide au milieu, vous créez une instance de cet équipement.
+         </p>
+
+         <div class="question">
+            <div class="titre-question">
+               Question
+            </div>                     
+            <p>
+            Mettez en place tous les équipements conformément au schéma de la topologie à mettre en place présenté en introduction : un client Web appelé <code>CLIENT</code>, un serveur Web appelé <code>SERVEUR</code>, le serveur DNS du FAI du client Web appelé <code>DNS</code>, un premier routeur qui est la box appelé <code>Box</code> et deux routeurs de FAI appelés <code>FAI-CLIENT</code> et <code>FAI-SERVEUR</code>. 
+            </p>
+            <div class="titre-question">
+               Question
+            </div>            
+          <p>
+            Renommez chaque équipement comme indiqué sur le schéma.
+            </p>         
+         </div>
+         
+         <div class="aide">
+            <div class="titre-question">
+               Aide
+            </div>
+          <p>
+               A partir du volet gauche, cliquez sur l'icône <img src="img-tpreseau1/ettd.jpg"></img> pour développer la liste des équipements terminaux. Faites un glisser-déposer de <code>Client-ou-Serveur</code> vers l'espace de droite pour ajouter une machine cliente ou serveur. Cet élément contient l'image d'un ordinateur sous Linux (distribution Ubuntu).
+            </p> 
+            <p>    
+               A partir du volet gauche, cliquez sur l'icône <img src="img-tpreseau1/router.jpg"></img> pour développer la liste des routeurs. Faites glisser un exemplaire de celui disponible pour ajouter un routeur dans la topologie.
+            </p>       
+            <p>
+               Pour renommer un appareil, double-cliquez sur son nom.
+            </p>
+         </div>
+
+         <div class="titre-section">
+            Accès aux équipements
+         </div>
+         Dans cette section, vous allez voir comment accéder à un équipement.
+         <div class="question">
+            <div class="titre-question">
+               Question
+            </div>
+            Démarrez tous les équipements en cliquant sur le bouton <code>PLAY</code> <img src="img-tpreseau1/play.jpg"/>.
+         </div>
+
+         <div class="aide">
+            <div class="titre-question">
+               Aide
+            </div>            
+            <p>
+               Soyez patient(e), le démarrage des machines peut être long.
+            </p>
+         </div>
+         <p>
+            Trois fenêtres s'ouvrent. Ce sont les écrans des clients ou serveurs Linux. Vous pouvez identifier les machines grâce au nom de leur fenêtre.
+         </p>
+         
+         <div class="titre-normal">
+            Accès à un terminal sur les machines
+         </div>
+         <div class="question">
+            <div class="titre-question">
+               Question
+            </div>
+            Une fois la machine démarrée, allez sur le bureau de la machine virtuelle et ouvrez un terminal en cliquant sur l'icone correspondante. Toutes les commandes Linux usuelles fonctionneront. 
+            Pour pouvoir faire des copier-coller depuis/vers le terminal de la machine virtuelle, cherchez dans le menu de la fenêtre de chaque machine virtuelle l'item <code>Devices/Drag and Drop</code> et cochez <code>Bidirectionnel</code> si ce n'est pas fait.  
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+               Testez les commandes <code>pwd</code>, <code>ls</code>, et <code>id</code> dans le terminal ouvert et répondez aux questions suivantes : 
+               Quel est le répertoire courant ?
+               Quel est son contenu ?
+               Quel est l'identifiant de l'utilisateur ?
+            </p>
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+               Pour faire ce TP, vous aurez besoin d'avoir les droits d'administrateur sur la machine. Pour cela, tapez la commande <code>sudo su</code> dans le terminal de chaque machine. Le mot de passe est <b>lifasr2</b>.
+            </p>
+            <p>
+               Quel est le nouvel identifiant de l'utilisateur ?
+            </p>
+         </div>
+
+         <div class="titre-normal">
+            Accès à un terminal sur les routeurs
+         </div>
+         <p>
+            Les routeurs que vous utilisez n'ont pas le système Linux mais un système dédié appelé <code>Cisco IOS</code>. Les terminaux partagent certaines commandes et fonctionnalités avec les terminaux UNIX comme par exemple l'auto-complétion avec la touche <code>Tab</code>, les flèches directionnelles pour se déplacer dans l'historique des commandes... En revanche, vous allez voir que la configuration d'une carte réseau ou d'une table de routage ne se fait pas de la même manière sur un routeur ou sur une machine Linux (cliente ou serveur).
+         </p>
+         <div class="question">
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+               Ouvrez le terminal du routeur <code>Box</code> en double-cliquant sur l'équipement. Procédez de même pour les deux autres routeurs.
+<!--
+               Dans le terminal du routeur, tapez <code>no</code> puis <code>Entrée</code> pour démarrer le routeur. A l'invite <code>Router></code>, tapez <code>enable</code> pour passer en mode d'administration du routeur. A l'invite <code>Router#</code>, tapez <code>conf t</code> pour passer en mode configuration du routeur. A l'invite <code>Router(config)#</code>, tapez <code>hostname Box</code> pour changer le nom du routeur et passer à l'invite <code>Box(config)#</code> 
+               <p>
+               Procédez de même pour changer le nom des deux autres routeurs.
+               </p>
+-->               
+            </p>
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+<!--
+               Tapez <code>exit</code> pour revenir dans le mode <code>enable</code>.
+-->               
+                Affichez la configuration courante du routeur à l'aide de la commande <code>show running-config</code>
+            Ici, seront stockées toutes les configurations que vous effectuerez pendant le TP. Vous pouvez faire défiler avec <code>Entrée</code>, et quitter cet affichage avec <code>Ctrl-C</code>. 
+            <p>
+            Pour sauvegarder vos configurations d'un routeur, il faudra penser à faire <code>copy running-config startup-config</code> sur chaque routeur avant de quitter <code>gns3</code>.
+         </p>
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+               Affichez l'état des cartes réseaux du routeur à l'aide de la commande <code>show ip interface brief</code>.
+            Dans la colonne "Interface", se trouve la liste des cartes réseaux. FastEthernet désigne une carte Ethernet, Serial est utilisée pour connecter deux routeurs entre eux.
+         </p>
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+               Combien comptez-vous de cartes réseaux ?
+               Les interfaces ont-elles une adresse IP par défaut ?
+               Sont-elles activées (colonne Status) ?
+            </p>
+         </div>
+
+         <div class="titre-section">
+            Création des liens entre les équipements
+         </div>
+         <p>
+            Vous allez maintenant créer les liens (câbles <code>Ethernet</code> ou <code>Serial</code>) qui relient les équipements entre eux. Les liens <code>Serial</code> sont utilisés pour relier deux routeurs entre eux alors que les liens <code>Ethernet</code> sont utilisés pour relier une machine à un routeur.
+         </p>
+         <div class="question">
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+               Cliquez sur la dernière icone <img src="img-tpreseau1/link.jpg"/> du volet gauche permet de basculer en "Mode Lien".
+               Dans ce mode, cliquez sur la machine <code>CLIENT</code>, sélectionnez l'interface <code>Ethernet0</code>, puis cliquez sur la Box, et sélectionnez l'interface <code>FastEthernet0/0</code>. Le client Web et Box sont à présent reliés par un câble <code>Ethernet</code>.
+         </p>
+	     <div class="titre-question">
+               Question
+            </div>
+            <p>
+               Reliez tous les équipements selon le schéma suivant :
+            <pre>
+ CLIENT(eth0) -> Box(FastEthernet0/0) (fait à la question précédente !)
+ Box(Serial1/0) -> FAI-Client(Serial1/1)
+ FAI-Client(Serial1/0) -> FAI-Serveur(Serial1/0)
+ DNS(eth0) -> FAI-Client(FastEthernet0/0)
+ SERVEUR(eth0) -> FAI-Serveur(FastEthernet0/0)
+            </pre>
+            </p>
+	    
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+               Ouvrez le terminal de la Box et tapez <code>show ip interface brief</code> pour afficher la configuration des cartes réseaux. Est-ce que la création des liens a modifié la configuration des cartes réseaux ? Sont-elles actives ?
+            </p>
+	    <div class="titre-question">
+               Question
+            </div>
+		    <p>
+               Quittez le mode Lien en recliquant sur <img src="img-tpreseau1/link.jpg"/>.
+            </p>
+         </div>
+
+         <div class="titre-section">
+            Configuration des cartes réseaux des équipements
+         </div>
+         <p>
+            Pour permettre aux équipements de communiquer, il faut attribuer une <code>adresse IP</code> à chaque carte réseau. Les machines utilisent une seule carte réseau mais les routeurs en utilisent plusieurs. Pour répondre aux questions ci-dessous, aidez-vous du schéma du réseau présenté au début du sujet.
+         </p>
+         <div class="question">
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+               Pour chaque équipement (machine ou routeur), indiquez combien de carte réseau sont utilisées et précisez l'adresse IP de chaque interface. 
+            </p>
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+               Combien de sous-réseaux y a t-il dans la topologie mise en oeuvre ?
+            </p>
+         </div>
+         <div class="aide">
+            <div class="titre-question">
+               Aide
+            </div>
+            <p>
+               Pour répondre à cette question, vous devez observer le schéma de la topologie du réseau qui se trouve au début du sujet du TP. Ouvrez cette image dans un nouvel onglet afin d'y accéder rapidemment dans la suite du TP.
+            </p>
+            <p>
+               Un sous-réseau est un ensemble d'adresses IP dont la taille est donnée par le masque de sous-réseau (ou netmask). Par exemple, <code>/24</code> signifie que 24 bits sont réservés pour l'adresse du sous-réseau et 8 bits pour l'adresse des machines dans le sous-réseau. Dans un sous-réseau de masque <code>/24</code>, on peut donc attribuer <code>2⁸-2</code> adresses IP aux machines de ce sous-réseau. En décimal, <code>/24</code> s'écrit <code>255.255.255.0</code> ce qui correspond à la mise à <code>1</code> des 24 premiers bits de l'adresse IP.
+            </p>
+            <p>
+               Chaque carte réseau a une adresse IP dans un seul sous-réseau. Le client et les serveurs utilisent une seule interface donc un seul sous-réseau. Le rôle d'un routeur est de faire passer les paquets IP d'un sous réseau à un autre sous-réseau. De ce fait, les routeurs utilisent plusieurs interfaces et sont donc dans plusieurs sous-réseaux.
+            </p>
+         </div>
+         <div class="titre-normal">
+            Configuration des cartes réseaux des machines (périphériques terminaux)
+         </div>
+         Il faut maintenant attribuer son adresse IP à chaque carte réseau.
+         <div class="question">
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+               En mode super-utilisateur (<code>sudo su</code>), affichez la configuration des interfaces du client Web à l'aide de la commande <code>ip addr show</code>.
+            </p>
+            <p>
+               La carte réseau <code>eth0</code> a-t-elle déjà une adresse IP ? Quelle est son adresse MAC ?
+            </p>
+            
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+               Utilisez la commande <code>ip addr add</code> pour attribuer statiquement son adresse IP à chaque carte réseau des machines client ou serveur :
+            <pre>
+            Client(eth0) -> 192.168.0.1/24
+            DNS(eth0) -> 8.8.8.7/8
+            Serveur(eth0) -> 100.1.1.1/10
+            </pre>
+            </p>
+            <p>
+               Sur les machines, il ne suffit pas d'attribuer une adresse IP à une interface pour qu'elle fonctionne. Il faut également l'activer. Pour activer les interfaces configurées, exécutez la commande <code>ip link set up dev eth0</code> sur chaque machine.
+               <p>
+               Vérifiez que tout est correct avec <code>ip addr show dev eth0</code>
+               </p>
+               <p>
+               Exécutez la commande <code>ip route</code> pour afficher la table de routage de la machine. La commande doit afficher une ligne sinon vous avez fait une erreur de configuration. A quoi correspond cette ligne ?
+               </p>
+               
+            </p>
+         </div>
+
+         <div class="aide">
+            <div class="titre-question">
+               Aide
+            </div>
+            <p>
+               Pour attribuer statiquement une adresse IP à une machine Ubuntu, ouvrez un terminal, passez en mode super-utilisateur avec <code>sudo su</code> et tapez :
+            </p>
+            <p> 
+            <code>ip addr add [ADDRESSE IP]/[NETMASK] dev eth0</code>
+            </p>
+            <p>
+               Par exemple : <code>ip addr add 192.168.0.1/24 dev eth0</code>
+            </p>
+            <p>
+            En cas d'erreur, pour supprimer une adresse attribuée à une interface, il suffit de faire <code>ip addr del</code>.
+               Par exemple : <code>ip addr del 192.168.0.1/24 dev eth0</code>
+            </p>            
+         </div>
+
+         <div class="titre-normal">
+            Configuration des cartes réseaux des routeurs
+         </div>
+         <p>
+            Vous allez maintenant configurer les cartes réseaux des routeurs. Les commandes que vous allez utiliser sont différentes de celles exécutées précédement sur les machines.
+         </p>
+
+         <div class="question">
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+               Avec l'aide ci-dessous, attribuez les adresses IP aux différentes interfaces des routeurs comme suit :
+            <pre>
+            Box(FastEthernet 0/0) -> 192.168.0.254 255.255.255.0
+            Box(Serial 1/0) -> 12.25.0.1 255.0.0.0
+            FAI-Client(Serial 1/1) -> 12.25.0.2 255.0.0.0
+            FAI-Client(Serial 1/0) -> 85.0.0.1 255.0.0.0
+            FAI-Client(FastEthernet 0/0) -> 8.0.0.1 255.0.0.0
+            FAI-Serveur(Serial 1/0) -> 85.0.0.2 255.0.0.0
+            FAI-Serveur(FastEthernet 0/0) -> 100.0.0.1 255.192.0.0
+            </pre>
+               Vérifiez avec <code>show ip interface brief</code> que la configuration des interfaces a bien été modifiée et que les interfaces sont actives c'est à dire deux fois <code>UP</code>.
+            </p>
+         </div>
+
+         <div class="aide">
+            <div class="titre-question">
+               Aide
+            </div>
+            <p>
+               <b>Comment attribuer une adresse IP à une interface d'un routeur Cisco ?</b>
+            </p>
+            <ul>
+            <li>Double-cliquez sur l'icone d'un routeur pour ouvrir un terminal s'il n'est pas déjà ouvert. Si le routeur vous pose une question, répondez <code>no</code> !</li>
+            <li>Appuyez sur ENTREE dans la console pour lancer l'invite de commande et/ou vous assurer que le routeur est prêt à recevoir vos instructions. Si l'invite du routeur n'est pas <code>[nom-du-routeur]#</code>, passez en mode administrateur avec <code>enable</code></li>
+            <li>Passez le routeur en mode configuration à l'aide de la commande <code>configure terminal</code> L'invite du routeur devient <code>[nom-du-routeur](config)#</code> </li>
+            <li>Pour accéder à la configuration d'une interface (par exemple <code>FastEthernet0/0</code> ou <code>Serial1/0</code>), entrez la commande <code>int fa0/0</code> ou <code>int s1/0</code> L'invite <code>[nom-du-routeur](config-if)#</code> doit apparaitre.</li>
+            <li>Attribuez une adresse IP et un masque de sous-réseau à l'interface avec la commande <code>ip address [adresse IP] [masque de sous-réseau]</code> 
+            <br/>Par exemple : <code>ip address 192.168.0.254 255.255.255.0</code>
+            <li>Activez l'interface du routeur avec la commande <code>no shutdown</code></li>
+            <li>Quittez la configuration de l'interface en tapant <code>exit</code></li>
+            <li>Vous pouvez configurer une autre inteface, ou re-taper <code>exit</code> pour quitter le mode <code>(config)#</code> quand vous avez terminé.</li>
+            <li>Une fois vos modifications effectuées, quittez le mode <code>(config)#</code> et tapez la commande <code>copy run start</code> pour sauvegarder vos modifications. Quand le terminal demande le fichier de destination, il faut faire entrer pour confirmer.</li>
+            </ul>
+            </p>
+         </div>
+         
+         <div class="titre-section">
+            Test de connectivité
+         </div>
+         <p>
+            Si tout a été correctement configuré, vous pouvez maintenant tenter de faire communiquer les différents équipements entre eux. Pour cela, vous allez utiliser la commande <code>ping</code> qui envoie un paquet d'un équipement à un autre équipement dont l'adresse IP est spécifiée en argument du <code>ping</code>. L'équipement destinataire va à son tour renvoyer le paquet reçu à l'équipement qui a émis le <code>ping</code>. Cette commande fait donc un <b>aller-retour</b> entre l'émetteur et le destinataire.
+         </p>
+            <p>
+               La commande <code>ping</code> s'exécute dans le terminal d'une machine ou d'un routeur. La commande est identique pour Linux et Cisco IOS.
+			Par exemple, <code>ping 192.168.0.254</code> depuis la machine CLIENT doit afficher :
+            </p>
+            <div class=center>
+		    <img src="img-tpreseau1/ping.jpg"/>
+	    	</div>
+	    	<p>
+	    	Pour arrêter le <code>ping</code> sur une machine, il faut faire <code>Ctrl-c</code>. Sur les routeurs, le ping s'arrête tout seul après l'envoi de 5 messages.
+	    	</p>
+         </div>
+      </div>
+      <div class="question">
+         <div class="titre-question">
+            Question
+         </div>
+<!--         
+         Supprimez le lien CLIENT-Box et remettez le sans vous tromper dans le choix des interfaces.
+		 Supprimez le lien DNS-FAI-CLIENT et remettez le sans vous tromper dans le choix des interfaces.
+		 Supprimez le lien SERVEUR-FAI-SERVEUR et remettez le sans vous tromper dans le choix des interfaces.
+-->
+         <p>
+            A partir d'un terminal du CLIENT, utilisez <code>ping</code> pour tester la connectivité vers la Box (192.168.0.254). La requête a-t-elle abouti ?
+         </p>                  
+         <p>
+            A partir d'un terminal du DNS, utilisez <code>ping</code> pour tester la connectivité vers la FAI-CLIENT (8.0.0.1). La requête a-t-elle abouti ?
+         </p>         
+         <p>
+            A partir d'un terminal du SERVEUR, utilisez <code>ping</code> pour tester la connectivité vers la FAI-SERVEUR (100.0.0.1). La requête a-t-elle abouti ?
+         </p> 
+         <p>
+            A partir d'un terminal de la Box, utilisez <code>ping</code> pour tester la connectivité vers la FAI-CLIENT (12.25.0.2). La requête a-t-elle abouti ?
+         </p> 
+         <p>
+            A partir d'un terminal du FAI-CLIENT, utilisez <code>ping</code> pour tester la connectivité vers FAI-SERVEUR (85.0.0.2). La requête a-t-elle abouti ?
+         </p>
+         <div class="titre-question">
+            Question
+         </div>
+         <p>
+            Si l'un des <code>ping</code> précédents n'a pas fonctionné, il faut dépanner en vérifiant vos configurations sur les machines et/ou les routeurs. Pour cela, sur les machines, utilisez les commandes <code>ip addr show dev eth0</code> et <code>ip route</code>. Sur les routeurs, utilisez les commandes <code>show ip int brief</code> et <code>show ip route</code>
+         </p>                  
+         </div>
+
+      <div class="titre-section">
+         Ajout des routes vers les réseaux distants
+      </div>
+      <p>
+         A ce stade, vous avez correctement configuré les adresses IP de vos équipements finaux (machines Linux) et intermédiaires (routeurs). Cela n'est pourtant pas suffisant pour que toutes les communications soient possibles. En effet, pour l'instant, les <code>ping</code> fonctionnent uniquement entre les cartes réseaux qui sont dans le même sous-réseau.
+      </p>
+
+      <div class="question">
+         <div class="titre-question">
+            Question
+         </div>
+         <p>
+            A partir d'un terminal du SERVEUR, utilisez <code>ping</code> pour tester la connectivité vers l'interface Serial du FAI-SERVEUR (85.0.0.2). La requête a-t-elle abouti ? Idem pour joindre 85.0.0.1 ? Idem pour 12.25.0.1 ? Idem pour 8.8.8.7 ?
+         </p>                  
+         <p>
+            A partir d'un terminal du FAI-SERVEUR, utilisez <code>ping</code> pour tester la connectivité vers l'interface Serial 1/1 du FAI-CLIENT (12.25.0.2). La requête a-t-elle abouti ? Idem pour joindre 12.25.0.1 ? Idem pour 8.8.8.7 ?
+         </p>                  
+         <p>
+            A partir d'un terminal du FAI-CLIENT, utilisez <code>ping</code> pour tester la connectivité vers l'interface Fa 0/0 du FAI-SERVEUR (100.0.0.1). La requête a-t-elle abouti ? Idem pour joindre 100.1.1.1 ?
+         </p>                  
+         <p>
+         Qu'en concluez-vous ?
+         </p> 
+         </div>
+
+	<p>
+	Depuis un équipement, il est pour l'instant impossible de joindre un équipement qui se trouve dans un autre sous-réseau car la route vers ce sous-réseau est inconnue (<code>Network unreachable</code>). Pour joindre un équipement qui se trouve dans un sous-réseau distant, il est nécessaire de passer par routeur intermédiaire appelé <code>prochain saut</code> dont il faut préciser l'adresse IP. Pour chaque sous-réseau distant, il est donc nécessaire d'ajouter une route vers lui dans la table de routage en précisant l'adresse IP du prochain saut.
+	</p>      
+  
+      <div class="titre-normal">
+         Ajout des routes vers les sous-réseaux distants sur les routeurs
+      </div>
+	<p>
+	Voici pour chaque routeur la liste des sous-réseaux distants et le prochain saut qu'il faut ajouter dans la table de routage du routeur : 
+	<pre>
+ Sur FAI-CLIENT : ajouter 100.0.0.0/10 via 85.0.0.2
+ Sur FAI-SERVEUR : ajouter 8.0.0.0/8 et 12.0.0.0/8 via 85.0.0.1
+ Sur la Box : ajouter 0.0.0.0/0 via 12.25.0.2 
+	</pre>
+	L'adresse <code>0.0.0.0/0</code> est l'adresse de réseau qui représente tout l'Internet car elle contient toutes les adresses IP. C'est le plus grand sous-réseau possible. Cela signifie qu'ajouter une route vers ce sous-réseau revient à envoyer tous les paquets vers le prochain saut associé à cette route. Cette route est appelée <code>la route par défaut</code> c'est à dire la route qui sera utilisée si aucune des autres routes présentes dans la table de routage ne correspond à la destination recherchée.
+	</p>
+	<p>
+	Sur la Box, les sous-réseaux distants sont <code>8.0.0.0/8</code>, <code>85.0.0.0/8</code> et <code>100.0.0.0/10</code>. Pour joindre ces trois sous-réseaux depuis la Box, il faut passer par <code>12.25.0.2</code>. Plutôt que d'ajouter trois lignes dans la table de routage ayant le même prochain saut, vous pouvez ajouter une route par défaut comme suggéré ci-dessus.
+      <div class="question">
+         <div class="titre-question">
+            Question
+         </div>
+         <p>
+            En vous aidant de l'aide ci-dessous, sur chacun des trois routeurs, ajoutez les routes manquantes indiquées ci-dessus. En mode <code>enable</code>, vérifiez avec la commande <code>show ip route</code> que la table de routage est complète. Pouvez-vous voir vos configurations avec la commande <code>show running-config</code> ?
+         </p>
+         <div class="titre-question">
+            Question
+         </div>
+         <p>
+            A partir d'un terminal du FAI-CLIENT, utilisez <code>ping</code> pour tester la connectivité vers FAI-SERVEUR (85.0.0.2). La requête a t-elle abouti ? Idem pour joindre 100.0.0.1 ? Idem pour 100.1.1.1 ?
+         </p>
+         <p>
+            A partir d'un terminal du FAI-SERVEUR, utilisez <code>ping</code> pour tester la connectivité vers FAI-CLIENT (12.25.0.1). La requête a t-elle abouti ? Idem pour joindre 8.0.0.1 ? Idem pour 8.8.8.7 ? 
+         </p>
+         <p>
+            A partir d'un terminal de la Box, utilisez <code>ping</code> pour tester la connectivité vers FAI-SERVEUR (85.0.0.2). La requête a t-elle abouti ? Idem pour joindre 100.0.0.1 ? Idem pour 100.1.1.1 ? 
+         </p>
+         <div class="titre-question">
+            Question
+         </div>
+         <p>
+		Quelles sont vos conclusions ? Pourquoi les machines sont-elles toujours injoignables ?
+		</p>
+      </div>
+
+      <div class="aide">
+         <div class="titre-question">
+            Aide
+         </div>
+         <p>
+			Pour ajouter une route sur un routeur Cisco, il faut passer en mode <code>enable</code> puis en mode <code>configure terminal</code>. L'invite doit être <code>[nom-du-routeur](config)#</code>. Pour chaque route à ajouter dans la table de routage, il faut utiliser la commande suivante :<br/>
+			<code>ip route [adresse IP du réseau distant] [netmask] [adresse IP du prochain saut]</code>
+         Par exemple : <code>ip route 100.0.0.0 255.192.0.0 85.0.0.2</code>
+         </p>
+         <p>
+         Pour supprimer une route, en cas d'erreur lors de l'ajout par exemple, il suffit d'ajouter <code>no</code> devant la commande qui a ajouté la route.  
+         <br />Par exemple : <code>no ip route 100.0.0.0 255.192.0.0 85.0.0.2</code>
+
+         </p>
+      </div>
+
+	Vous avez du constater que tous les <code>ping</code> fonctionnent sauf ceux depuis un routeur vers une machine distante, c'est à dire une machine qui se trouve dans un autre sous-réseau que lui. En effet, la route pour joindre cette machine existe bien sur le routeur mais cette machine ne sait pas encore comment répondre à la requête <code>ping</code>. Pour régler ce problème, il suffit d'ajouter une route par défaut sur chaque machine pour qu'elle puisse joindre les sous-réseaux distants.
+	
+      <div class="titre-normal">
+         Configuration de la route par défaut sur les machines Linux
+      </div>
+      <div class="question">
+         <div class="titre-question">
+            Question
+         </div>
+         <p>
+            Utilisez la commande <code>ip route show</code> pour afficher la table de routage du Client. Y'a-t-il déjà une entrée ? Pourquoi ?
+         </p>
+         <div class="titre-question">
+            Question
+         </div>
+         <p>
+         Sur chacune des trois machines (CLIENT, DNS, SERVEUR), ajoutez une route par défaut. Vérifiez l'ajout avec <code>ip route show</code>
+         </p>
+      </div>
+      <div class="aide">
+         <div class="titre-question">
+            Aide
+         </div>
+         <p>
+         Pour ajouter une route sur une machine Linux, il faut utiliser la commande suivante : <br/>
+         <code>ip route add [adresse IP du réseau distant] [netmask] via [adresse IP du prochain saut]</code>.
+         <br/>
+         Par exemple : <code>ip route add 0.0.0.0/0 via 192.168.0.254</code>
+         </p>
+      </div>
+      
+      <div class="question">
+         <div class="titre-question">
+            Question
+         </div>
+         <p>
+            A partir d'un terminal de la Box, utilisez <code>ping</code> pour tester la connectivité vers le DNS (8.8.8.7). La requête a t-elle abouti ? Idem pour joindre le SERVEUR (100.1.1.1) ? 
+         </p>
+         <p>
+            A partir d'un terminal du DNS, utilisez <code>ping</code> pour tester la connectivité vers la SERVEUR (100.1.1.1). La requête a t-elle abouti ? 
+         </p>
+         <p>
+            A partir d'un terminal du CLIENT, utilisez <code>ping</code> pour tester la connectivité vers le DNS (8.8.8.7) ou le SERVEUR (100.1.1.1). La requête a t-elle abouti ?
+         </p>
+      </div>
+
+	<p>
+	Il reste donc un dernier obstacle pour que votre réseau fonctionne parfaitement. Le problème vient du fait que le CLIENT et la Box utilisent une adresse dite privée. Les adresses du sous-réseau <code>192.168.0.0/24</code> sont privées. Cela signifie qu'elles ne sont pas utilisables pour aller sur Internet. En revanche, tout le monde peut les utiliser chez soi. Ainsi, la plupart des Box utilisent ces adresses pour économiser les adresses IP publiques. La Box doit donc remplacer l'adresse privée par son adresse publique <code>12.25.0.1</code> dès lors qu'un paquet traverse la Box pour aller sur Internet. Ce mécanisme s'appelle le NAT (Network Address Translation) et doit être configuré sur la Box. Pour plus d'information à ce sujet, cliquez <a href="http://www.culture-informatique.net/cest-quoi-le-nat-cest-quoi-le-pat/" target="_blank">ici</a> !
+
+      <div class="titre-section">
+         Paramétrage du NAT sur la Box et sauvegarde de la configuration des routeurs
+      </div>
+
+      <div class="question">
+         <div class="titre-question">
+            Question
+         </div>
+         <p>
+            Suivez la procédure ci-dessous pour configurer le NAT sur la Box. L'interface <code>inside</code> est <code>FastEthernet 0/0</code>. L'interface <code>outside</code> est <code>Serial 1/0</code>         
+         <div class="titre-question">
+            Question
+         </div>
+         <p>
+            A partir d'un terminal du CLIENT, utilisez <code>ping</code> pour tester la connectivité avec le DNS (8.8.8.7) et le SERVEUR (100.1.1.1). Les requêtes ont-elles abouti ? En principe, tout doit fonctionner. Si tel n'est pas le cas, vérifiez la connectivité à des équipements intermédiaires et dépannez en vérifiant vos configurations sur les machines et/ou les routeurs. Pour cela, sur les machines, utilisez les commandes <code>ip addr show dev eth0</code> et <code>ip route</code>. Sur les routeurs, utilisez les commandes <code>show ip int brief</code> et <code>show ip route</code>
+         </p>
+         <p>
+            En mode <code>enable</code> sur la Box, tapez la commande <code>show ip nat translations</code> pour afficher la table NAT. Qu'affiche t-elle ?
+         </p>         
+      </div>
+
+     <div class="aide">
+         <div class="titre-question">
+            Aide
+         </div>
+         <p>
+            Pour configurer le NAT sur un routeur, il faut suivre plusieurs étapes. La 1ère étape consiste en la définition d'une liste d'accès contenant toutes les adresses IP privées qui vont pouvoir être traduites en une adresse publique et donc seront autorisées à aller sur Internet. Pour cela, tapez la commande suivante en mode <code>config</code> sur la Box :<br/>
+            <code>access-list 1 permit 192.168.0.0 0.0.0.255</code>
+         </p>
+         <p>
+         	Ensuite, il faut demander au routeur de faire la traduction d'adresses en appliquant l'autorisation définie ci-dessus à l'interface de sortie de la Box :<br/>
+         	<code>ip nat inside source list 1 interface s1/0 overload</code>
+         </p>  
+         <p>
+            Pour finir, il faut indiquer au routeur quelles interfaces appartiennent à un réseau privé (interne) ou public (externe). Il faut donc accéder à la configuration de l'interface interne avec <code>int Fa0/0</code> puis indiquer au routeur que l'interface appartient au réseau privé avec la commande <code>ip nat inside</code> Il faut ensuite faire <code>exit</code> puis <code>int s1/0</code> et <code>ip nat outside</code> pour déclarer l'interface <code>s1/0</code> dans le réseau public.
+         </p>
+         <p>
+         Si besoin, vous pouvez utiliser la commande <code>debug ip nat</code> pour afficher ce qui se passe lors d'un <code>ping</code> depuis une adresse interne vers une adresse externe. 
+         Une fois vos modifications effectuées, quittez le mode (config)# et tapez la commande <code>copy run start</code> pour sauvegarder vos modifications.
+         </p>
+      </div>
+
+<!--
+      <div class="question">
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+	    Afin de conserver sur votre compte les modifications que vous avez faites sur les routeurs, re-faites un <code>copy run start</code> sur chacun des trois routeurs et allez dans le menu <code>File -> Import / Export device configs</code> de GNS3.
+Cliquez sur votre dossier personnel (p1******) dans le volet gauche de la fenêtre qui s'ouvre, et créez un dossier GNS3.
+Cliquez ensuite sur le bouton <code>Choose</code>.
+			</p>
+			<p>
+A la prochaine séance, quand vous voudrez récupérer vos configurations sur les routeurs, il faudra remettre en place les routeurs et les renommer avec les noms indiqués à la question suivante ci-dessous. Ensuite, il faudra aller dans le menu <code>File -> Import / Export device configs</code> de GNS3 et cliquer sur votre dossier personnel (p1******) dans le volet gauche de la fenêtre qui s'ouvre, puis cliquez sur GNS3. Cliquez ensuite sur le bouton <code>Choose</code>.
+			</p>
+	</div>
+-->      
+      <div class="titre-section">
+         Utilisation des commandes <code>tracepath</code> et <code>ssh</code>
+      </div>
+      <div class="titre-normal">
+         Commande <code>tracepath</code>
+      </div>
+         <p>
+            La commande <code>tracepath</code> permet, comme <code>ping</code>, de tester la connectivité entre deux équipements. La différence est que <code>tracepath</code> affiche les équipements intermédiaires traversés au cours du chemin. Cela permet de connaître le chemin emprunté par les paquets transmis.<br>
+            <img src="img-tpreseau1/traceroute.jpg"/>
+         </p>
+     
+      <div class="question">
+         <div class="titre-question">
+            Question
+         </div>
+         <p>
+            Tentez de vous connecter depuis CLIENT vers SERVEUR en utilisant la commande <code>tracepath 100.1.1.1</code>
+         </p>
+      </div>
+      <div class="titre-normal">
+         Commande <code>ssh</code>
+      </div>
+         <p>
+            La commande <code>ssh</code> permet d'ouvrir un terminal sur un équipement distant pour lancer des commandes dessus sans être physiquement sur la machine.
+         </p>
+         
+      <div class="question">
+         <div class="titre-question">
+            Question
+         </div>
+         <p>
+            Tentez de vous connecter de CLIENT à SERVEUR en utilisant la commande <code>ssh lifasr2@100.1.1.1</code> Le mot de passe est <code>lifasr2</code>
+         </p>
+         <div class="titre-question">
+            Question
+         </div>
+         <p>
+            Utilisez la connexion à distance pour lancer le serveur Web sur la machine SERVEUR. Pour cela, tapez <code>sudo nginx</code> Le mot de passe est <code>lifasr2</code> Allez dans le dossier où sont situées les pages Web hébergées par ce serveur : 
+            <code>/usr/share/nginx/html/</code>
+         </p>
+         <p>
+         Que contient ce dossier ? Affichez le contenu des fichiers avec la commande <code>cat</code>. Ouvrez un navigateur sur la machine CLIENT et essayez d'accéder à la page principale du serveur Web.
+         </p>
+      </div>
+      <br>
+      <div class="titre-sujet">
+         Ce document est soumis au <code>Copyright ©</code> présent sur <a href="http://perso.univ-lyon1.fr/olivier.gluck/supports_enseig.html" target="_blank">cette page</a>. <br>
+         <img src="logos/Logo-ucbl-udl-moyen.jpg" class="logoucbl">
+         <img src="logos/Logo-fst-info1.jpg" class="logofst">
+      </div>
+      </div>
+   </body>
+</html>
+

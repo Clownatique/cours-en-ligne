@@ -1,0 +1,741 @@
+<!doctype html>
+<html><head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="stylesujet.css">
+		<title>GNS3 - partie 2</title>
+	</head>
+	
+	<body>
+	<div class="titre-sujet">
+		<img src="logos/Logo-ucbl-udl-moyen.jpg" class="logoucbl">
+		<img src="logos/Logo-fst-info1.jpg" class="logofst">
+		<h1>LIFRES : TP avec l'&eacute;mulateur r&eacute;seaux GNS3</h1>
+		<h2>Initiation aux réseaux, deuxième partie</h2> 
+		Ce document est soumis au <code>Copyright ©</code> présent sur <a href="http://perso.univ-lyon1.fr/olivier.gluck/supports_enseig.html" target="_blank">cette page</a>.	
+		</div>
+	<div class="corps-sujet"> 
+		<br>
+		<p style="color: #B43104; font-weight: bold;">
+		Tous les TP se font en environnement <code>Unix</code>.
+		</p>
+		<p style="color: #B43104; font-weight: bold;">
+		Vous devez redémarrer votre machine de la salle de TP sous <code>Unix</code> si elle est sous <code>Windows</code>.
+		</p>
+        <div class="titre-section">Objectifs du TP</div>
+		<p>
+		Dans la partie 1, vous avez mis en place une architecture capable d'illustrer les échanges entre un client Web et un serveur Web. 
+		Dans cette partie 2, l'objectif est d'<b>observer les échanges</b> quand le client fait des requêtes vers le serveur et <b>interpréter leur contenu</b>. Il s'agit d'illustrer les <a href="http://perso.univ-lyon1.fr/olivier.gluck/supports_enseig.html#LIFRW" target="_blank">cours 5, 6, 7 et 8</a> de l'UE LIFRW de L1.</p>
+		Vous devrez :         
+         <ul>
+            <li>Vérifier que l'architecture du précédent TP est en état de fonctionnement.</li>
+            <li>Activer le serveur Web et analyser les échanges lors d'une requête HTTP suite à la soumission d'un formulaire avec la méthode GET ou POST.</li>
+            <li>Activer le serveur DNS et comprendre son rôle lors des échanges avec le serveur Web.</li>
+            <li>Analyser les échanges suivants : requêtes/réponses <code>HTTP</code>, requêtes/réponses <code>DNS</code>, ouverture/fermeture des connexions <code>TCP</code>, en-têtes <code>TCP/UDP/IP/Ethernet</code>, requêtes/réponses <code>ICMP</code>, requêtes/réponses <code>ARP</code>, et le <code>NAT</code>.</li>
+         </ul>
+
+		<p>
+		 La figure ci-dessous représente l'architecture que vous avez mise en place dans la partie 1 et qui doit fonctionner avant de poursuivre cette partie.
+         </p>
+         
+         <div class="center">
+         <img src="img-tpreseau1/topologie.jpg"/><br><b>Topologie à réaliser</b>
+         </div>
+		
+		<p>
+		Pour visualiser les échanges qui passent dans le réseau, vous utiliserez l'application <code>wireshark</code> qui permet de capturer les trames qui passent sur un lien du réseau.
+         </p>
+         
+	 <div class="titre-section">
+            Préambule
+      </div>
+      <p>
+      Pour faire ce TP, vous allez utiliser l'émulateur réseau <code>gns3</code>. Ce logiciel n'est disponible que dans les salles TP du bâtiment Nautibus. 
+      <font style="color: #B43104; font-weight: bold;">
+      Vous ne pourrez donc pas faire le TP chez vous ou dans les autres salles informatiques du campus.
+      </font>
+      </p>
+<!--
+	 <p>
+	    Pour commencer, ouvrez un terminal et copier-coller les commandes suivantes : 
+	    <pre>
+cd $HOME
+rm -Rf GNS3 .config/GNS3 .config/VirtualBox Téléchargements/GNS3*
+rm -Rf .local/lib/python*
+wget http://perso.univ-lyon1.fr/olivier.gluck/Cours/Supports/L3IF_RE/GNS3.tar.gz -O GNS3.tar.gz
+tar zxvf GNS3.tar.gz; cd GNS3
+bash lifasr2_tpgns3.sh
+echo "Affichage du contenu de votre compte" 
+cd $HOME; du -h -d 1
+echo "Si total > 400M, faire de la place avant de lancer GNS3"
+echo    
+	    </pre>
+	    Votre environnement de travail pour le TP est maintenant opérationnel.
+	 </p>
+-->	 
+         <p>
+            La plupart des questions posées dans les sujets de TP sont suivies d'une <font style="color: #B43104; font-weight: bold;">Aide</font>. <br>
+            <font style="color: #B43104; font-weight: bold;">Avant de faire une question, il faut lire l'Aide qui suit la question.</font>
+         </p>
+         <p>
+			<font style="color: #B43104; font-weight: bold;">Tout au long du TP, <u>notez les réponses aux questions dans un fichier texte</u> pour garder une trace de vos réponses et permettre à votre enseignant de vérifier votre travail.</font>
+		</p>
+	 
+	 <div class="titre-section">
+            Vérifier le bon fonctionnement de l'architecture
+      </div>
+	 
+	 <p> Pour faire cette partie, le réseau doit être en état de fonctionnement.
+
+<!--         <div class="question">
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+            	Pour remettre en place la configuration du TP précédent, suivez les instructions que vous avez reçues par courrier électronique.
+            </p>
+
+            <p>
+               Ouvrez <code>GNS3</code> en passant par le menu <code>Applications</code>. Si vous votre configuration fonctionnait à la fin du TP précédent, vous pouvez la restaurer en cliquant sur <code>Recent projects...</code> et en choissisant votre projet du TP précédent. Le schéma et la configuration des routeurs sont en principe restaurées mais vous devez refaire la configuration des 3 machines CLIENT, DNS et SERVEUR : configuration et activation de la carte réseau, ajout de la route par défault.
+            </p>
+            <p>
+                Sinon, pour remettre en place la configuration du TP précédent, fermez <code>GNS3</code> et suivez les instructions que vous avez reçues par courrier électronique.
+            </p>
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+	 		Si vous aviez exporté la configuration de vos routeurs avec GNS3 à la séance précédente, vous pouvez essayer de l'importer pour éviter de retaper toutes les commandes sur les routeurs.
+			Pour que l'import fonctionne, il faut <b>impérativement</b> avoir renommé vos routeurs comme à la séance précédente. Pour faire l'import, allez dans le menu <code>File -> Import / Export device configs</code> de GNS3 et 
+			cliquez sur votre dossier personnel (p1******) dans le volet gauche de la fenêtre qui s'ouvre, puis cliquez sur GNS3.
+			Cliquez ensuite sur le bouton <code>Choose</code>.               
+			</p>	
+			<p>
+			Démarrez l'émulation et ouvrez un terminal sur chaque machine/routeur.
+			</p>
+			<p>
+			Si vous n'aviez pas exporté la configuration de vos routeurs ou si l'import n'a pas fonctionné, vous devez refaire la configuration des routeurs : changement de nom avec <code>hostname</code>, configuration des cartes réseaux avec <code>ip add</code> et <code>no shut</code>, ajout des routes distantes avec <code>ip route</code>. Pour terminer, il faut configurer le NAT sur le routeur Box uniquement (voir <a href="TPreseau1.html">TP précédent</a>).
+			</p>		
+			<p>
+			Dans tous les cas, n'oubliez pas de vérifier la configuration de chaque routeur avec <code>show ip interface brief</code> (vous devez voir up/up sur les interfaces configurées) et <code>show ip route</code> (vous devez voir une ligne dans la table de routage pour chaque interface et pour chaque route ajoutée).		
+			</p>
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+            Pour pouvoir faire des copier-coller depuis/vers le terminal de la machine virtuelle, cherchez dans le menu de la fenêtre de chaque machine virtuelle l'item <code>Presse-papier partagé</code> et cochez <code>bidirectionnel</code>. 
+            </p>
+            <p> 
+            Configurez les 3 machines Ubuntu : configuration de la carte réseau <code>eth0</code> avec <code>ip a add</code> et <code>ip link set up dev eth0</code>, ajout de la route par défaut avec <code>ip route add 0.0.0.0/0 via</code>    
+			</p>		
+			<p>
+			Vérifiez la configuration sur toutes les machines Ubuntu avec <code>ip route show</code> (vous devez voir une ligne pour l'interface eth0 et une ligne pour la route par défaut) et <code>ip addr show dev eth0</code> (vous devez voir que eth0 est UP).
+			</p>
+-->			
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+            Vérifiez que <code>ping 100.1.1.1</code> fonctionne depuis les machines CLIENT et DNS. Si tel n'est pas le cas, vous devez chercher l'erreur jusqu'à ce que cela fonctionne. Parfois, l'erreur vient du fait qu'en créant les liens vous n'avez pas respecté le nom des interfaces indiqué sur la figure de la topologie. Si tel est le cas, supprimez le lien qui pose problème et re-créez un lien avec les bonnes interfaces.  
+			En cas de problème, contactez votre enseignant.e.
+			</p>	
+<!--            <div class="titre-question">
+               Question
+            </div>
+            <p>
+            Dans un terminal de la machine CLIENT, tapez la commande <code>sudo /etc/init.d/bind9 stop</code>
+			</p>											
+-->         </div>
+		 
+         <div class="titre-section">
+           Démarrage du serveur Web <code>nginx</code>
+         </div>
+           <p>
+         		Vous avez à votre disposition des machines capables de jouer les rôles de Client ou Serveur DNS/Web. Par défaut, les serveurs ne sont pas démarrés. Commençons par démarrer le serveur Web.
+         </p>
+         <div class="question">
+            <div class="titre-question">
+               Question
+            </div>
+            <p>
+               Dans un terminal de SERVEUR, tapez la commande <code>sudo nginx</code> pour démarrer le serveur Web.
+			</p>
+         </div>
+         <p>
+           A présent, vous devriez être en mesure d'envoyer des requêtes HTTP au SERVEUR à partir du CLIENT et d'obtenir une réponse.
+         </p>
+
+         <div class="question">
+            <div class="titre-question">
+               Question
+            </div>                     
+            <p>
+            	Sur CLIENT, lancez <code>Firefox</code> en cliquant sur l'icône du bureau et tapez l'adresse IP du SERVEUR <code>http://100.1.1.1/</code></b> dans la barre d'adresse.
+			</p>   
+         </div>
+				<p>
+					Si tout s'est bien passé, vous devriez à présent visualiser une page web avec deux images. Si cela ne fonctionne pas, vérifiez que <code>nginx</code> est bien lancé (commande <code>ps -A</code>),
+					et que la connectivité entre les machines est opérationnelle (avec <code>ping</code>).
+				</p>
+				<p>
+					
+		<div class="titre-section">
+           Analyse de requêtes/réponses <code>HTTP</code> avec <code>wireshark</code> 
+         </div>
+				<p>
+					Pour visualiser le contenu des requêtes/réponses HTTP, vous allez  intercepter les échanges qui ont lieu dans le réseau entre le CLIENT et le SERVEUR à l'aide de l'outil <code>wireshark</code>. Cette application permet de capturer tous les signaux qui passent dans une carte réseau et d'interpréter puis d'afficher chaque octet des messages transportés. 
+				</p>
+				<p>
+					Ces messages contiennent non seulement les données de l'application qui utilise Internet mais aussi tous les en-têtes ajoutés par les protocoles qui permettent que tout fonctionne. Par exemple, lorsqu'un navigateur web demande une page à un serveur web, il utilise le protocole HTTP. La requête <code>HTTP</code> fabriquée par le navigateur web va être complétée de l'en-tête <code>TCP</code> qui permet d'assurer la fiabilité du transfert, de l'en-tête <code>IP</code> qui permet d'acheminer le message jusqu'à son destinataire et de l'en-tête/en-queue <code>Ethernet</code> qui permet au signal d'aller d'une carte réseau à la suivante. Vous allez visualiser cette encapsulation en utilisant <code>wireshark</code>.
+				</p>         
+         <div class="question">
+            <div class="titre-question">
+               Question
+            </div>
+					 	<p>
+							Pour lancer <code>wireshark</code>, effectuez un clic droit sur le lien entre le CLIENT et la Box puis sélectionnez <code>Start capture</code> dans le menu déroulant affiché.
+							Dans la fenêtre qui s'ouvre, cliquez sur OK. Une nouvelle fenêtre s'ouvre. Ne fermez plus cette fenêtre jusqu'à la fin du TP.
+							
+<!-- sélectionnez <code>Box port FastEthernet0/0</code> avant de valider. -->
+					 </p>
+         </div>
+		<p>
+						<code>wireshark</code> s'ouvre alors et vous devriez rapidement voir s'afficher toutes les trames qui passent par la carte réseau <code>FastEthernet0/0</code> de la Box. 
+		</p>
+
+		<div class="titre-normal">Visualisation d'une requête <code>HTTP</code></div>		
+		<p>
+		A présent, vous allez accéder à une page web contenant un compteur utilisant des requêtes GET, identique à <a href="../LIFRW/LIFRW-CM4.pdf#page=52" target="_blank">celui du CM4</a> (page 52).		
+		</p>			
+		
+		<div class="question">
+            <div class="titre-question">
+               Question
+            </div>				 	
+				<p>
+							Sur la machine CLIENT, ouvrez la page <code>http://100.1.1.1/3-compteur-get.php</code> dans Firefox. 
+				</p>
+			<div class="titre-question">
+               Question
+            </div>
+						<p>
+							Dans wireshark, tapez <code>http</code> dans la zone de texte juste en dessous de la barre d'outils, en haut de la fenêtre, puis validez. Cela permet de filtrer l'affichage en n'affichant que les trames qui encapsulent le protocole HTTP. En principe, deux trames subsistent suite à l'application du filtre.
+						</p>
+			<div class="titre-question">Question</div>
+						<p>
+								Quelles sont les adresses <code>IP</code> source et destination des trames qui s'affichent ?
+								Quelle trame contient la requête <code>HTTP</code> du client ? La réponse du serveur ?
+						</p>
+			<div class="titre-question">Question</div>
+						<p>
+							Cliquez sur la première trame et observez son contenu dans la partie centrale de la fenêtre qui affiche les en-têtes de la trame. Cliquez sur l'en-tête <code>HTTP</code>. S'agit-il d'une requête de type <code>GET</code> ou <code>POST</code> ?
+							Copiez la commande HTTP dans votre fichier de réponses. Vous en aurez besoin ultérieurement.
+						</p>
+		</div>
+		<div class="aide">
+            <div class="titre-question">Aide</div>
+            <p>
+               La commande contenue dans une requête HTTP est aussi visible dans la colonne <code>Info</code> de la liste des trames interceptées par wireshark.
+            </p>
+         </div>
+		<div class="question">
+				<div class="titre-question">Question</div>
+						<p>
+						Pour afficher plus de détails sur la requête HTTP, cliquez dessus. Dans la fenêtre qui s'ouvre, développez la section <b>H</b>yper<b>t</b>ext <b>T</b>ransfer <b>P</b>rotocol afin de voir tout le contenu de la requête et répondez aux questions suivantes :
+						</p>
+						<p>
+							Quelle est la version du navigateur de CLIENT ?
+						</p>
+						<p>
+							Quel langage est accepté par le navigateur ?
+						</p>
+						<p>
+							La connexion avec le serveur est-elle fermée après la requête ou maintenue active ? Pourquoi ?
+						</p>
+			<div class="titre-question">Question</div>
+						<p>
+							De même, affichez les détails de la réponse HTTP et répondez aux questions suivantes :
+						</p>
+						<p>
+							Quel est le code de statut de la réponse ?
+						</p>
+						<p>
+							Quelle est la version du serveur <code>nginx</code> lancé sur le SERVEUR ? Celle de PHP ?
+						</p>
+						<p>
+							Quel type de données le SERVEUR renvoie-t-il au CLIENT ?
+						</p>
+						<p>
+							Recherchez le contenu de la réponse HTTP et copiez-le dans votre fichier de réponses.
+						</p>	
+		</div>
+		
+		<div class="aide">
+            <div class="titre-question">
+               Aide
+            </div>
+            <p>
+               Le corps de la réponse HTTP est, dans cet exemple, le code HTML de la page qu'elle contient. 
+							Plus généralement, il peut s'agir de n'importe quel type de données qu'un serveur envoie à un client : fichier texte, image, MP3, vidéo, archive...
+			</p>
+         </div>
+		
+		<div class="titre-normal">Une brève exploration des en-têtes <code>TCP</code>, <code>IP</code> et <code>Ethernet</code></div>
+		<p>
+		Avant de répondre aux questions ci-dessous, consultez le <a href="../LIFRW/LIFRW-CM8.pdf" target="_blank">CM8</a>, en particulier le format des en-têtes <code>TCP</code>, <code>IP</code> et <code>Ethernet</code>.		
+		</p>				
+			<div class="question">
+				<div class="titre-question">Question</div>
+						<p>
+							Cliquez sur l'en-tête <code>TCP</code> de la requête HTTP pour dévoiler son contenu. Quel est le numéro de port utilisé par le navigateur web ? Cliquez dessus pour voir où il se situe dans la trame. Quelle est la valeur des octets sélectionnés visibles dans le bas de la fenêtre affichant tous les octets transportés par la trame ? Sachant que les octets sont affichés en hexadécimal, vérifiez que la valeur décimale du numéro de port est correcte. Quel est le numéro de port destinataire ? A quoi correspond t-il ?  
+						</p>
+				<div class="titre-question">Question</div>
+						<p>
+							Cliquez sur l'en-tête <code>IP</code> de la requête HTTP pour dévoiler son contenu. Quelle est la valeur de l'adresse IP source en hexadécimal ? Quelle est la taille de l'en-tête (<code>Header Length</code>) ? Quelle est la taille du paquet IP (<code>Total Length</code>) ? La fragmentation est-elle active ? Combien de sauts reste-t-il avant la destruction du paquet (<code>Time to live</code>) ?
+						</p>
+				<div class="titre-question">Question</div>
+						<p>
+							Cliquez sur l'en-tête <code>Ethernet</code> de la requête HTTP pour dévoiler son contenu. Quelle est la valeur du champ <code>Type</code> ? A quoi cela correspond t-il ? Quelle est l'adresse <code>MAC</code> source ? A quoi cela correspond t-il ? Quelle est sa taille ? Vérifiez que l'adresse <code>MAC</code> est correcte en tapant la commande <code>ip addr show dev eth0</code> dans le terminal du CLIENT.
+						</p>
+			</div>
+					
+		<div class="titre-section">
+           Soumission d'un formulaire à l'aide des méthodes <code>GET</code> et <code>POST</code>
+    </div>
+		<p>
+			Vous allez maintenant observer comment les données d'un formulaire sont envoyées au serveur web.
+		</p>
+		<div class="question">
+            <div class="titre-question">
+               Question
+            </div>
+			<p>Actionnez le bouton <code>+1</code> dans le navigateur de CLIENT pour incrémenter le compteur. Observez l'URL dans la barre d'adresse du navigateur. Que constatez-vous ?
+			</p>
+			<p>
+				 Repérez dans wireshark le nouveau jeu de requête/réponse généré. Notez leurs numéros de paquets.
+			</p>
+			<p>
+				Trouvez, à l'aide de wireshark, la partie de la requête qui contient les informations transmises au serveur lors de la soumission du formulaire. Copiez la ligne commande de la requête <code>GET</code> dans votre fichier de réponses. Vous en aurez besoin ultérieurement. Incrémenter encore le compteur et copiez de nouveau la ligne commande de la requête <code>GET</code>.
+			</p>
+		</div>
+		<div class="aide">
+            <div class="titre-question">
+               Aide
+            </div>
+            <p>
+               La valeur du compteur avant incrémentation est stockée dans un champ caché du formulaire. Pour le voir, affichez le code source de la page dans le navigateur.
+            </p>
+         </div>
+         
+		<p>
+			Vous allez refaire ces observations avec le compteur qui utilise la méthode <code>POST</code> plutôt que la méthode <code>GET</code>.
+		</p>
+		<div class="question">
+			<div class="titre-question">
+				 Question
+			</div>
+			<p>
+				Ouvrez la page <code>http://100.1.1.1/3-compteur-post.php</code> dans le navigateur du CLIENT. 
+				Il s'agit du même formulaire que précédemment sauf que les données soumises en cliquant sur <code>+1</code> ne sont plus visibles directement dans l'URL.
+			</p>
+            <div class="titre-question">
+               Question
+            </div>
+			<p>Cliquez sur le bouton <code>+1</code> dans le navigateur de CLIENT pour incrémenter le compteur.
+				 Repérez dans wireshark le nouveau jeu de requête/réponse généré. Notez leurs numéros de paquets.
+			</p>
+			 <div class="titre-question">
+               Question
+            </div>
+			<p>
+				Trouvez, à l'aide de wireshark, où se trouvent les données en provenance du formulaire. Combien de champs sont transmis ? A quoi correspondent <code>Key</code> et <code>Value</code> pour chaque champ ? Quelle est la valeur du champ <code>Content-Length</code> de l'en-tête HTTP ?
+			</p>
+		</div>
+		
+		<div class="titre-section">
+           Transmission d'une requête HTTP à l'aide du programme <code>telnet</code>
+    </div>
+		<p>
+			Le programme <code>telnet</code> permet d'établir une connexion vers n'importe quel serveur. Une fois connecté au serveur, l'utilisateur peut alors envoyer des requêtes au serveur à condition de respecter le format imposé par le protocole applicatif. 
+			Vous allez utiliser l'application <code>telnet</code> pour récupérer le contenu de la page <code>3-compteur-get.php</code> hébergée par le serveur Web. Pour cela, il faut se connecter au port <code>80</code> utilisé par le serveur Web.
+		</p>
+		
+	<div class="question">	
+		<div class="titre-question">
+      Question
+    </div>
+		<p>
+			Ouvrez un terminal de CLIENT, et tapez la commande <code>telnet 100.1.1.1 80</code> pour vous connecter au SERVEUR sur le port 80 du serveur Web. 
+		</p>
+		<div class="titre-question">
+      Question
+    </div>
+		<p>
+			Demandez la page <code>3-compteur-get.php</code> en copiant depuis votre fichier de réponses la commande GET que vous aviez trouvée avec <code>wireshark</code> dans une question précédente. Pour vous aider, regardez <a href="../LIFRW/LIFRW-CM4.pdf#page=52" target="_blank">la diapo 52 du CM4</a>. La différence est que, dans ce TP, vous faites une requête en <code>HTTP/1.1</code> au lieu de <code>HTTP/1.0</code> ce qui impose d'ajouter l'en-tête <code>host</code> comme indiqué ci-après.
+		</p>
+		<p>
+			Appuyez sur <code>ENTREE</code>. Rien ne se passe pour l'instant car la requête n'est pas complète. En effet, il manque l'en-tête <code>host</code> indiquant quel serveur doit répondre à la requête. Ajoutez l'en-tête <code>host: 100.1.1.1</code> dans le terminal. Appuyez deux fois sur <code>ENTREE</code> pour clôturer la requête.
+		</p>
+	</div>
+	
+	<p>
+		Le contenu de la réponse du SERVEUR s'affiche alors sous forme de texte brut dans le terminal.
+	</p>
+	<div class="question">	
+		<div class="titre-question">
+      Question
+    </div>
+		<p>
+			Comparez le corps de la réponse obtenue via <code>telnet</code> à celui de la réponse que vous aviez copié précédemment dans votre fichier de réponses.
+Que constatez-vous ?
+		</p>
+		<div class="titre-question">
+      Question
+    </div>
+		<p>
+			Dans <code>wireshark</code>, comparez la taille de la requête HTTP méthode GET envoyée par <code>Firefox</code> à celle envoyée par <code>telnet</code> (colonne <code>Length</code>). 
+			Que constatez-vous ? Expliquez !
+		</p>
+		</div>
+<!--
+		<p>
+		Vous allez maintenant suivre la même procédure pour envoyer les données du formulaire avec la méthode <code>POST</code> via <code>telnet</code>.
+		</p>
+		<div class="question">	
+			<div class="titre-question">
+				Question
+			</div>
+			<p>
+				Utilisez <code>telnet</code> pour demander au serveur Web la page <code>3-compteur-post.php</code>. Pour cela, vous devez copier/coller depuis votre fichier réponses, la requête en méthode <code>POST</code> capturée précédemment avec <code>wireshark</code>. Pour vous aider, regardez <a href="../LIFRW/LIFRW-CM4.pdf#page=60" target="_blank">la diapo 60 du CM4</a>. Après l'en-tête <code>host</code>, il faut bien préciser l'en-tête <code>Content-Type</code> et l'en-tête <code>Content-Length</code> Est-ce que la réponse qui s'affiche dans le terminal montre bien l'incrémentation du compteur ? Testez à nouveau en modifiant la valeur du compteur transmise dans la requête.
+			</p>
+		</div>
+-->
+		<div class="titre-section">
+           Analyse de requêtes/réponses <code>DNS</code> avec <code>wireshark</code> 
+         </div>
+			<p>
+				Jusqu'à présent, pour toutes les requêtes HTTP envoyées au SERVEUR Web, vous avez utilisé son adresse IP soit dans l'URL soit en argument de la commande <code>telnet</code>. Cependant, il est rare de connaître l'adresse IP du serveur. Généralement, on utilise le nom du serveur plutôt que son adresse IP pour le contacter. Néanmoins, la machine cliente doit obtenir l'adresse IP du serveur pour lui envoyer sa requête. 
+			</p>
+			<p>
+				La correspondance <code>nom_de_machine/adresse_ip</code> est connue des serveurs DNS. Un client doit donc envoyer une requête à un serveur <code>DNS</code> pour récupérer l'adresse IP du serveur et ce, avant de pouvoir envoyer sa requête au serveur dont il connaît le nom mais pas l'adresse IP. Le serveur DNS interrogé peut soit connaître la réponse (adresse IP du serveur) soit faire suivre la requête DNS à d'autres serveurs DNS jusqu'à atteindre celui qui détient la réponse. Dans ce TP, pour simplifier, il y a un seul serveur DNS qui stocke tous les <code>enregistrements</code> nécessaires au TP. 
+			</p>
+			<p>
+			Pour répondre aux questions de cette partie, relisez les diapositives du cours qui concernent le DNS dans le <a href="../LIFRW/LIFRW-CM5.pdf#page=52" target="_blank">CM5</a>.
+			</p>
+		
+		<div class="titre-normal">Un premier test de résolution de nom du serveur Web</div>
+		<p>
+			En fait, notre SERVEUR Web <code>100.1.1.1</code> dispose bel et bien d'un nom : <code>lifasr2.univ-lyon1.fr</code>
+		</p>
+		<div class="question">	
+			<div class="titre-question">
+				Question
+			</div>
+			<p>
+				Modifiez le filtre dans <code>wireshark</code> en <code>http || dns</code> pour n'afficher que les trames contenant des messages HTTP ou DNS.
+			</p>
+			<div class="titre-question">
+				Question
+			</div>
+			<p>
+				Dans <code>Firefox</code>, sur la machine CLIENT, essayez de vous connecter à <code>lifasr2.univ-lyon1.fr</code>. Que constatez-vous ? Une activité réseau est-elle visible dans <code>wireshark</code> ?
+			</p>
+		</div>
+		<p>
+			La commande <code>host</code> permet de faire des résolutions de nom et donc d'interroger les serveurs DNS depuis un terminal.
+		</p>
+		<div class="question">	
+			<div class="titre-question">
+				Question
+			</div>
+			<p>
+				Exécutez la commande <code>host -a lifasr2.univ-lyon1.fr</code> dans le terminal du CLIENT. Que se passe-t-il ?
+			</p>
+		</div>
+		<p>
+			Le comportement constaté est normal : pour l'instant, la machine CLIENT n' a pas de serveur DNS à disposition donc les résolutions de nom ne peuvent pas se faire.
+		</p>
+		
+		<div class="titre-normal">Paramétrage du client <code>DNS</code> et démarrage du serveur</div>
+		<p>
+			Sur la machine CLIENT, il faut indiquer quelle est l'adresse IP du serveur DNS (<code>8.8.8.7</code>) à qui les requêtes DNS vont être envoyées. Cela se configure dans le fichier <code>/etc/resolv.conf</code> de CLIENT.			
+		</p>
+		<div class="question">	
+			<div class="titre-question">
+				Question
+			</div>
+			<p>
+				 Ouvrez le fichier <code>/etc/resolv.conf</code> de CLIENT en mode super-utilisateur (<code>sudo</code>), à l'aide d'un éditeur de texte : <code>vim</code> ou <code>leafpad</code>. Par exemple, tapez la commande <code>sudo leafpad /etc/resolv.conf</code> Pour renseigner un serveur DNS, il faut ajouter dans ce fichier la ligne <code>nameserver [adresse IP de serveur DNS]</code>. Y a-t-il déjà un serveur DNS renseigné ?
+			</p>
+			<div class="titre-question">
+				Question
+			</div>
+				<p>
+					Sous les deux premières lignes de commentaires du fichier, ajoutez la ligne <code>nameserver 8.8.8.7</code> et enregistrez vos modifications.
+				</p>
+			  <div class="titre-question">
+				Question
+			</div>
+				<p>
+					Sur la machine <code>DNS</code>, exécutez la commande <code>sudo /etc/init.d/bind9 start</code> pour démarrer le serveur DNS. 
+			</p>
+		</div>
+		
+		<div class="titre-normal">Test de connexion avec <code>DNS</code></div>
+		<div class="question">		
+			<div class="titre-question">
+				Question
+			</div>
+			<p>
+				Utilisez à nouveau la commande <code>host -a lifasr2.univ-lyon1.fr</code> pour vous assurer que le serveur de noms fonctionne correctement. Obtenez-vous bien l'adresse du SERVEUR Web (<code>100.1.1.1</code>) en réponse ?
+			</p>
+			<div class="titre-question">
+				Question
+			</div>
+			<p>
+				Essayez à nouveau de vous connecter à <code>lifasr2.univ-lyon1.fr</code> dans <code>Firefox</code>. Cela fonctionne-t-il ?
+			</p>
+			<div class="titre-question">
+				Question
+			</div>
+			<p>
+				Dans <code>wireshark</code>, repérez les messages <code>DNS</code> échangés entre le CLIENT et le serveur DNS avant l'envoi de la requête <code>HTTP</code> à <code>lifasr2.univ-lyon1.fr</code> Notez leurs numéros de paquet. 
+			</p>
+			<p>
+				Quels sont les numéros des ports source et destination utilisés dans la requête DNS ? Quel est le protocole de transport utilisé pour les messages DNS ?
+			</p>
+		</div>
+			<div class="aide">
+            <div class="titre-question">
+               Aide
+            </div>
+            <p>
+               Dans la colonne Info, repérez les "paquets DNS" dont la description contient <code>lifasr2.univ-lyon1.fr</code> Seules les requêtes de <code>type A</code> nous intéressent car elles concernent les adresses <code>IPv4</code>. Les requêtes de <code>type AAAA</code> concernent <code>IPv6</code>, nous les ignorerons pour ce TP.
+			</p>
+         </div>
+         
+		<div class="titre-normal">Analyse d'une requête/réponse <code>DNS</code></div>
+		<p>
+			 Regardez l'échange de requête/réponse <code>DNS</code> en détail pour répondre aux questions suivantes.
+		</p>
+		<div class="question">	
+			<div class="titre-question">
+				Question
+			</div>
+			<p>
+				Quelle section de la requête (et de la réponse) DNS contient la question posée par le CLIENT au serveur de noms DNS ?
+			</p>
+			<div class="titre-question">
+				Question
+			</div>
+			<p>
+				Quelle section de la réponse DNS contient l'adresse IP recherchée ? Que contient la section <code>AUTHORITY NAMESERVERS</code> de la réponse ? Et la section <code>ADDITIONAL RECORDS</code> ?
+			</p>
+			<div class="titre-question">
+				Question
+			</div>
+			<p>
+				Combien de temps le CLIENT a-t-il le droit de conserver cette réponse en cache, avant de demander une mise à jour au serveur de noms DNS ?
+			</p>
+		</div>
+		<div class="aide">
+			<div class="titre-question">
+				 Aide
+			</div>
+			<p>
+				Recherchez le champ <code>Time To Live</code> qui se trouve dans la section <code>Domain Name System -> Answers</code> de la réponse DNS.
+			</p>
+	 </div>
+		<div class="question">
+<!--			<div class="titre-question">
+				Question
+			</div>
+			<p>
+				D'après vous, cette valeur est-elle respectée par la machine cliente ? Justifiez votre réponse en observant ce qui se passe quand vous rafraîchissez la page dans Firefox. Que constatez-vous concernant les échanges DNS ?
+			</p> 
+-->			<div class="titre-question">
+				Question
+			</div>
+			<p>
+				Le fichier <code>/etc/bind/named.conf.local</code> est le fichier de configuration du serveur <code>DNS</code>. Observez le contenu de ce fichier sur la machine DNS. Quel est le nom du fichier de la <code>zone</code> hébergée par ce serveur ? Affichez le contenu de ce fichier. Que contient t-il ?
+			</p>
+			<div class="titre-question">
+				Question
+			</div>
+			<p>
+				Quelle option de la commande <code>host</code> permet d'afficher les correspondances DNS pour toutes machines de la zone DNS ? Utilisez cette commande et comparez la réponse au contenu du fichier de la zone vu précédemment. Que concluez-vous ? 
+			</p>						
+		</div>
+		<div class="aide">
+			<div class="titre-question">
+				 Aide
+			</div>
+			<p>
+				Pour trouver l'option de la commande <code>host</code>, vous pouvez regarder <a href="../LIFRW/LIFRW-CM5.pdf#page=63" target="_blank">la diapo 63 du CM5</a> ou utiliser la commande <code>man host</code>.
+			</p>
+	 </div>		
+
+		<div class="question">
+			<div class="titre-question">Question</div>
+			<p>
+				Aidez-vous des commandes suivantes pour répondre aux questions ci-dessous :
+			<pre>
+host -a univ-lyon1.fr
+host -a -l univ-lyon1.fr
+host ssh.univ-lyon1.fr
+host smtp.univ-lyon1.fr
+ssh ssh.univ-lyon1.fr					
+			</pre>
+			Quels sont les noms et adresses des serveurs DNS de la zone <code>univ-lyon1.fr</code> ? A quel nom et quelle adresse sont envoyés les mails à destination de <code>prenom.nom@univ-lyon1.fr</code> ? Sur quel port destination et sur quelle adresse IP destination se fait la connexion à distance avec la commande <code>ssh ssh.univ-lyon1.fr</code> ? Pour confirmer votre réponse, observez-le dans wireshark.
+			</p> 
+		</div>
+		
+		<div class="titre-section">
+           Les protocoles <code>UDP</code> et <code>TCP</code>
+    </div>
+		<p>
+			Avant de répondre aux questions ci-dessous, consultez les diapositives du <a href="../LIFRW/LIFRW-CM6.pdf" target="_blank">CM6</a> qui présentent les protocoles <code>UDP</code> et <code>TCP</code>. Ces deux protocoles sont appelés les <code>protocoles de transport</code> d'Internet. Leur premier rôle est d'identifier l'application qui communique sur Internet grâce aux <code>numéros de port</code>. C'est pourquoi l'en-tête <code>UDP</code> et l'en-tête <code>TCP</code> contiennent le numéro de port source et le numéro de port destinataire.
+		</p>
+		<p>
+			Une application utilise soit <code>TCP</code> soit <code>UDP</code> mais pas les deux. Le rôle de <code>TCP</code> est de faire la fiabilité c'est à dire de garantir que tout ce qui arrive au destinataire est exactement ce qu'il y avait sur l'émetteur avant envoi. La plupart des applications d'Internet utilise <code>TCP</code> car elles ont besoin de la fiabilité. <code>UDP</code> ne fait que l'identification de l'application grâce aux numéros de port. Il est plus rapide que <code>TCP</code> mais ne garantit pas la fiabilité du transport. 
+		</p>
+		
+		<div class="titre-normal">Le protocole <code>UDP</code></div>
+		<div class="question">
+			<div class="titre-question">Question</div>
+			<p>
+				Parmi les protocoles applicatifs vus précédemment, lequel utilise UDP ? Pourquoi ?
+			</p>
+			<div class="titre-question">Question</div>
+			<p>
+				Sur combien d'octets est codé un numéro de port ? Quelle est la valeur maximale d'un numéro de port en décimal ? Comment sont choisis les ports des serveurs ? Quelle est leur valeur maximale ? Comment sont choisis les ports des clients ? Quelle est leur valeur minimale ?
+			</p>
+			<div class="titre-question">Question</div>
+			<p>
+				Regardez dans <code>wireshark</code> quel est le port source de la dernière requête DNS. Notez-le dans votre fichier réponses. Utiliser la commande <code>host</code> sur la machine CLIENT pour faire une nouvelle requête DNS. Quel est le port source utilisé par la commande <code>host</code> ? Est-ce le même que précédemment ? Commentez !
+			</p>
+			<div class="titre-question">Question</div>
+			<p>
+				Dans le terminal de la machine CLIENT, exécutez la commande <code>wget http://lifasr2.univ-lyon1.fr/index.html</code> Quelles sont les nouvelles trames qui s'affichent dans <code>wireshark</code> ? Quels sont les ports source des nouvelles requêtes ? Commentez ! Que fait la commande <code>wget</code> ?
+			</p>			
+		</div>
+		
+		<div class="titre-normal">Le protocole <code>TCP</code></div>
+		<p>
+			Pour faire la fiabilité, le protocole <code>TCP</code> a besoin du mode <code>connecté</code>. Parmi les protocoles vus en cours, c'est le seul protocole d'Internet qui est en mode connecté. Dans le mode connecté, le client fait une demande d'ouverture de connexion que le serveur accepte ou non. Après l'ouverture, les échanges sont possibles jusqu'à ce que l'une des parties demande la fermeture de la connexion. Cela fonctionne comme le téléphone !
+		</p>
+    <div class="question">
+			<div class="titre-question">Question</div>
+			<p>
+				Modifiez le filtre d'affichage <code>wireshark</code> en <code>tcp</code> pour n'afficher que les trames qui contiennent ce protocole. Cliquez sur le bouton
+			</p>
+			<div class="titre-question">Question</div>
+			<p>
+				Dans le terminal de la machine CLIENT, exécutez la commande <code>wget http://lifasr2.univ-lyon1.fr/img2.jpeg</code> Regardez avec <code>wireshark</code> comment se passe l'ouverture de la connexion TCP. Combien de trames sont échangées pour faire l'ouverture de connexion ? Quels sont les <code>Flags</code> de l'en-tête TCP qui sont mis à <code>1</code> pour chacune de ces trames ?
+			</p>	
+			<div class="titre-question">Question</div>
+			<p>
+				Observez maintenant avec <code>wireshark</code> la fermeture de la connexion TCP juste après la réponse du serveur. Combien de trames ont été échangées pour faire la fermeture de la connexion ? Quels sont les <code>Flags</code> de l'en-tête TCP qui sont mis à <code>1</code> pour chacune de ces trames ? Est-ce le client ou le serveur qui a demandé la fermeture ?
+			</p>								
+	</div>	
+			<p>
+			Pour faire la fiabilité, <code>TCP</code> numérote les messages envoyés et utilise des acquittements (<code>ACK</code>) pour informer l'émetteur de la bonne réception des données. La numérotation des messages permet de garantir l'ordre à la réception et de détecter les données manquantes. 
+		</p>
+
+    <div class="question">
+			<div class="titre-question">Question</div>
+			<p>
+				Observez avec <code>wireshark</code> l'en-tête TCP des trames qui vont du serveur vers le client et qui constituent la réponse HTTP. En effet, l'image étant volumineuse, elle est transmise en plusieurs morceaux dans plusieurs trames. Dans les trames qui vont du serveur vers le client, comment évolue <code>Sequence number</code> qui compte les octets envoyés ? Dans les trames qui vont du client vers le serveur, comment évolue <code>Acknowledgment number</code> qui compte les octets reçus ? Observez la trame allant du client vers le serveur et qui sert de dernier acquittement des données avant la phase de fermeture de la connexion. Quelle est la taille du paquet IP contenu dans cette trame ? Contient t-il des données venant du navigateur ou du serveur ? Commentez !
+			</p>
+	</div>	
+		
+		<p>
+			Vous allez maintenant observer que plusieurs requêtes <code>HTTP</code> sont nécessaires pour afficher la page <code>index.html</code> du serveur web comme cela est expliqué dans la <a href="../LIFRW/LIFRW-CM4.pdf#page=30" target="_blank"> diapositive 30 du CM4</a>. En effet, le navigateur web doit faire une nouvelle requête <code>HTTP</code> pour chaque objet incorporé dans la page.
+		</p>
+		
+    <div class="question">
+			<div class="titre-question">Question</div>
+			<p>
+				Supprimez le cache de Firefox dans CLIENT, pour vous assurer de récupérer tous les contenus de la page auprès de SERVER :
+			</p>
+			<p>
+				dans le terminal du CLIENT, tapez <code>rm -Rf .cache/mozilla</code>
+				<!--<code>Menu > Preferences > Privacy > clear all current history > Clear Now</code>-->
+				<!--<code>Menu > Preferences > Advanced > Cached Web Content > Clear Now</code>-->
+			</p>
+			<div class="titre-question">Question</div>
+			<p>
+				Ouvrez <code>http://lifasr2.univ-lyon1.fr</code> dans le navigateur.
+				Combien de requêtes HTTP ont été effectuées par le navigateur ? Quel objet est demandé dans chacune des requêtes ? Combien d'ouverture/fermeture de connexion TCP ont eu lieu ? Une seule pour tous les objets ou bien une pour chaque objet ? Qui décide de fermer la connexion TCP ?
+			</p>
+		</div>
+			
+		<div class="titre-section">
+           Le <code>NAT</code> et le protocole <code>ARP</code>
+    </div>
+		<div class="titre-normal">Le <code>NAT</code> : remplacer une adresse IP privée par l'adresse publique du routeur</div>
+			<p>
+				La machine CLIENT utilise une adresse IP privée (<code>192.168.0.1</code>) pour communiquer avec la Box. Les adresses privées ne sont pas utilisables pour aller sur Internet. La Box doit donc remplacer l'adresse privée du CLIENT par son adresse publique <code>12.25.0.1</code> dès lors qu'un paquet traverse la Box pour aller sur Internet. Ce mécanisme s'appelle le NAT (Network Address Translation) et a été configuré sur la Box. Vous allez maintenant l'observer avec <code>wireshark</code>.
+			</p>
+		<div class="question">
+			<div class="titre-question">
+				Question
+			</div>
+			<p>
+				Sans fermer la fenêtre wireshark ouverte, retournez dans GNS3, cliquez droit sur le lien entre la Box et FAI-CLIENT, choisissez <code>Start capture</code> et sélectionnez <code>Box port Serial1/0 (Cisco HDLC...)</code> pour capturer les trames qui partent ou arrivent d'Internet.
+			</p>
+			<div class="titre-question">
+				Question
+			</div>
+			<p>
+				Utilisez par exemple le filtre <code>icmp</code> dans les deux fenêtres <code>wireshark</code> et tapez <code>ping lifasr2.univ-lyon1.fr</code> depuis un terminal de la machine CLIENT. Comparez les adresses IP sources des requêtes ICMP dans le réseau local (interface </code>FastEthernet</code> de la Box) et sur Internet (interface <code>Serial</code> de la Box). Vérifiez que l'adresse IP source sur Internet est bien celle de la Box.
+			</p>
+		</div>
+		
+		<div class="titre-normal">Le protocole <code>ARP</code></div>
+		<p>
+			Le protocole <code>ARP</code> est présenté dans le <a href="../LIFRW/LIFRW-CM8.pdf" target="_blank">CM8</a>. Il permet, au sein d'un sous-réseau, de récupérer l'adresse physique ou adresse <code>MAC</code> de la carte réseau du destinataire lorsque l'on connaît son adresse IP. L'adresse MAC du destinataire est nécessaire pour envoyer une trame d'une carte réseau à une autre carte réseau. La requête <code>ARP</code> envoie une trame de <code>diffusion</code> à toutes les machines du réseau pour demander par exemple "Qui a l'adresse IP 192.168.0.254 ?". La machine qui a cette adresse IP répond en envoyant la réponse <code>ARP</code> qui contient l'adresse <code>MAC</code> de la carte réseau qui a cette adresse IP. Vous allez observer cela avec wireshark.
+		</p>
+
+		<div class="question">
+		<div class="titre-question">Question</div>
+		<p>
+			Dans les deux fenêtres <code>wireshark</code>, appliquez le filtre <code>arp || icmp</code> pour n'afficher que les trames contenant ces deux protocoles.
+		</p>
+		<div class="titre-question">Question</div>
+		<p>
+			Dans le terminal de la machine CLIENT, exécutez la commande <code>arp</code> qui affiche la table <code>arp</code> de la machine. Si une entrée est présente, exécutez <code>arp -d 192.168.0.254</code> qui supprime l'entrée correspondante. Exécutez à nouveau <code>arp</code>. Que constatez-vous ? 
+		</p>
+		<p>
+			Exécutez maintenant <code>ping -c 1 100.1.1.1</code> Observez les trames capturées sur l'interface <code>Box FastEthernet0/0</code> et répondez aux questions ci-dessous :  
+		</p>
+		<p>
+			A quelle adresse IP est envoyée la requête ICMP ?
+		</p>
+		<p>
+			A quelle adresse MAC destination est envoyée la requête ARP ? Que désigne cette adresse ?
+		</p>
+		<p>
+			Quelle est l'adresse IP contenue dans la requête ARP ? Pourquoi n'est-ce pas celle du serveur Web ?
+		</p>
+		<p>
+			Qui répond à la requête ARP ? Quelle est son adresse MAC ?
+		</p>
+		<div class="titre-question">Question</div>
+		<p>
+			Quelle est la taille d'une requête/réponse ARP ? Pour le savoir, cliquez sur <code>Adresse Resolution Protocol (request)</code> dans la partie centrale de la fenêtre et comptez les octets affichés en surbrillance en bas de la fenêtre. Quelle est la taille de la trame Ethernet qui encapsule la requête ARP ? Y a t-il du bourrage dans la trame et si oui combien d'octets ? Pour le savoir, il faut compter les octets qui sont dans la trame Ethernet à la suite de la requête ARP. Quelle est la valeur du champ <code>Type</code> d'une trame Ethernet qui contient un paquet ARP ? Même question pour une trame Ethernet contenant un paquet IP ?
+		</p>		
+		
+		</div>
+		
+		
+      <br>
+      <div class="titre-sujet">
+         Ce document est soumis au <code>Copyright ©</code> présent sur <a href="http://perso.univ-lyon1.fr/olivier.gluck/supports_enseig.html" target="_blank">cette page</a>. <br>
+         <img src="logos/Logo-ucbl-udl-moyen.jpg" class="logoucbl">
+         <img src="logos/Logo-fst-info1.jpg" class="logofst">
+      </div>
+		
+   
+
+
+</body>

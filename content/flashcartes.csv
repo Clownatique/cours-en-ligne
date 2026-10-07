@@ -1,0 +1,19 @@
+#separator:Semicolon
+#html:true
+#columns:Front;Back;Tags;Deck
+ARP est utilisé pour {{c1::découvrir les adresses MAC}} de {{c2::n'importe quel hôte}} sur {{c3::le réseau local}};;reseau arp;CCNA::Réseaux
+La couche réseau fournit les services d'{{c1::adressage}}, d'{{c2::encapsulation/désencapsulation}} et de {{c3::routage}} des paquets;;reseau couche-reseau;CCNA::Réseaux
+Le protocole IP est {{c1::sans connexion}}, {{c2::indépendant du média}} et sans {{c3::connexion de bout en bout}};;reseau ip;CCNA::Réseaux
+Dans l'en-tête IPv4, on retrouve les champs : {{c1::version}} (valeur par défaut : 0100), {{c2::differentiated services}}, {{c3::protocole}}, {{c4::adresse source}}, {{c5::checksum}} et {{c6::TTL}};;reseau ipv4 en-tete;CCNA::Réseaux
+L'en-tête IPv6 introduit notamment le champ {{c1::Flow Label}} et remplace le TTL par le champ {{c2::Hop Limit}};;reseau ipv6 en-tete;CCNA::Réseaux
+Pour réduire la notation d'une adresse IPv6 : {{c1::omettre les zéros de tête}} dans chaque hextet (0000 → 0, 0012 → 12) et {{c2::remplacer une seule suite de 0000 par ::}};;reseau ipv6 notation;CCNA::IPv6
+Le nombre d'hôtes disponibles dans un sous-réseau vaut {{c1::2^(32 − préfixe) − 2}} : on retire {{c2::une adresse réseau}} et {{c3::une adresse de diffusion}};;reseau sous-reseau calcul;CCNA::Adressage
+Les adresses <b>loopback</b> appartiennent au bloc {{c1::127.0.0.0/8}} et les <b>link-local</b> automatiques au bloc {{c2::169.254.0.0/16}};;reseau adressage blocs;CCNA::Adressage
+Les plages d'adresses <b>privées</b> (RFC 1918) sont {{c1::10.0.0.0/8}}, {{c2::172.16.0.0/12}} et {{c3::192.168.0.0/16}} ; le bloc TEST-NET est {{c4::192.0.2.0/24}};;reseau adressage prive;CCNA::Adressage
+Les adresses de {{c1::224.0.0.0}} à {{c2::239.255.255.255}} sont réservées au {{c3::multicast}} en IPv4;;reseau multicast;CCNA::Adressage
+Au démarrage, un routeur effectue le {{c1::POST}}, charge {{c2::le système d'exploitation (IOS)}}, puis charge {{c3::la configuration de démarrage}};;cisco demarrage;CCNA::Cisco
+La {{c1::NVRAM}} conserve la configuration {{c2::de démarrage}} même hors tension;;cisco nvram;CCNA::Cisco
+La commande {{c1::ping 127.0.0.1}} teste la pile {{c2::TCP/IP}} sur l'hôte local;;commandes test;CCNA::Commandes
+La commande {{c1::arp -d *}} vide le {{c2::cache ARP}};;commandes arp;CCNA::Commandes
+{{c1::SSH}} chiffre les communications distantes, tandis que {{c2::Telnet}} est un accès distant non sécurisé, {{c3::console}} est l'accès hors bande recommandé et {{c4::AUX}} sert pour une connexion par modem;;reseau acces-distant;CCNA::Accès distant
+Le champ type d'une trame Ethernet vaut {{c1::0x0800}} pour IPv4, {{c2::0x0806}} pour ARP et {{c3::0x86DD}} pour IPv6;;reseau ethernet types;CCNA::Adressage

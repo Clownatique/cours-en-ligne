@@ -1,0 +1,74 @@
+digraph HDLC_SlidingWindow {
+  rankdir=TB;
+  node [fontname="Helvetica", fontsize=10];
+  edge [fontname="Helvetica", fontsize=9];
+  
+  subgraph cluster_0 {
+    label="ÉTAT INITIAL\nFenêtre vide, VS=0, VR=0, Crédits=7";
+    color=lightgrey;
+    Init_A [shape=box, label="A: Fenêtre vide\nVS=0, Crédits=7"];
+    Init_B [shape=box, label="B: Fenêtre vide\nVR=0, Crédits=7"];
+    Init_A -> Init_B [style=dashed];
+  }
+  
+  subgraph cluster_1 {
+    label="ÉTAPE 1: A envoie 4 trames I (I0→I3)";
+    color=lightgreen;
+    Send_4 [shape=box, label="A envoie: I0, I1, I2, I3\nVS: 0→4\nCrédits: 7→3\nFenêtre: [I0, I1, I2, I3]"];
+    Rcv_4 [shape=box, label="B reçoit: I0, I1, I2, I3\nVR: 0→4\nCrédits: 7 (inchangés)"];
+    Send_4 -> Rcv_4 [label="Transmission"];
+  }
+  
+  subgraph cluster_2 {
+    label="ÉTAPE 2: B envoie trame I avec Piggybacking\n(NS=0, NR=4 = acquittement)";
+    color=lightyellow;
+    Piggy [shape=box, label="B envoie: I0 avec NR=4\n(acquittement des I0→I3)\nVR: 4 (B a reçu jusqu'à I3)"];
+    Ack_A [shape=box, label="A reçoit acquittement NR=4\nVS reste 4 mais I0→I3 libérées\nCrédits: 3→7 (fenêtre vide)\nVR: 0→1"];
+    Piggy -> Ack_A [label="Piggybacking"];
+  }
+  
+  subgraph cluster_3 {
+    label="ÉTAPE 3: A envoie 7 trames (I4→I7, I0→I2)\nFenêtre devient PLEINE";
+    color=lightcyan;
+    Send_7 [shape=box, label="A envoie: I4, I5, I6, I7, I0, I1, I2\nVS: 4→2 (cycle sur 3 bits)\nCrédits: 7→0 (PLEINE)\nFenêtre: [I4, I5, I6, I7, I0, I1, I2]"];
+    P_bit [shape=box, label="Dernière trame I2 avec P=1\n(demande acquittement urgent)"];
+    Rcv_7 [shape=box, label="B reçoit 7 trames\nVR: 1→8→0 (après cycle)\nFenêtre réceptrice pleine"];
+    Send_7 -> P_bit;
+    P_bit -> Rcv_7 [label="Transmission"];
+  }
+  
+  subgraph cluster_4 {
+    label="ÉTAPE 4: B répond avec RR F=1, NR=3\n(acquittement des 7 trames)";
+    color=lightpink;
+    RR_resp [shape=box, label="B envoie: RR avec F=1, NR=3\nAcquitte I4→I2 (7 trames)\nVR: attend I3 ensuite"];
+    Unblock [shape=box, label="A reçoit RR NR=3\nFenêtre se vide\nCrédits: 0→7\nVS réinitialisé\nA peut continuer"];
+    RR_resp -> Unblock [label="Acquittement"];
+  }
+  
+  subgraph cluster_5 {
+    label="SCÉNARIO BONUS: Rejet Simple (REJ)";
+    color="#FFE4E1";
+    Loss [shape=box, label="A envoie: I0, I1, I2, I3\nI2 est PERDUE ou ERRONÉE"];
+    Lost [shape=box, label="B reçoit: I0, I1, I3\nAttendu I0: OK (VR→1)\nAttendu I1: OK (VR→2)\nAttendu I2: ERREUR, reçoit I3"];
+    REJ_send [shape=box, label="B envoie: REJ NR=2\n(demande retransmission à partir I2)"];
+    Retrans [shape=box, label="A reçoit REJ NR=2\nLibère I0, I1 (crédits: 3→5)\nRetransmet immédiatement I2 et I3"];
+    Loss -> Lost -> REJ_send -> Retrans;
+  }
+  
+  subgraph cluster_6 {
+    label="SCÉNARIO BONUS: Contrôle de Flux (RNR)";
+    color="#E0F0FF";
+    Busy [shape=box, label="B reçoit: I0, I1, I2\nMais B est BLOQUÉE\n(couches supérieures surchargées)"];
+    RNR_sent [shape=box, label="B envoie: RNR NR=2\n(acquitte I0→I1, bloque émission)"];
+    A_waits [shape=box, label="A reçoit RNR NR=2\nBloque envoi, débute Timer T1\nAu timeout: envoie RR P=1\npour demander déblocage"];
+    B_ready [shape=box, label="B prête: envoie RR F=1 NR=2\n(déblocage, attend I2)"];
+    Resume [shape=box, label="A reçoit RR F=1\nFenêtre débloquée\nA reprend émissions"];
+    Busy -> RNR_sent -> A_waits;
+    A_waits -> B_ready -> Resume;
+  }
+  
+  Init_B -> Send_4;
+  Rcv_7 -> RR_resp;
+  Unblock -> Loss [style=dotted, label="Autres scénarios"];
+}
+

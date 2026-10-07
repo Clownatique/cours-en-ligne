@@ -1,18 +1,18 @@
 # competences requises pour cisco
 
+_eeeee_
+
 - fondements ip
 - question de securite
 - sans fil
 - virtualisation
 - automatisation
 - programmabilite des reseaux
- competences requises pour cisco
+  competences requises pour cisco
 
 virtual packet tracer
 
 - 2.8
-..
-
 
 # telecommunication (communication lointaine)
 
@@ -24,13 +24,13 @@ des que plusieurs ordinateurs se parlent, il y a tout une chiee de protocole.
 c une architecture protocolaire
 
 > un protocole: format de message, algorithme, comportement
-plus precisement selon cisco:
+> plus precisement selon cisco:
 
 - codage
 - format
 - taille
 - sync
-controle de flux (bit/s),delai de reponse, methode d'access
+  controle de flux (bit/s),delai de reponse, methode d'access
 - options de remises des messages
 
 ## entite qui communiquent
@@ -59,15 +59,17 @@ ssh (securise,puissant, modele client serveur)
 telnet(pas securise bouh)
 
 emulateurs de terminals recommandes par cisco
+
 - secure crt
 - putty
 - tera term
 
-###  CISCO ios
+### CISCO ios
 
 ### configuration sur windows
 
 #### changer l'adress IP
+
 control panel>network sharing centre>change adaptater settings>properties
 
 aera connectin properties>cliquer sur IPV4>properties
@@ -94,25 +96,25 @@ mode d'aide contextuelle dispo en tapant `?`
 
 on peut aussi completer les commandes en tapant ? a la finj
 
-
 #### raccourcis clavier
-| Touche | Description |
-|---|---|
-| **Tabulation** | Complète un nom de commande entré partiellement. |
-| **Retour arrière** | Efface le caractère à gauche du curseur. |
-| **Ctrl+D** | Efface le caractère à l'emplacement du curseur. |
-| **Ctrl+K** | Efface tous les caractères à partir du curseur jusqu'à la fin de la ligne de commande. |
-| **Échap D** | Efface tous les caractères à partir du curseur jusqu'à la fin du mot. |
-| **Ctrl+U** ou **Ctrl+X** | Efface tous les caractères à partir du curseur jusqu'au début de la ligne de commande. |
-| **Ctrl+W** | Efface le mot à gauche du curseur. |
-| **Ctrl+A** | Déplace le curseur vers le début de la ligne. |
-| **Touche fléchée vers la gauche** ou **Ctrl+B** | Déplace le curseur d'un caractère vers la gauche. |
-| **Échap B** | Déplace le curseur d'un mot vers la gauche. |
-| **Échap F** | Déplace le curseur d'un mot vers la droite. |
-| **Flèche droite** ou **Ctrl+F** | Déplace le curseur d'un caractère vers la droite. |
-| **Ctrl+E** | Déplace le curseur vers la fin de la ligne. |
-| **Haut** ou **Ctrl+P** | Rappelle les commandes antérieures en commençant par les plus récentes. |
-| **Ctrl+R** ou **Ctrl+I** ou **Ctrl+L** | Rappelle l'invite du système et la ligne interrompue par la réception d'un message IOS. |
+
+| Touche                                          | Description                                                                             |
+| ----------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **Tabulation**                                  | Complète un nom de commande entré partiellement.                                        |
+| **Retour arrière**                              | Efface le caractère à gauche du curseur.                                                |
+| **Ctrl+D**                                      | Efface le caractère à l'emplacement du curseur.                                         |
+| **Ctrl+K**                                      | Efface tous les caractères à partir du curseur jusqu'à la fin de la ligne de commande.  |
+| **Échap D**                                     | Efface tous les caractères à partir du curseur jusqu'à la fin du mot.                   |
+| **Ctrl+U** ou **Ctrl+X**                        | Efface tous les caractères à partir du curseur jusqu'au début de la ligne de commande.  |
+| **Ctrl+W**                                      | Efface le mot à gauche du curseur.                                                      |
+| **Ctrl+A**                                      | Déplace le curseur vers le début de la ligne.                                           |
+| **Touche fléchée vers la gauche** ou **Ctrl+B** | Déplace le curseur d'un caractère vers la gauche.                                       |
+| **Échap B**                                     | Déplace le curseur d'un mot vers la gauche.                                             |
+| **Échap F**                                     | Déplace le curseur d'un mot vers la droite.                                             |
+| **Flèche droite** ou **Ctrl+F**                 | Déplace le curseur d'un caractère vers la droite.                                       |
+| **Ctrl+E**                                      | Déplace le curseur vers la fin de la ligne.                                             |
+| **Haut** ou **Ctrl+P**                          | Rappelle les commandes antérieures en commençant par les plus récentes.                 |
+| **Ctrl+R** ou **Ctrl+I** ou **Ctrl+L**          | Rappelle l'invite du système et la ligne interrompue par la réception d'un message IOS. |
 
 dans `more`
 
@@ -148,7 +150,6 @@ ce qui veut communiquer
 
 donc codage, echantillonage, numerisation
 
-
 ## traitement d'information
 
 branche entiere de l'informatique qui se fait pour convertir le message en binaire, puis tout se binaire est transmis sur des supports analogiques.
@@ -156,11 +157,9 @@ donc la aussi, ya du traitement, de signal...
 
 on peut prendre en compte les interferences et predire les changements que ca a cree
 
-
 ### systeme de nombre
 
 ... []()
-
 
 ## adaptateur
 
@@ -178,19 +177,20 @@ bonne vieille carte reseau ou un boitier DMX si on veut etre niche
 
 - distance
 - environnement
--quantite
--cout
+  -quantite
+  -cout
 
 ### cable
-
 
 type de cable:
 
 #### cable ethernet
+
 4 paires de fil, doit etre repete.
 un cable peut etre arme/blinde
+
 - cable non arme
-les fils sont doubles pour renforcer le signal (et eviter le cross talk)
+  les fils sont doubles pour renforcer le signal (et eviter le cross talk)
 
 si on double les fils, c pour envoyer 1 signal et son contraire. cela va grandement reduire les interferences
 et quand on les torsades, on le fait differement pour mieux les differencier
@@ -225,19 +225,21 @@ les paires sont celles qui sont uni
 
 ![](./ethernet.png)
 
-
 #### coaxial: contre les interferences, bande passante, grande dispo
+
 deux conducteurs qui partagent le meme axe:
- - 1 qui transmets
- - 1 isolants
- - 1 feuille metallique (reduit les interferences)
- - 1 cable protecteur
+
+- 1 qui transmets
+- 1 isolants
+- 1 feuille metallique (reduit les interferences)
+- 1 cable protecteur
 
 connecteurs: plusieurs connecteurs utilises
+
 - BNC
 - N
 - F
-les antennes en vrai c ca
+  les antennes en vrai c ca
 
 transmets linfo via des pulsions de courant
 il connait des interferences electromagnetiques, ainsi que des interferences radio.
@@ -260,7 +262,6 @@ le rayon entre dans plusieurs angle
 possible dutiliser des leds
 efficace mais pas pour de longues distances
 
-
 ##### usage
 
 ftth : fiber to the home
@@ -270,22 +271,21 @@ local a un reseau d'entreprise
 ##### connecteur
 
 - Straight Tip:
-verouillage avec une bayonnette
+  verouillage avec une bayonnette
 
 - Subscriber Connector
-mecanisme d'encliquetage
+  mecanisme d'encliquetage
 
 - Lucent Connector
-connecteur lumineux, plus petit ?
-simplex
+  connecteur lumineux, plus petit ?
+  simplex
 
 - Lucent Connector bidirectionnel
-duplex
+  duplex
 
 ##### duplex
 
 la fibre peut etre duplex grace a des cables bidirectionnelle ou en utilisant plusieurs longueurs d'onde
-
 
 DSL:telephonique, bande passante
 aDSL: down > up
@@ -312,7 +312,6 @@ satellite:quand pas de cable
 
 boitier qui re amplifie le signal
 
-
 ## reseau
 
 ### protocoles
@@ -320,23 +319,33 @@ boitier qui re amplifie le signal
 l'architecture protocolaire definit 3 couches:
 applicatif, transport, liaison
 
-*bla bla sur le fait que les protocoles, c tres important*
-*bla bla sur l'encapsulation*
+_bla bla sur le fait que les protocoles, c tres important_
+
+#### encapsulation
+
+pour faire la couche en dessous, on va filer nos headers a n-1
+cela va constituer des instructions pour la couche n-1
+
+#### decapsulation
+
+en enlevant l'entete couche N:on a des instructions couche n, qui vont faire monter les instructions couche n+1
 
 #### Types de ces protocoles
 
 Aident ils a communiquer entre des reseaux?
+
 - beaucoup trop mdr
-Aident ils a securiser les reseaux?
+  Aident ils a securiser les reseaux?
 - SSH, TLS, SSL
-Aident ils les reseaux a acheminer (router) l'information ?
+  Aident ils les reseaux a acheminer (router) l'information ?
 - OSPF
-Aident ils a acceder des machines ?
+  Aident ils a acceder des machines ?
 - DHCP, DNS
 
 #### Fonctions de ces protocoles
 
 (aussi decrit par le modele OSI)
+
 - adressage
 
 identifier expediteur/destinataire
@@ -349,23 +358,22 @@ pour comprendre ce quil se passe dans les paquets, on utilise wireshark
 - adresses logiques (IPs)
 - numeros de ports (penser au mail..)
 
-
 - fiabilite
-mecanisme de livraison garanti
+  mecanisme de livraison garanti
 - controle de flux
-rythme efficace
-sequencage
-pour reconstruire correctement les paquets
+  rythme efficace
+  sequencage
+  pour reconstruire correctement les paquets
 - detection des erreurs
-c dans le nom ahah
+  c dans le nom ahah
 - interface
-si des protocoles sont intermediaires a l'application
+  si des protocoles sont intermediaires a l'application
 
 il faut voir les protocoles dans un systeme de couche
 
 et il est important de comprendre qu'il ya des protocoles reserves pour les terminaux (bout a bout) et ceux intermediaires, de routeur a routeur par exemple (point a point)
 
-#### cas des suites de protocoles 
+#### cas des suites de protocoles
 
 protocoles faits pour marcher en pile.
 donc assez concu dans cette demarche la.
@@ -375,6 +383,7 @@ donc assez concu dans cette demarche la.
 ##### TCP/IP
 
 geree par la IETF (surement pas trop achetee)
+
 - le plus courant
 - a connaitre le plus
 - suivies par les industriels
@@ -433,7 +442,7 @@ plus il ya de donnees plus c complique
 
 doit pouvoir transmettre le signal precedemment encode
 
-on parle en bits
+_**on parle en bits**_
 
 qqch dimportant
 
@@ -453,6 +462,12 @@ taille min/max:
 schema dune trame:
 ![](./ethernet.png)
 
+- dans le preambule, ya un avertissement de preparation
+- adresse MAC destination, adresse MAC source
+- IP Source, IP destination
+- donnee
+- fin de trame
+
 ###### Wifi (802.11)
 
 Regle de signalisation des signaux (c de la physique mdr)
@@ -460,6 +475,7 @@ Regle de signalisation des signaux (c de la physique mdr)
 - prevention des collisions(csma/ca)
 
 ###### Bluetooth (802.15),
+
 (HDLC)
 1-100m
 
@@ -471,17 +487,64 @@ utilise une large bande
 ###### ZigBee (802.15.4)
 
 normes pour les objets iOT, ou :
+
 - courte portee
 - debit faible
 - longue autonomie
 
 ##### couche 2: transmission/liaison
 
-soccupe de la bonne communication entre deux cartes reseaux (aka, des supports qui transmettent les sequences binaires)
+cette couche existe car les supports physiques de transmission ne suffisent pas(pas suffisant).
+
+_**on parle en trame**_
+
+lorsquon parle d'une liaison, il est important de differencier:
+
+simpl/half/full/duplex (autrement dit si 2 cartes peuvent parler en meme temps ou non)
+point a point/ multipoint (si 2 cartes se parlent via 1 intermediaire ou non)
+
+#### administration et gestion
+
+pour eviter les coupures de parole
+politique dacces au support
+de nos jours, tout est en duplex, donc pas de galere
+
+##### maitre esclave
+
+1 equipement donne la parole
+
+##### mode politesse
+
+chaque equipement ecoute avant de parler
+
+###### csma/cd
+
+cmsa: carrier sense multiple access
+
+le peripherique d'ecouter sa liaison et de dire si il ya deja utilisation du reseau.
+
+```
+SI utilisation_reseau
+>elle peut emettre
+```
+
+on appelle collision lorsque les deux supports s'envoient simultanement des messages, ce qui detruit les messages
+
+si la latence est suffisante pour brouiller la detection d'utilisation du reseau,
+
+###### csma/ca
+
+plus previsionneux
+plus utilise dans les technos sns fils
+
+##### mode jeton
+
+la parole circule equitablement
 
 ###### trame
 
 1. En tete
+
 - indicateur de debut
 - adressage
 - protocole de couche 3
@@ -492,34 +555,38 @@ soccupe de la bonne communication entre deux cartes reseaux (aka, des supports q
 - donnee utile
 
 3. Queue de bande
+
 - detection des erreurs (padding)
-indicateur de fin de trame
+  indicateur de fin de trame
 
 ###### roles de la couche 2
 
 - detection d'erreur
-- accepte les donnees de la couche 3 encapsule correctement
 - traitement de donnes, embrayage
-- des/encapsulation de trame,
+- des/encapsulation de trame
+- controle de flux (politiques afin deviter la surcharge de flux (go/stop))
 
-on parle ici de trame (unite)
+couche 2 encapsule des **paquets**(couche 3) dans des **trames** qui seront ensuite decomposee en **bits**
+
+_**on parle en trame**_
 
 il ya deux cas de figure: soit on est sur le peripherique de destination, ou pas
 mais dans tout les cas c tcp/ip qui gere la desencapsulation
 
 tout les protocoles utilises pour des reseaux de non grande echelle:
+
 - man/lan
 - pan
 - wlan/wpan
 
-ils ne sont pas geres par les RFC/IETF
+les protocoles de la couche 2 ne sont pas geres par les RFC/IETF
 
---- 
+---
 
-###### PPP (ancien)
-###### HDLC (ancien)
 ###### Frame Relay (ancien)
+
 ###### ATM (ancien)
+
 ###### X.25 (ancien)
 
 ###### ARP
@@ -527,7 +594,8 @@ ils ne sont pas geres par les RFC/IETF
 fournis un protocole pour faire le lien entre
 adresse physique (concrete)<->adresse IP (virtuelle)
 
-(avec des messages pour demander MDR C KI KI A FAIT SA)
+(avec des messages ethernet pour demander MDR C KI KI A FAIT SA)
+et en utilisant ladresse mac de diffusion
 
 ###### sous couche LLC (802.2)
 
@@ -542,26 +610,142 @@ le protocole MAC est le plus proche du materiel.
 
 elle empeche la surcharge du materiel en:
 
-- detectant les erreurs
+- detectant les erreurs de collision
 - adressage
 - delimitation des trames
+- politique de politesse etc
 
 les adresses mac sont physiquement incorporees dans la carte reseau.
 une adresse mac est compose de 6 couples de chiffre hexadecimaux
 
 elle va donc agir differement selon le type de transfert (fichier multimedia), et la position du peripherique sur le reseau (\#topologie)
 
+une adresse MAC c 6 octets
+
+- les 3 premiers octets sont des octets definis par le constructeur
+- les 3 derniers octets sont des octets variants selon le peripherique
+
+a chaque trame recu, cette dernier est analysee pour lignorer ou lutiliser
+
+voila et gluck ca le fait bien rire de faire un exo en faisant attention aux deux conventions decirture alors que bordel on sen branle les gigabits
+
+####### adresses MAC speciales
+
+FF:FF:FF:FF:FF:FF : adresse MAC de diffusion
+33:33:**:**:**:** : adresse MAC de multidiffusion (si IPv6)
+01:00:5E:**:**:** : adresse MAC de multidiffusion (si IPv4)
+
+---
+
+les protocoles suivants (PPP,HDLC) interviennent par exemple lorsquon veut rejoindre le WAN(internet exterieur)
+
+###### PPP
+
+- normalise
+- liaisons a/synchrones
+- authentification
 
 ###### HDLC
 
+###### Caractéristiques générales
 
-----
+- **Propriétaire**
+- **Liaisons synchrone**
+- Pas d'authentification
+- _Trames différentes d'Ethernet_
+- **Semi-duplex**
+
+###### Structure des trames
+
+- Chaque trame commence et finit par **01111110** _(signalisation)_
+- _Fonctionne sur plusieurs types de liaisons (point à point, etc.)_
+
+###### Établissement de connexion
+
+- **1 message d'ouverture** avec un message en fonction de **modes prédéfinis (ABM, ARM)**
+
+###### Envoi de messages
+
+- L'envoi de messages par ce protocole se fait à l'aide d'une **pile**
+- La **pile d'émission** a une _taille limitée_, dépendant du **RTT** et du **débit d'émission**
+- Envoyer sans tout acquitter s'appelle _**l'anticipation**_
+
+###### Gestion de la fenêtre
+
+- _**Glissante**_ : **1 ack / message**
+- _**Sautante**_ : **1 ack / n messages**
+- Le récepteur **ne stocke pas de trame** _(crédit ne baisse pas)_
+
+####### exercice HDLC
+
+[exo_hdlc](./exo_hdlc)
+
+####### format HDLC
+
+| Élément              | Nombre d'octets | Description                                               |
+| -------------------- | --------------- | --------------------------------------------------------- |
+| Adresse destinataire | 1 octet         | Identifie le destinataire de la trame                     |
+| Champ de commande    | 1 octet         | Définit le type de trame et contient les numéros NS et NR |
+| message              | X bits          |                                                           |
+| Checksum             | 2 octets        | Contrôle de l'intégrité des données                       |
+| Bit de bourrage      | Variable        | Assure la transparence binaire en dissociant les fanions  |
+
+- NR (acquietemmentm nombre recu)
+- NS (compteur de trame envoye)
+
+| type de trames          | necessitent une numerotation | code de trame                   |
+| ----------------------- | ---------------------------- | ------------------------------- |
+| trames de donnes        | oui                          | trames I,en NS 0*               |
+| trames de supervision   | non                          | trame S, en NR 10*,piggypacking |
+| trames douver/fermeture | non                          | trames U, ni en NS/NR 11*       |
+
+- code de fonction pour les trames S
+
+| Type de trame           | Fonction               | Description                                   |
+| ----------------------- | ---------------------- | --------------------------------------------- |
+| RR (Receive Ready)      | Acquittement standard  | acquittement explicite et nécessaire          |
+| RNR (Receive Not Ready) | Contrôle de flux       | Sert d'acquittement, STOP l'emetteur          |
+| REJ (Reject)            | Signalisation d'erreur | trame reçue dans le désordre - rejet simple   |
+| SREJ (Selective Reject) | Signalisation d'erreur | trame reçue dans le désordre - rejet sélectif |
+
+- code de fonction pour les trames ?
+
+?
+
+CHAMP DE COMMANDE
+
+| Élément         | Détails                                                                                                           |
+| --------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Bit 0           | Distingue les trames I (0) des trames S et U (1)                                                                  |
+| Bit 1           | Différencie les trames S (0) et U (1)                                                                             |
+| NS              | Numéro de séquence d'envoi (3 bits, 0-7), uniquement dans les trames I pour numéroter les données à retransmettre |
+| NR              | Numéro de séquence attendu (3 bits, 0-7), dans les trames I (piggybacking) et S (acquittement)                    |
+| Bits 2-3        | Codent les 4 sous-types de trames S                                                                               |
+| Bits supérieurs | 5 bits distinguent les types de trames U                                                                          |
+| Bit P/F (bit 4) | Signal de problème : 0 = normal, 1 = réponse attendue                                                             |
+
+|Mécanisme |Fonction|
+|Contrôle de flux |Station saturée envoie RNR ; reprend avec RR quand elle peut recevoir|
+|Détection d'erreur (FCS)|Checksum détecte l'erreur → trame rejetée silencieusement → retransmission après timeout|
+|Rejet de trame |NS reçu ≠ NR attendu → rejet simple ou sélectif (selon config)|
+|Temporisateur T1 |Déclenche retransmission à l'expiration du délai (une par trame I émise)|
+|Temporisateur T2 |Force envoi d'une trame S (acquittement) si aucun ACK depuis trop longtemps----|
 
 tout ces protocoles seffectuent dans la carte reseau/cables
 
 ##### couche 3: reseau
 
 la on parlera de paquet (unite)
+tout les protocoles de cette couche doivent:
+
+- **donner** une adresse unique a chaque terminal
+- bien **encapsuler** la couche du dessus (TCP, UDP)
+- router, **rediriger** les paques pour les faire arriver a la bonne destination
+- bein **decapsuler** que les paquets qui nous sont destines
+
+**troncon**: machine intermediaire
+
+######
 
 ###### ICMP
 
@@ -571,7 +755,16 @@ on aussi le ICMP ND pour soccupe de faire en sorte quil y ait pas des voisins
 
 ###### IP
 
-soccupe donc dacheminer le reseau
+####### caracteristiques du protocoles
+
+- sans connexion (pas besoin davertir le destinataire)
+- peu fiable (c TCP qui sen occupe)
+
+soccupe donc juste dacheminer le reseau
+
+quand le paquet IP est trop gros, le routeur le **fragmente**
+
+####### caracteristiques des adresses
 2 parties: 1 pour identifier la machine, 1 autre pour identifier lorigine de la machine.
 tout les machines d'un meme resesau partage la meme adresse reseau
 
@@ -582,20 +775,55 @@ source puis destination
 ####### IPV4
 
 - adresse 32 bits
-1 partie reseau/1 partie hote
-on utilise un masque reseau
+  1 partie reseau/1 partie hote
+  on utilise un masque reseau
+
+######## limites de l'IPv4
+
+- epuisement des adresse ipv4
+- manque de connectivite
+- nat necessaire
+
+######## schema dun paquet IPv4
+
+20 octets:
+version:
+propriete (DS):
+duree de vie: sinon les paquets saccumuleraient
+protocole de niveau suivant: somme de controle
+controle: checksum, taille
+adresses: source/destination:
+
+######## adresse ips speciales
+
+224.0.0.0/24 multicast
+232.0.0.0/24 multicast specifique a la source
+233.0.0.0/24 adresse glop
+239.0.0.0/24 multicast specifique a un site
 
 ####### IPV6
 
 - adresse 128 bits
-1 prefixe/1 id d'interface
-on utilise un prefixe-longueur
+  1 prefixe/1 id d'interface
+  on utilise un prefixe-longueur
 
+######## paquet ipv6
+
+- plus simple que ipv4
+- version
+- classe de traffic (propriete en ipv4)
+- etiquette de flux (propriete)
+- longueur
+- limite de saut (ttl)
+- adresses
+
+ff00::*/8 : adresses multicast
 
 ###### NAT
 
 traduis adresse prive (visible que a une echelle local) <-> adresse publique (commune pour tout le monde)
 
+pas necessaire avec de l'ipv6
 
 ###### OSPF
 
@@ -608,7 +836,6 @@ protcole de routage proprietaire entre les machine cisco. mesure les choses diff
 ###### BGP
 
 protocole utilise dans le routage des adresses prive<->publiques
-
 
 ---
 
@@ -628,7 +855,8 @@ tcp = fiabilite
 
 ####### algorithme du tcp
 
- envoyer le fichier en une succession de paquets
+envoyer le fichier en une succession de paquets
+
 - envoyer un « checksum » pour chaque paquet
 - contrôler le checksum sur le récepteur et renvoyer un message OK ou Not-OK à l’émetteur
 - l’émetteur attend le OK ou Not-OK avant de demander le transfert du paquet suivant
@@ -636,6 +864,7 @@ tcp = fiabilite
 - si Not-OK pour un paquet, re-transférer le paquet
 
 ###### UDP
+
 - fait un checksum, mais pas de retransmission
 
 ---
@@ -679,15 +908,11 @@ nommer des machines
 
 le dhcp sert a attribuer des adresses dynamiquement (remplit des fonctions d'extensibilite ;)
 
+il utilise souvent le reseau en mode mode diffusion
+
 ---
 
 ces protocoles agissent dans lapplication
-
-
-##### LES SCIENCES DU LANGAGE MDR
-
-TSAIS POUR QUON SE COMPRENNE LOL
-
 
 ### tendances
 
@@ -707,12 +932,13 @@ TSAIS POUR QUON SE COMPRENNE LOL
 #### Cloud Computing
 
 - infrastructure reseau en tant que tel
-tout les users se retrouvent a se connecter a des machines situes sur un seul site
-cisco parle de datacenters privee/publics/hybrides/communeautes
+  tout les users se retrouvent a se connecter a des machines situes sur un seul site
+  cisco parle de datacenters privee/publics/hybrides/communeautes
 
 les datacentres de communeaute sont souvent deployes pour des besoin communs (sante, militaires..)
 
 #### reseau sur courant electrique
+
 #### reseau par le sans fil (antenne 5G) (WISP) (WISP)
 
 #### internet des objets
@@ -720,12 +946,14 @@ les datacentres de communeaute sont souvent deployes pour des besoin communs (sa
 ### caracteristiques
 
 #### tolerance aux pannes
-*redondance*:plusieurs chemins->1 destination
+
+_redondance_:plusieurs chemins->1 destination
 ce quil se passe, cest que A decoupe en plusieurs fois son message, et ses bouts de message prennent plein de chemins differents.
 
 #### evolutivite/extensible
 
 est il simple dagrandir ce dit reseau ?
+
 > pour ca il faut suivre des normes/protocoles (ca permets de la modularite)
 
 #### Quality of Service
@@ -772,7 +1000,6 @@ VPN: fournit un chemin securise (tant que c proche de A et B)
 on distingue le simp-,half dup,dup lex
 qui peut envoyer/recevoir de la donnee
 
-
 ### acteur d'un reseau
 
 - régénérer et retransmettre les signaux de communication
@@ -801,11 +1028,11 @@ mais il peuvent communiquer entre eux
 
 mode de configuration globale
 
-\#**configure terminal**: aller dans le mode de configuration globale 
+\#**configure terminal**: aller dans le mode de configuration globale
 \#(config):**interface** {num}:aller dans le mode de configuration de l'interface {num}
 \#(config-if):ip adress {adress machine} {adresse reseau}
 \#(config-if):no shutdown:allume linterface resesau selection
-(config)#**hostname {nom}**: configure un nom 
+(config)#**hostname {nom}**: configure un nom
 (config-line)**password** {mot de passe} : access utilisateur
 (config-line)**login**: active le mot de passe
 (config)#**enable secret** {mot de passe} : access admin
@@ -819,56 +1046,15 @@ mode de configuration globale
 #show {fichier} : **affiche un fichier**
 #ping : verifie une connexion
 
-2fichiers de configuration
--**startup-config**
-config charge au demarrage
--**running-config**
+2fichiers de configuration -**startup-config**
+config charge au demarrage -**running-config**
 config en cours
 
 pour la sauvegarde, on ecrase la config en cours dans celle de demarrage
 
-
 ### fonctions des reseaux
 
 #### commutation
-
-#### signalisation
-
-on distingue les liaisons
-- point a point (une seule et meme ligne)
-- multipoint, ce qui implique...
-
-#### administration et gestion
-
-pour eviter les coupures de parole
-politique dacces au support 
-de nos jours, tout est en duplex, donc pas de galere
-
-##### maitre esclave
-
-##### mode politesse
-
-##### mode jeton
-
-##### csma/cd
-
-cmsa: carrier sense multiple access
-
-le peripherique d'ecouter sa liaison et de dire si il ya deja utilisation du reseau.
-
-```
-SI utilisation_reseau
->elle peut emettre
-```
-
-on appelle collision lorsque les deux supports s'envoient simultanement des messages, ce qui detruit les messages
-
-si la latence est suffisante pour brouiller la detection d'utilisation du reseau,
-
-##### csma/ca
-
-plus previsionneux
-plus utilise dans les technos sns fils
 
 ### reseaux particuliers
 
@@ -882,6 +1068,7 @@ un reseau pas interconnecte avec dautres reseaux
 
 un extra d'internet : des services fournis a des clients
 un petit bout dinternet, valides, securise, fournis a des employes
+
 #### internet
 
 = tout internet
@@ -898,6 +1085,7 @@ WAN,PAN etc.. (revoir les definitions slide 30)
 #### Reseaux WAN
 
 ils relient des LAN
+
 - 2 acteurs: isp, sp (service provide, cable etc)
 
 ##### connexions physiques des WANs
@@ -954,7 +1142,7 @@ on choisit un reseau selon les attentes/besoin
 
 aussi appelle rapidite
 
-*quantite de bits par seconde*
+_quantite de bits par seconde_
 
 |10^3|Kilo|
 |10^6|Mega|
@@ -965,7 +1153,7 @@ a ne pas confondre avec le debit utile qui est le debit en prenant en compte tou
 
 #### latence
 
-*temps entre lenvoi du bit et la reception du bit*
+_temps entre lenvoi du bit et la reception du bit_
 
 le gps a une grosse latence
 50/100ms
@@ -974,13 +1162,57 @@ le bluetooth en a une toute petite
 
 #### fiaibilite
 
----
-
 debit max theorique min(le debit max des noeuds) => bottleneck
 debit utile = temps quil nous a fallu par rapport a la quantite
 
+1 - (1-BER)^n : n c la longueur du message, BER la proba de perdre un bit
 ya une notion d'efficacite evidemment dans le calcul du debit reel (les non pertes)
 
+pour garantir la fiabilite, on fait l'emploi de **fanion** (debut et fin de trame)
+
+mecanisme pour gagner en efficacite:
+
+- controle de flux, piggybacking, anticipation
+
+piggybacking: envoyer les acquittements dans les trames
+
+##### caractere dechappement
+
+et quand on a un caractere dechappement dans les donnees, on emploie a un nouveau le meme caractere dechappement.
+afin d'eviter de confondre des donnees avec les fanions, on emploie des **caracteres dechappement**
+
+##### bit de bourrage
+
+consiste a casser le caractere fanion (111111) en ajoutant des bits
+
+##### erreur, que faire
+
+le **taux d'erreur binaire** est la probabilite qu'un bit change de valeur lors de sa transmission.
+il est generalement plutot faible. en general les erreurs arrivent par paquet d'erreur
+
+###### detection d'erreur par repetition
+
+consiste a demander au terminal de reception de repeter le message
+
+- pas efficace
+- peu doublement pas marcher
+- utilise trop de bande passante
+
+###### detection d'erreur par checksum
+
+(qui va faire un dessin meme)
+
+##### si erreur que faire apres
+
+###### send & wait
+
+- reponse ACK
+- temporisation pour verifier si les messages ont bien ete aquitte
+- parfois la reponse ack narrive pas. il faut supprimer les doublons
+- on peut aussi compter les messages a recevoir (#HDLC notamment)
+- le mieux est dinclure ces verifs dans les trams.
+
+[maths de gluck](./gluck-maths-reseaux.md)
 
 ## entite qui regule
 

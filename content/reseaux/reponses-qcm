@@ -1,0 +1,41 @@
+FF-FF-FF-FF est l’adresse MAC de diffusion : FAUX car ce nest pas une adresse MAC
+
+Le checksum de la couche MAC fait 4 octets ? : VRAI voir page 11
+
+L’adresse MAC a une taille de 8 octets: page 8 on voit que ces 6 octets donc FAUX
+
+01:00:5E:00:00:00 est une adresse unicast : le premier bit (I/G) = 0 donc oui c unicast (page 9)
+
+01:00:00:00:00:00 est une adresse multicast : le premier bit (I/G) = 0 donc non c unicast (page 9)
+
+La détection des collisions se fait dans la couche MAC : page 8
+
+01:00:5E:00:00:00 est une adresse unicast : ? deja eu ya une question en double ?
+
+FF-FF-FF-FF-FF est l’adresse MAC de diffusion : VRAI (page 9) mais apparement c faux
+
+L’envoi d’une trame Ethernet de diffusion peut interrompre toutes les machines du réseau local: VRAI (jsp)
+
+Si une station envoie une trame à destination de FF:FF:FF:FF:FF:FF toutes les cartes du réseau local risquent d’interrompre le processeur hôte: FAUX
+
+L’adresse MAC de diffusion peut être dans le champ @MAC_src: FAUX
+
+Si une station envoie une trame à destination de FF:FF:FF:FF:FF:FF toutes les cartes du réseau local risquent d’interrompre le processeur hôte:  VRAI
+
+un hub peut pas corriger les erreurs
+
+taille minimale
+
+un hub peut rien faire
+
+champ type pas le premier, pas non plus ladresse mac destination, pas non plus source
+
+cut through plus rapide
+
+commutateur utilise adresse mac pour le port de sortie
+
+hub repete sur tout les ports 
+
+cut through plus
+
+

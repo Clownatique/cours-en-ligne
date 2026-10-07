@@ -1,0 +1,74 @@
+#set page(
+  paper: "a4",
+  margin: (x: 2cm, y: 2cm),
+  numbering: "1",
+)
+
+#set text(
+  font: "Noto Sans",
+  size: 11pt,
+  lang: "fr",
+)
+
+#set heading(
+  numbering: "1.",
+)
+
+// Style pour les headings
+#show heading.where(level: 1): it => [
+  #set text(size: 18pt, weight: "bold", fill: rgb("#1f4788"))
+  #it.body
+  #v(0.5em)
+]
+
+#show heading.where(level: 2): it => [
+  #set text(size: 14pt, weight: "bold", fill: rgb("#2e5f8a"))
+  #it.body
+  #v(0.3em)
+]
+
+// Style des formules
+#show math.equation: it => {
+  set text(fill: rgb("#d55959"))
+  it
+}
+
+= Grandeurs d'un réseau
+
+== Débit (vitesse)
+
+*Définition:* La quantité d'information transmise par unité de temps.
+
+*Formule théorique:*
+$ D = frac("quantité d'information", "temps") $
+
+== Latence / Temps de propagation
+
+*Définition:* Temps nécessaire au premier bit pour parcourir la distance source → destination.
+
+*Formule:*
+$ T_p = frac("distance parcourue", "vitesse du signal") $
+
+== RTT (Round Trip Time)
+
+*Définition:* Temps nécessaire pour qu'un bit fasse l'aller-retour (source → destination → source avec acquittement).
+
+*Formule:*
+$ T_("RTT") = 2 times T_p $
+
+C'est donc **deux fois le temps de propagation**.
+
+== $T_e$: Temps d'émission de la trame
+
+*Définition:* Temps nécessaire pour qu'une trame soit complètement émise sur une liaison.
+
+*Formule:*
+$ T_e = frac("taille de la trame", "débit") $
+
+== $T_("trans")$: Temps de transmission total
+
+*Définition:* Temps total nécessaire pour qu'une trame soit transmise et qu'un acquittement soit reçu (varie selon les protocoles).
+
+*Formule théorique:*
+$ T_("trans") = T_e + T_("RTT") $
+

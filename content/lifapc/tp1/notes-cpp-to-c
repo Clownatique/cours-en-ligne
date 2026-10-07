@@ -17,4 +17,4 @@ QUESTIONS TSAIS
 
 pourquoi on mets le type avant un pointeur alors qu'au final c que des adresses ??
 
-on remplace new par (Cellule*)malloc(sizeof(Cellule))
+on remplace new par `(NomDeTaVariable*)malloc(sizeof(NomDeTaVariable))`

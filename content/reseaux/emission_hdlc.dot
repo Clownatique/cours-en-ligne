@@ -1,0 +1,49 @@
+digraph HDLC_Mechanisms {
+  rankdir=LR;
+  node [shape=box, style=rounded, fontname="Helvetica"];
+  edge [fontname="Helvetica"];
+
+  HDLC [label="PROTOCOLE HDLC", style="filled", fillcolor="lightblue"];
+  
+  HDLC -> Structure;
+  HDLC -> Control;
+  HDLC -> Sequencing;
+  HDLC -> ErrorHandling;
+  HDLC -> FlowControl;
+  
+  Structure [label="Structure des Trames"];
+  Structure -> Flag [label="Délimiteurs"];
+  Structure -> Address [label="Champ Adresse"];
+  Structure -> CntrlField [label="Champ Contrôle"];
+  Structure -> Data [label="Données"];
+  Structure -> FCS [label="Checksum (FCS)"];
+  
+  Control [label="Types de Trames"];
+  Control -> FrameI [label="Trames I\n(Information)"];
+  Control -> FrameS [label="Trames S\n(Supervision)"];
+  Control -> FrameU [label="Trames U\n(Non-numérotées)"];
+  
+  FrameS -> RR [label="RR\n(Ready to Receive)"];
+  FrameS -> RNR [label="RNR\n(Not Ready)"];
+  FrameS -> REJ [label="REJ\n(Reject)"];
+  
+  Sequencing [label="Numérotation"];
+  Sequencing -> NS [label="NS: Numéro\nséquence émis"];
+  Sequencing -> NR [label="NR: Numéro\nacquittement"];
+  Sequencing -> Piggybacking [label="Piggybacking\n(acquittement\nimplicite)"];
+  
+  ErrorHandling [label="Gestion Erreurs"];
+  ErrorHandling -> CheckSum [label="Vérification\nChecksum"];
+  ErrorHandling -> SimpleReject [label="Rejet Simple\n(REJ)"];
+  ErrorHandling -> Retransmission [label="Retransmission"];
+  ErrorHandling -> Timer [label="Minuteur T1"];
+  
+  FlowControl [label="Contrôle de Flux"];
+  FlowControl -> SlidingWindow [label="Fenêtre Glissante"];
+  FlowControl -> RNR_Flow [label="RNR (blocage)"];
+  FlowControl -> Credits [label="Crédits disponibles"];
+  FlowControl -> Timer2 [label="Minuteur T2\n(acquittement)"];
+  
+  {rank=same; Flag; Address; CntrlField; Data; FCS}
+  {rank=same; RR; RNR; REJ}
+}

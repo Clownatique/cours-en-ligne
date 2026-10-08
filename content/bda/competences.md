@@ -1,7 +1,8 @@
 +++
-title='competences'
+title="competences"
 draft=false
 +++
+
 # Schéma E/A
 ## les éléments du schéma E/A : entité, entité faible, association . . .
 ## les cardinalités des associations
@@ -21,7 +22,6 @@ draft=false
 ## qui sont exprimables au niveau du modèle conceptuel
 ## qui sont exprimables uniquement au niveau du SGBD
 ## qui sont exprimables uniquement au niveau de l’application 
-Thought for 37s
 
 
 

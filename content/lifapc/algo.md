@@ -1,3 +1,8 @@
++++
+title='algo'
+draft=false
++++
+
 definir lentree et la sortie
 on peut utiliser des relations entre la donnes dentree et de sortie
 
@@ -82,7 +87,33 @@ Si P ≠ NP: il existe des problèmes qu'on peut vérifier vite mais qu'on ne pe
 
 # Structure de donnees
 
+## Liste
+
+## Ensemble
+
+## Table
+
+## Table de hachage
+
+## Arbres
+
+### Usages des arbres..
+
+### Arbres binaires
+### Arbres binaires de recherche
+### Arbres 2-3-4
+### Arbres rouge-noir
+### Graphes
+
+#### Dijkstra
+
+#### Parcours de graphe
+
 # Tris
+
+## Tri fusion
+
+## Tri par partition
 
 - Tri à bulle : échange d’éléments consécutifs
 - Tri par sélection du minimum : échange du premier élément de la partie non triée avec son minimum

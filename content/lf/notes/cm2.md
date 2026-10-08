@@ -1,3 +1,8 @@
++++
+title = 'cm2'
+draft = false
++++
+
 # rappels cm1..
 
 blabla

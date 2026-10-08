@@ -1,3 +1,8 @@
++++
+title = 'Meta cours'
+draft=false
++++
+
 # competences requises pour cisco
 
 _eeeee_

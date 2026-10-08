@@ -1,3 +1,7 @@
++++
+title='prog'
+draft=false
++++
 ... (prerequis)
 
 # gestion memoire pendant l'execution

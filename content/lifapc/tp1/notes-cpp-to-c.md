@@ -1,3 +1,7 @@
++++
+title='notes-cpp-to-c'
+draft=false
++++
 donc dabord pas de class: que des struct
 
 et dailleurs il faudra dire struct liste aha

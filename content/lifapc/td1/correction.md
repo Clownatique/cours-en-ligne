@@ -1,3 +1,9 @@
++++
+title='td1'
+draft=false
++++
+
+
 # qqes suites importantes tsais
 
 somme des n premiers termes : n*(n+1)/2

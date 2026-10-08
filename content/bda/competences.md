@@ -1,3 +1,7 @@
++++
+title='competences'
+draft=false
++++
 # Schéma E/A
 ## les éléments du schéma E/A : entité, entité faible, association . . .
 ## les cardinalités des associations

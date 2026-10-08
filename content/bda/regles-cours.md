@@ -1,3 +1,8 @@
++++
+title='regles-cours'
+draft=false
++++
+
 # 📐 BDA — Règles d'or
 
 ## 1. Modélisation E/A (TD2)
